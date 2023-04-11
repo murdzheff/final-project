@@ -49,7 +49,7 @@ class UserManager {
   }
 
 
-  async getUsersByIds(userId) {
+  async getUserById(userId) {
     try {
       const response = await axios.get(
         'http://localhost:8080/user',
