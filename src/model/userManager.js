@@ -1,74 +1,127 @@
 import axios from "axios";
 
+
 class UserManager {
-    constructor(baseURL) {
-        this.baseURL = baseURL;
-    }
+  constructor(baseUrl) {
+    this.baseUrl = baseUrl;
+  }
 
-    async signup(email, password) {
-        const url = `${this.baseURL}/signup`;
-        const headers = {
-            'Content-Type': 'application/json'
-        };
-        const body = JSON.stringify({ email, password });
-        const response = await axios.post(url, body, { headers });
-        localStorage.setItem('token', JSON.stringify(response.data.token));
-        return response.status;
+  async signup(email, password) {
+    try {
+      const response = await axios.post(
+        `${this.baseUrl}/signup`,
+        { email, password },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      if (response.status === 201) {
+        return 'User created successfully';
+      } else {
+        throw new Error('Signup failed');
+      }
+    } catch (error) {
+      if (error.response.status === 409) {
+        throw new Error('User already exists');
+      } else {
+        throw new Error('Internal server error');
+      }
     }
+  }
 
-    async login(email, password) {
-        const url = `${this.baseURL}/login`;
-        const headers = {
-            'Content-Type': 'application/json'
-        };
-        const body = JSON.stringify({ email, password });
-        const response = await axios.post(url, body, { headers });
-        localStorage.setItem('token', JSON.stringify(response.data.token));
-        return response.status;
+  async login(email, password) {
+    try {
+      const response = await axios.post(
+        `${this.baseUrl}/login`,
+        { email, password },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      if (response.status === 200) {
+        return { userId: response.data.userId };
+      } else {
+        throw new Error('Login failed');
+      }
+    } catch (error) {
+      if (error.response.status === 400) {
+        throw new Error('Invalid credentials');
+      } else {
+        throw new Error('Internal server error');
+      }
     }
+  }
 
-    async updateUser(formData) {
-        const url = `${this.baseURL}/user`;
-        const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-        };
-        const body = JSON.stringify({ formData });
-        const response = await axios.put(url, body, { headers });
-        return response.status;
+  async updateUser(formData) {
+    try {
+      const response = await axios.put(
+        `${this.baseUrl}/user`,
+        { formData },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      if (response.status === 200) {
+        return 'User updated successfully';
+      } else {
+        throw new Error('Update failed');
+      }
+    } catch (error) {
+      throw new Error('Internal server error');
     }
+  }
 
-    async getGenderedUsers(gender) {
-        const url = `${this.baseURL}/gendared-users?gender=${gender}`;
-        const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-        };
-        const response = await axios.get(url, { headers });
+  async getGenderedUsers(gender) {
+    try {
+      const response = await axios.get(`${this.baseUrl}/gendared-users?gender=${gender}`);
+      if (response.status === 200) {
         return response.data;
+      } else {
+        throw new Error('Failed to get gendered users');
+      }
+    } catch (error) {
+      throw new Error('Internal server error');
     }
+  }
 
-    async getUsersByIds(userIds) {
-        const url = `${this.baseURL}/users?userIds=${JSON.stringify(userIds)}`;
-        const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-        };
-        const response = await axios.get(url, { headers });
+  async getUsersByIds(userIds) {
+    try {
+      const response = await axios.get(
+        `${this.baseUrl}/users?userIds=${JSON.stringify(userIds)}`,
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      if (response.status === 200) {
         return response.data;
+      } else {
+        throw new Error('Failed to get users by IDs');
+      }
+    } catch (error) {
+      if (error.response.status === 400) {
+        throw new Error('Invalid user IDs');
+      } else {
+        throw new Error('Internal server error');
+      }
     }
+  }
 
-    async addMatch(userId, matchedUserId) {
-        const url = `${this.baseURL}/addmatch`;
-        const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-        };
-        const body = JSON.stringify({ userId, matchedUserId });
-        const response = await axios.put(url, body, { headers });
-        return response.status;
+  async addMatch(userId, matchedUserId) {
+    try {
+      const response = await axios.put(
+        `${this.baseUrl}/addmatch`,
+        { userId, matchedUserId },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      if (response.status === 200) {
+        return 'Match added successfully';
+      } else {
+        throw new Error('Failed to add match');
+      }
+    } catch (error) {
+      if (error.response.status === 404) {
+        throw new Error('User not found');
+      } else {
+        throw new Error('Internal server error');
+      }
     }
+  }
 }
+
+
+
 
 const userManager = new UserManager("http://localhost:8080");
 
