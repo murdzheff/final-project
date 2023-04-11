@@ -156,7 +156,7 @@ app.put('/user',async (req,res)=>{
                 show_gender: formData.show_gender,
                 gender_identity:formData.gender_identity,
                 gender_interest:formData.gender_interest,
-                url: formData.url,
+                photos: formData.photos,
                 about : formData.about,
                 mathes : formData.matches
 
@@ -173,11 +173,11 @@ app.put('/user',async (req,res)=>{
 
 // MATCHES
 app.put('/addmatch', async (req, res)=>{
-   const clinet = new MongoClient(uri) 
+   const client = new MongoClient(uri) 
    const {userId, matchedUserId}=req.body
    try{
     await client.connect()
-    const database=clinet.db('app-data')
+    const database=client.db('app-data')
     const users = database.collection('users')
 
     const query = {user_id : userId}
