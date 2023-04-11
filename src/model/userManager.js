@@ -48,6 +48,34 @@ class UserManager {
     }
   }
 
+
+  async getUsersByIds(userId) {
+    try {
+      const response = await axios.get(
+        'http://localhost:8080/user',
+        {
+          params: {
+            userId: userId
+          },
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        throw new Error('Failed to get users by IDs');
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        throw new Error('Invalid user IDs');
+      } else {
+        throw new Error('Internal server error');
+      }
+    }
+  }
+
   async updateUser(formData) {
     try {
       const response = await axios.put(
