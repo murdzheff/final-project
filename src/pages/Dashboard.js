@@ -16,8 +16,8 @@ function Dashboard() {
       url: 'https://phantom-marca.unidadeditorial.es/f33d05336aaec8dc128495e07476089c/resize/1320/f/jpg/assets/multimedia/imagenes/2022/04/09/16495083426532.jpg'
     },
     {
-      name: 'Monica Hall',
-      url: 'https://phantom-marca.unidadeditorial.es/f33d05336aaec8dc128495e07476089c/resize/1320/f/jpg/assets/multimedia/imagenes/2022/04/09/16495083426532.jpg'
+      name: 'Andrew Tate',
+      https: 'https://static01.nyt.com/images/2022/08/24/multimedia/24xp-tate/24xp-tate-superJumbo.jpg?quality=75&auto=webp'
     },
     {
       name: 'Jared Dunn',
