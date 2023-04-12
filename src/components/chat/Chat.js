@@ -4,7 +4,10 @@ import "./chat.scss"
 import axios from 'axios'
 
 
+
 function Chat(props) {
+
+
 
     const [messages, setMessages] = useState([])
     console.log(props.correspondingUserId,props.loggedUser)
@@ -20,12 +23,11 @@ function Chat(props) {
                 allMsgs.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp))
                 setMessages(allMsgs)
             })
-
-
-
     }, [])
 
-
+    if (props.type !== "Chat") {
+        return null;
+    }
 
     return (
         <div>
