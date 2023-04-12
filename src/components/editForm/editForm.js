@@ -3,6 +3,11 @@ import userManager from "../../model/userManager";
 import "./editForm.scss"
 import fileToBase64 from "./fileToBase64";
 
+
+
+
+
+
 function EditForm(loggedUser) {
 
     const [firstName, setFirstName] = useState("");
@@ -29,22 +34,22 @@ function EditForm(loggedUser) {
 
     }, [loggedUser.loggedUser])
 
+
     const handleFileUpload = async (e) => {
         const file = e.target.files[0]
         const base64string = await fileToBase64(file)
+        console.log(base64string)
         setUrl(base64string)
     }
-
-
 
 
     function handleSubmit(e) {
         e.preventDefault()
 
         userManager.updateUser(JSON.stringify({
-            
+
             formData: {
-                user_id:JSON.parse(localStorage.getItem('token')).userId,
+                user_id: JSON.parse(localStorage.getItem('token')).userId,
                 first_name: firstName,
                 dob_day: dobDay,
                 dob_month: dobMonth,
@@ -98,23 +103,23 @@ function EditForm(loggedUser) {
                     </label>
                 </div>
                 <div className="photos">
-                    
+
                     <input onChange={handleFileUpload} value={""} type="file" id="file1" name="file1" /><br />
 
-                    
+
                     <input onChange={handleFileUpload} value={""} type="file" id="file2" name="file2" /><br />
 
-                    
+
                     <input onChange={handleFileUpload} value={""} type="file" id="file3" name="file3" /><br />
 
 
 
-                    
+
                     <input onChange={handleFileUpload} value={""} type="file" id="file4" name="file4" /><br />
 
 
 
-                   
+
                     <input onChange={handleFileUpload} value={""} type="file" id="file5" name="file5" /><br />
 
 
@@ -123,7 +128,8 @@ function EditForm(loggedUser) {
 
             </div>
 
-            {url && <img src={url}></img>}
+
+            
 
             <button type="submit">Start your journey</button>
         </form>
