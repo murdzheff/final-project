@@ -40,9 +40,11 @@ function EditForm(loggedUser) {
 
     function handleSubmit(e) {
         e.preventDefault()
+
         userManager.updateUser(JSON.stringify({
+            
             formData: {
-                user_id: loggedUser.user_id,
+                user_id:JSON.parse(localStorage.getItem('token')).userId,
                 first_name: firstName,
                 dob_day: dobDay,
                 dob_month: dobMonth,
