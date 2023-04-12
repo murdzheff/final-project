@@ -12,7 +12,7 @@ app.use(cors())
 app.use(express.json({limit: '50mb'}))
 
 const { mongo } = require('mongoose');
-const uri = 'mongodb+srv://anzhelo:myTinderPassword@cluster0.pwptt7r.mongodb.net/?retryWrites=true&w=majority'
+const uri = 'mongodb+srv://anjelostoqnov:tinderpassword@cluster1.qy0pp21.mongodb.net/?retryWrites=true&w=majority'
 
 const client = new MongoClient(uri);
 client.connect()
