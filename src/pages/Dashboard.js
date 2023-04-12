@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import DashboardHeader from '../components/dashhboardHeader/DashboardHeader'
 import userManager from '../model/userManager'
+import Chat from '../components/chat/Chat'
 
 function Dashboard() {
-  const userId = JSON.parse(localStorage.getItem("token").userId || null)
+  let userId = JSON.parse(localStorage.getItem("token")).userId
   const [user,setUser] = useState(null)
 
   useEffect( () => {
-    const loggedUser = userManager.getUserById(userId).then(result => {
-      
-      setUser(result)
-    }) 
+    userManager.getUserById(userId).then( (result) => {
+
+    setUser(result)
+    })
     
   },[])
 
@@ -18,7 +19,7 @@ function Dashboard() {
   return (
     <div>
       <div className='leftSide-dashboard'>
-          <DashboardHeader user={user}/>
+          
       </div>
       <div>
 

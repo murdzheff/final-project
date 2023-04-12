@@ -3,7 +3,7 @@ import React from 'react'
 function DashboardHeader(user) {
   console.log(user)
   return (
-    <div>Dashboard-header</div>
+    <div>{user?.user?.first_name}</div>
   )
 }
 

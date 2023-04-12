@@ -8,7 +8,7 @@ import fileToBase64 from "./fileToBase64";
 
 
 
-function EditForm(loggedUser) {
+function EditForm(props) {
 
     const [firstName, setFirstName] = useState("");
     const [dobDay, setDobDay] = useState("");
@@ -21,18 +21,18 @@ function EditForm(loggedUser) {
     const [about, setAbout] = useState("");
 
     useEffect(() => {
-        if (loggedUser.loggedUser) {
-            setFirstName(loggedUser.loggedUser.first_name);
-            setDobDay(loggedUser.loggedUser.dob_day);
-            setDobMonth(loggedUser.loggedUser.dob_month);
-            setDobYear(loggedUser.loggedUser.dob_year);
-            setGenderIdentity(loggedUser.loggedUser.gender_identity)
-            setGenderInterest(loggedUser.loggedUser.gender_interest)
-            setUrl(loggedUser.loggedUser.photos)
-            console.log(loggedUser.loggedUser)
+        if (props.loggedUser) {
+            setFirstName(props.loggedUser.first_name);
+            setDobDay(props.loggedUser.dob_day);
+            setDobMonth(props.loggedUser.dob_month);
+            setDobYear(props.loggedUser.dob_year);
+            setGenderIdentity(props.loggedUser.gender_identity)
+            setGenderInterest(props.loggedUser.gender_interest)
+            setUrl(props.loggedUser.photos)
+            console.log(props.loggedUser)
         }
 
-    }, [loggedUser.loggedUser])
+    }, [props.loggedUser])
 
 
     const handleFileUpload = async (e) => {
@@ -59,7 +59,7 @@ function EditForm(loggedUser) {
                 gender_interest: genderInterest,
                 photos: url,
                 about: about,
-                matches: loggedUser.mathes
+                matches: props.loggedUser.mathes
             }
         }))
     }

@@ -1,0 +1,23 @@
+.messagesContainer {
+    display: flex;
+    background-color: rgba(250, 235, 215, 0.336);
+    height: 80vh;
+    border-radius: 10px;
+    width: 60vh;
+    align-self: flex-end;
+
+    .message{
+        background-color: aliceblue;
+        border-radius: 10px;
+        height: auto;
+        width: 100%;
+    
+        .userPhoto{
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+        }
+    }
+}
+
+
