@@ -14,6 +14,7 @@ class UserManager {
         { headers: { 'Content-Type': 'application/json' } }
       );
       if (response.status === 201) {
+        localStorage.setItem("token",JSON.stringify(response.data));
         return 'User created successfully';
       } else {
         throw new Error('Signup failed');
@@ -35,6 +36,7 @@ class UserManager {
         { headers: { 'Content-Type': 'application/json' } }
       );
       if (response.status === 200) {
+        localStorage.setItem("token",JSON.stringify(response.data));
         return { userId: response.data.userId };
       } else {
         throw new Error('Login failed');
@@ -77,14 +79,15 @@ class UserManager {
   }
 
   async updateUser(formData) {
+    console.log(formData)
     try {
       const response = await axios.put(
         `${this.baseUrl}/user`,
-        { formData },
+         formData ,
         { headers: { 'Content-Type': 'application/json' } }
       );
       if (response.status === 200) {
-        return 'User updated successfully';
+        return console.log('User updated successfully');
       } else {
         throw new Error('Update failed');
       }

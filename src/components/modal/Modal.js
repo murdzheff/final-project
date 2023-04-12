@@ -3,6 +3,7 @@ import "./modal.scss"
 import Logo from "./logo.png"
 import { useState } from 'react';
 import userManager from "../../model/userManager"
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -11,15 +12,23 @@ import userManager from "../../model/userManager"
 function Modal({ modal, toggleModal, type }) {
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
+    const navigate = useNavigate();
 
     if (!modal) return null;
 
     function handleRegister () {
         userManager.signup(email,password)
+        navigate("/onboarding")
     }
 
+
+
+
     function handleLogin () {
-        userManager.login(email,password)
+        const loggedUser = userManager.login(email,password)
+        if (loggedUser) {
+            navigate("/dashboard");
+        }
     }
 
     
