@@ -3,7 +3,7 @@ import MatchesDisplay from './MatchesDisplay'
 import { useState } from 'react'
 import DashboardHeader from '../dashhboardHeader/DashboardHeader'
 
-const LeftSideContainer = ({ user }) => {
+const LeftSideContainer = ({ user,toggleModal }) => {
     const [ clickedUser, setClickedUser ] = useState(null)
 
     return (
@@ -13,13 +13,10 @@ const LeftSideContainer = ({ user }) => {
         <DashboardHeader/>
 
             <div>
-                <button className="option" onClick={() => setClickedUser(null)}>Matches</button>
-                <button className="option" disabled={!clickedUser}>Chat</button>
+                <button className="option" onClick={toggleModal} >Matches</button>
+                <button className="option" onClick={toggleModal} >Chat</button>
             </div>
 
-            {/* {!clickedUser && <MatchesDisplay matches={user.matches} setClickedUser={setClickedUser}/>} */}
-
-            {/* {clickedUser && <ChatDisplay user={user} clickedUser={clickedUser}/>} */}
         </div>
         
         
