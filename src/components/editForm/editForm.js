@@ -10,15 +10,15 @@ import fileToBase64 from "./fileToBase64";
 
 function EditForm(props) {
 
-    const [firstName, setFirstName] = useState("");
-    const [dobDay, setDobDay] = useState("");
-    const [dobMonth, setDobMonth] = useState("");
-    const [dobYear, setDobYear] = useState("");
+    const [firstName, setFirstName] = useState(" ");
+    const [dobDay, setDobDay] = useState(" ");
+    const [dobMonth, setDobMonth] = useState(" ");
+    const [dobYear, setDobYear] = useState(" ");
     const [showGender, setShowGender] = useState(true);
-    const [genderIdentity, setGenderIdentity] = useState("");
-    const [genderInterest, setGenderInterest] = useState("");
-    const [url, setUrl] = useState("")
-    const [about, setAbout] = useState("");
+    const [genderIdentity, setGenderIdentity] = useState(" ");
+    const [genderInterest, setGenderInterest] = useState(" ");
+    const [url, setUrl] = useState([])
+    const [about, setAbout] = useState(" ");
 
     useEffect(() => {
         if (props.loggedUser) {

@@ -3,6 +3,7 @@ import Header from '../components/header/Header'
 import RegisterButton from '../components/registerButton/RegisterButton'
 import { useState } from 'react';
 import Modal from '../components/modal/Modal';
+import Chat from '../components/chat/Chat';
 
 
 function Home() {
@@ -24,6 +25,8 @@ function Home() {
         <Header toggleModal={toggleModal}></Header>
         <RegisterButton toggleModal={toggleModal}/>
         <Modal type={type} toggleModal={toggleModal} modal={modal}>dadada</Modal>
+
+
     </div>
   )
 }

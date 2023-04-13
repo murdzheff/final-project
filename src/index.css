@@ -19,8 +19,8 @@ code {
 
  .dashboard {
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+  justify-content: 1rem 2rem;
+  min-width: 100vh;
   height: 100vh;;
 
   
@@ -70,7 +70,7 @@ code {
 .left-side-container {
   background-color: rgb(255, 255, 255);
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-  width: 25%;
+  width: 20%;
   text-align: left;
   z-index: 1;
 }
