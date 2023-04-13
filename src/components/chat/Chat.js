@@ -14,21 +14,26 @@ function Chat(props) {
     // Connect to the server using socket.io
     const newSocket = socketIOClient('http://localhost:3000');
     setSocket(newSocket);
-
+    newSocket.emit('getAllMessages', { user, correspondingUserId: props.correspondingUserId });
+    newSocket.emit('getAllMessages', {correspondingUserId: props.correspondingUserId,user});
+  
     // Listen for incoming messages from the server
     newSocket.on('message', (message) => {
       setMessages((messages) => [...messages, message]);
     });
-
+  
     // Disconnect the socket when the component unmounts
     return () => {
       newSocket.disconnect();
     };
   }, []);
+  
+
+  // 
 
   useEffect(() => {
     update();
-  }, []);
+  }, [messages]);
 
   useEffect(() => {
     update();
