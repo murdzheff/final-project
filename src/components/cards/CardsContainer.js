@@ -1,33 +1,56 @@
-import React from 'react'
-import { useState } from 'react'
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import TinderCard from 'react-tinder-card'
 
 function CardsContainer(props) {
   const user = JSON.parse(localStorage.getItem("token").userId || null)
-
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    axios.get('http://localhost:8080/user', { params: { userId: JSON.parse(localStorage.getItem('token')).userId } })
+      .then(response => {
+        const genderInterest = response.data.gender_interest;
+        axios.get('http://localhost:8080/gendared-users', { params: { gender: genderInterest } })
+          .then(response => {
+            setUsers(response.data);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
   
-  const characters = [
-    {
-      name: 'Richard Hendricks',
-      url: 'https://phantom-marca.unidadeditorial.es/f33d05336aaec8dc128495e07476089c/resize/1320/f/jpg/assets/multimedia/imagenes/2022/04/09/16495083426532.jpg'
-    },
-    {
-      name: 'Erlich Bachman',
-      url: 'https://phantom-marca.unidadeditorial.es/f33d05336aaec8dc128495e07476089c/resize/1320/f/jpg/assets/multimedia/imagenes/2022/04/09/16495083426532.jpg'
-    },
-    {
-      name: 'Andrew Tate',
-      https: 'https://static01.nyt.com/images/2022/08/24/multimedia/24xp-tate/24xp-tate-superJumbo.jpg?quality=75&auto=webp'
-    },
-    {
-      name: 'Jared Dunn',
-      url: 'https://phantom-marca.unidadeditorial.es/f33d05336aaec8dc128495e07476089c/resize/1320/f/jpg/assets/multimedia/imagenes/2022/04/09/16495083426532.jpg'
-    },
-    {
-      name: 'Dinesh Chugtai',
-      url: 'https://phantom-marca.unidadeditorial.es/f33d05336aaec8dc128495e07476089c/resize/1320/f/jpg/assets/multimedia/imagenes/2022/04/09/16495083426532.jpg'
-    }
-  ]
+//   const characters = [
+//     {
+//       name: 'Richard Hendricks',
+//       url:       'https://phantom-marca.unidadeditorial.es/f33d05336aaec8dc128495e07476089c/resize/1320/f/jpg/assets/multimedia/imagenes/2022/04/09/16495083426532.jpg'
+
+//     },
+//     {
+//       name: 'Erlich Bachman',
+//       url:       'https://phantom-marca.unidadeditorial.es/f33d05336aaec8dc128495e07476089c/resize/1320/f/jpg/assets/multimedia/imagenes/2022/04/09/16495083426532.jpg'
+
+//     },
+//     {
+//       name: 'Andrew Tate',
+//       url:       'https://phantom-marca.unidadeditorial.es/f33d05336aaec8dc128495e07476089c/resize/1320/f/jpg/assets/multimedia/imagenes/2022/04/09/16495083426532.jpg'
+
+//     },
+//     {
+//       name: 'Jared Dunn',
+//       url:       'https://phantom-marca.unidadeditorial.es/f33d05336aaec8dc128495e07476089c/resize/1320/f/jpg/assets/multimedia/imagenes/2022/04/09/16495083426532.jpg'
+
+//     },
+//     {
+//       name: 'Dinesh Chugtai',
+//       url:      'https://phantom-marca.unidadeditorial.es/f33d05336aaec8dc128495e07476089c/resize/1320/f/jpg/assets/multimedia/imagenes/2022/04/09/16495083426532.jpg'
+
+//     }
+//   ]
 
   const [lastDirection, setLastDirection] = useState()
 
@@ -51,17 +74,30 @@ function CardsContainer(props) {
     <div className='swipe-container'>
 
       <div className='card-container'>
-      {characters.map((character) =>
+      {users.map(user =>
+          <TinderCard className='swipe' key={user._id}
+              onSwipe={(dir) => swiped(dir, user.email)}
+              onCardLeftScreen={() => outOfFrame(user.email)}>
+              <div style={{ backgroundImage: 'url(' + user.photos + ')' }}
+                  className='card'>
+                  <h3>{user.first_name}</h3>
+              </div>
+          </TinderCard>
+      )}
+
+
+      {/* {characters.map((character) =>
           <TinderCard  className='swipe' key={character.name} 
                    onSwipe={(dir) => swiped(dir, character.name)} 
                  onCardLeftScreen={() => outOfFrame(character.name)}>
              <div style={{ backgroundImage: 'url(' + character.url + ')' }}
                  className='card'>
+                            
 
               <h3>{character.name}</h3>
             </div>
           </TinderCard>
-        )}
+        )} */}
         <div className='swipe-info'> 
         {lastDirection ? <p>Yo swiped {lastDirection}</p>:<p/> }
          </div>
@@ -72,16 +108,6 @@ function CardsContainer(props) {
 }
 
 export default CardsContainer
-
-
-
-
-
-
-
-
-
-
 
 
 
