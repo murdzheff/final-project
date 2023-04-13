@@ -264,7 +264,8 @@ io.on('connection', (socket) => {
   console.log(`Socket ${socket.id} connected`)
 
   socket.on('message', (data) => {
-    io.emit("messageRes", data);
+    io.sockets.emit("messageRes", data);
+    console.log(data)
   });
 
   socket.on('disconnect', () => {

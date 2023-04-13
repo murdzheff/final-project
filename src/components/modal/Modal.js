@@ -17,32 +17,29 @@ function Modal({ modal, toggleModal, type }) {
 
     if (!modal) return null;
 
-    function handleRegister () {
-        userManager.signup(email,password).then(response => {
-            console.log(response)
-            if (response.userId) {
-                console.log("tuk")
-                navigate("/onboarding")
+    function handleRegister() {
+        userManager.signup(email, password).then(response => {
+            if (localStorage.getItem("token")) {
+               return navigate("/onboarding");
             }
         })
-        
+
     }
 
 
 
 
-    function handleLogin () {
-        userManager.login(email,password).then(response => {
-            console.log(response)
-            if (response.userId) {
-                console.log('tuk')
-                navigate("/dashboard");
+    function handleLogin() {
+        userManager.login(email, password).then(response => {
+
+            if (localStorage.getItem("token")) {
+               return navigate("/dashboard");
             }
+            
         })
-        
     }
 
-    
+
 
 
     return (
@@ -61,7 +58,7 @@ function Modal({ modal, toggleModal, type }) {
                             setPassword(e.target.value)
                         }
                     } placeholder='Your password' type='password'></input>
-                    {type === "register" ? <input placeholder='Confirm your password' type='password'></input> : null }
+                    {type === "register" ? <input placeholder='Confirm your password' type='password'></input> : null}
                     <button onClick={type === "register" ? handleRegister : handleLogin} type='submit'>Get to swiping</button>
                 </form>
             </div>
