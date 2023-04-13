@@ -31,13 +31,16 @@ function Chat(props) {
 
   // 
 
+
+
+  
+
   useEffect(() => {
     update();
   }, [messages]);
 
-  useEffect(() => {
-    update();
-  }, [lastMessage]);
+  
+  
 
   function update() {
     messageManager
@@ -47,7 +50,7 @@ function Chat(props) {
         messageManager.getMessages(props.correspondingUserId, user).then((from) => {
           const allMsgs = [...messages, ...from];
           setMessages(allMsgs);
-          console.log(allMsgs);
+          
         });
       });
   }
