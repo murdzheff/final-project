@@ -32,15 +32,7 @@ function Chat(props) {
 
 
   
-<<<<<<< HEAD
-
-  useEffect(() => {
-    update();
-  }, [messages]);
-
-=======
    
->>>>>>> 6ea7cf826daf3621e738c532f2b3ddc4211b8231
   
   
 
