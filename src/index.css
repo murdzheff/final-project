@@ -53,6 +53,7 @@ code {
   background-position: center;
 }
 
+
 .card h3 {
   margin-top: 0;
 }
@@ -118,3 +119,9 @@ code {
 
 
 
+
+
+.card-carosel-tin{
+  width: 400px;
+  height: 650px;
+}
