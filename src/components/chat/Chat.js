@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import messageManager from '../../model/messageManager';
 import './chat.scss';
 import socketIOClient from 'socket.io-client';
@@ -12,14 +12,12 @@ function Chat(props) {
 
   useEffect(() => {
     // Connect to the server using socket.io
-    const newSocket = socketIOClient('http://localhost:3000');
+    const newSocket = socketIOClient('http://localhost:8080');
     setSocket(newSocket);
-    newSocket.emit('getAllMessages', { user, correspondingUserId: props.correspondingUserId });
-    newSocket.emit('getAllMessages', {correspondingUserId: props.correspondingUserId,user});
   
     // Listen for incoming messages from the server
     newSocket.on('message', (message) => {
-      setMessages((messages) => [...messages, message]);
+        update()
     });
   
     // Disconnect the socket when the component unmounts
@@ -34,11 +32,15 @@ function Chat(props) {
 
 
   
+<<<<<<< HEAD
 
   useEffect(() => {
     update();
   }, [messages]);
 
+=======
+   
+>>>>>>> 6ea7cf826daf3621e738c532f2b3ddc4211b8231
   
   
 
@@ -46,9 +48,10 @@ function Chat(props) {
     messageManager
       .getMessages(user, props.correspondingUserId)
       .then((messagesTo) => {
-        setMessages(messagesTo);
-        messageManager.getMessages(props.correspondingUserId, user).then((from) => {
-          const allMsgs = [...messages, ...from];
+        messageManager.getMessages(props.correspondingUserId, user)
+        .then((from) => {
+          const allMsgs = [messages, ...from];
+          
           setMessages(allMsgs);
           
         });
