@@ -232,6 +232,7 @@ app.get('/messages', async (req, res) => {
     const messages = database.collection('messages')
     const query = { from_userId: userId, to_userId: correspondingUserId }
     const foundMessages = await messages.find(query).toArray()
+    io.emit("messages", foundMessages)
     res.send(foundMessages)
   } catch (error) {
     console.error(error)
