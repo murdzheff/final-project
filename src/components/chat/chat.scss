@@ -33,18 +33,37 @@
     
         
     }
-    
+
     .msgs{
         height: 60vh;
         width: 100%;
 
     }
+    
 
-    .chatInputs{
-        width: 200vh;
-        height: 40px;
-        font-size: 18px;
+    .sendmsgContainer {
+        display: flex;
+
+        .sendMsg{
+            width: 20%;
+            background-color: transparent;
+            border: none;
+        }
+
+        &:hover{
+            background-color: #e8407b;
+        }
+    
+        .chatInputs{
+            width: 200vh;
+            height: 40px;
+            font-size: 18px;
+        }
+
+
     }
+
+    
 
    
     

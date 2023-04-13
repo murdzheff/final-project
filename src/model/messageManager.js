@@ -9,7 +9,7 @@ class MessageManager {
   }
 
   async getMessages(userId, correspondingUserId) {
-    const url = `/messages?userId=${userId}&correspondingUserId=${correspondingUserId}`;
+    const url = `/messages?from=${userId}&to=${correspondingUserId}`;
     const response = await this.api.get(url);
     return response.data;
   }

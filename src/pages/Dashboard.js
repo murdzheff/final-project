@@ -9,7 +9,7 @@ import Chat from '../components/chat/Chat'
 
 
 function Dashboard() {
-
+  
   const [type,setType] = useState("Matches")
 
   const toggleModal = (e) => {
@@ -28,7 +28,7 @@ function Dashboard() {
     <div className='dashboard'>
       <LeftSideContainer toggleModal={toggleModal} user={user} />
       <CardsContainer type={type}></CardsContainer>
-      <Chat type={type}></Chat>
+      <Chat loggedUser={user} correspondingUserId={"16f8aea0-d979-11ed-aa9c-d76e0cbebf79"} type={type}></Chat>
 
 
     </div>

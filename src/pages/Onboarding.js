@@ -5,7 +5,7 @@ import EditForm from '../components/editForm/editForm'
 
 
 function Onboarding() {
-    const [loggedUser,setLoggedUser] = useState("null")
+    const [loggedUser,setLoggedUser] = useState(null)
 
     useEffect(() => {
         const id = JSON.parse(localStorage.getItem("token")).userId

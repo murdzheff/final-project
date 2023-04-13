@@ -16,7 +16,9 @@ const LeftSideContainer = ({ user,toggleModal }) => {
                 <button className="option" onClick={toggleModal} >Matches</button>
                 <button className="option" onClick={toggleModal} >Chat</button>
             </div>
-
+            <div>
+                
+            </div>
         </div>
         
         
