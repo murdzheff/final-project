@@ -10,33 +10,44 @@ function Chat(props) {
 
     const [msg, setMsg] = useState("")
     const [messages, setMessages] = useState([])
-    
+    const [lastMessage, setLastMessage] = useState("")
 
     useEffect(() => {
+        update()
+    }, [])
+
+
+    useEffect(() => {
+        update()
+    }, [lastMessage])
+
+
+    function update() {
         messageManager.getMessages(user, props.correspondingUserId)
             .then(messagesTo => {
                 setMessages(messagesTo)
+                messageManager.getMessages(props.correspondingUserId, user)
+                    .then(from => {
+                        const allMsgs = [messages, ...from]
+                        setMessages(allMsgs)
+                        console.log(allMsgs)
+                    })
             })
-        messageManager.getMessages(props.correspondingUserId, user)
-            .then(messagesFrom => {
-                let allMsgs = [...messages, messagesFrom]
-                allMsgs.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp))
-                console.log(allMsgs)
-                setMessages(allMsgs)
-                console.log(messages)
-            })
-    }, [])
 
-   
+    }
+
+
 
     if (props.type !== "Chat") {
         return null;
     }
 
     function handleSendMessage(e) {
+
         console.log(user)
         e.preventDefault()
-        messageManager.sendMessage(user,props.correspondingUserId,msg, new Date().toLocaleTimeString()) 
+        messageManager.sendMessage(user, props.correspondingUserId, msg, new Date().toLocaleTimeString())
+        setLastMessage(msg)
     }
 
     return (
@@ -55,21 +66,27 @@ function Chat(props) {
                     </div>
                 </div>
                 <div className='msgs'>
-                    
-                        {
-                            messages.map((message, index) => {
-                                console.log(message)
-                                return message = <span key={index}><div className='message'>
-                                    {message.content}
-                                </div></span>
-                            })
-                        }
 
-                    
+                    {
+                        messages.length > 1 ? messages.map((message, index) => {
+                            return message = <span key={index}>
+                                <div className='message'>
+
+                                    <span className={message.from !== user ? "incoming" : "outgoing"}>
+                                        <p>{message.content}
+                                            {message.timestamp}
+                                        </p>
+                                    </span>
+
+                                </div></span>
+                        }) : null
+                    }
+
+
                 </div>
 
                 <div className='sendmsgContainer'>
-                    <input onChange={(e) => {setMsg(e.target.value)}} className='chatInputs' type='text' placeholder='write something'></input>
+                    <input onChange={(e) => { setMsg(e.target.value) }} className='chatInputs' type='text' placeholder='write something'></input>
                     <button onClick={handleSendMessage} className='sendMsg'>{">>>"}</button>
                 </div>
 

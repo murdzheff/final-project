@@ -35,9 +35,25 @@
     }
 
     .msgs{
+        
         height: 60vh;
         width: 100%;
+        overflow: scroll;
+        
+        div{
+            display: flex;
+            
+            .outgoing{
+                margin-left: auto;
+            }
+            
+            .incoming{
+                margin-right: auto;
+            }
+            
+        }
 
+        
     }
     
 
