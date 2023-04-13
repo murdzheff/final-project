@@ -250,8 +250,10 @@ app.post('/message', async (req, res) => {
 
     const insertedMessage = await messages.insertOne(message)
     console.log(insertedMessage)
-    io.emit('message', insertedMessage) // Emit the new message to all connected clients
+//    io.emit('message', insertedMessage) // Emit the new message to all connected clients
     res.send(insertedMessage)
+
+    
   } catch (error) {
     console.error(error)
     res.status(500).send('Internal server error')
@@ -260,6 +262,10 @@ app.post('/message', async (req, res) => {
 
 io.on('connection', (socket) => {
   console.log(`Socket ${socket.id} connected`)
+
+  socket.on('message', (data) => {
+    io.emit("messageRes", data);
+  });
 
   socket.on('disconnect', () => {
     console.log(`Socket ${socket.id} disconnected`)

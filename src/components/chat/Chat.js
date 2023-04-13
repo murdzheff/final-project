@@ -10,14 +10,19 @@ function Chat(props) {
   const [lastMessage, setLastMessage] = useState('');
   const [socket, setSocket] = useState(null);
 
+
+  useEffect(() => {
+    update()
+  },[])
+
   useEffect(() => {
     // Connect to the server using socket.io
     const newSocket = socketIOClient('http://localhost:8080');
     setSocket(newSocket);
   
     // Listen for incoming messages from the server
-    newSocket.on('message', (message) => {
-        update()
+    newSocket.on('messageRes', (message) => {
+        console.log(message)
     });
   
     // Disconnect the socket when the component unmounts
@@ -29,11 +34,15 @@ function Chat(props) {
 
 
   
+
+  
    
   
   
 
   function update() {
+    console.log("tuka sym")
+
     messageManager
       .getMessages(user, props.correspondingUserId)
       .then((messagesTo) => {
