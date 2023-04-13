@@ -1,20 +1,24 @@
-const PORT=8080
+const PORT = 8080
 const express = require('express')
-const {MongoClient}= require('mongodb');
-
-
-const {v1: uuidv4}= require('uuid')
-const jwt=require('jsonwebtoken')
+const { MongoClient } = require('mongodb')
+const { v1: uuidv4 } = require('uuid')
+const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const cors = require('cors')
-const app = express();
+const app = express()
 app.use(cors())
-app.use(express.json({limit: '50mb'}))
+app.use(express.json({ limit: '50mb' }))
+const server = require('http').createServer(app)
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*'
+  }
+})
 
-const { mongo } = require('mongoose');
-const uri = 'mongodb+srv://anjelostoqnov:tinderpassword@cluster1.qy0pp21.mongodb.net/?retryWrites=true&w=majority'
+const uri =
+  'mongodb+srv://anjelostoqnov:tinderpassword@cluster1.qy0pp21.mongodb.net/?retryWrites=true&w=majority'
 
-const client = new MongoClient(uri);
+const client = new MongoClient(uri)
 client.connect()
 
 app.post('/signup', async (req, res) => {
@@ -80,21 +84,19 @@ app.post('/login', async (req, res) => {
 
 })
 
-
-
 app.get('/users', async (req, res) => {
-   // const client = new MongoClient(uri);
-    try {
-        const databaseName = client.db('app-data')
-        const users = databaseName.collection('users')
-
-        const returnedUsers= await users.find().toArray()
-        res.send(returnedUsers)
-
-    }finally{
-        // await client.close()
-    }
-}) 
+    // const client = new MongoClient(uri);
+     try {
+         const databaseName = client.db('app-data')
+         const users = databaseName.collection('users')
+ 
+         const returnedUsers= await users.find().toArray()
+         res.send(returnedUsers)
+ 
+     }finally{
+         // await client.close()
+     }
+ }) 
 
 // USERS BY GANDER
 app.get('/gendared-users', async (req, res) => {
@@ -172,27 +174,27 @@ app.put('/user',async (req,res)=>{
 
 // MATCHES
 app.put('/addmatch', async (req, res)=>{
-//    const client = new MongoClient(uri) 
-   const {userId, matchedUserId}=req.body
-   try{
-    // await client.connect()
-    const database=client.db('app-data')
-    const users = database.collection('users')
+    //    const client = new MongoClient(uri) 
+       const {userId, matchedUserId}=req.body
+       try{
+        // await client.connect()
+        const database=client.db('app-data')
+        const users = database.collection('users')
+    
+        const query = {user_id : userId}
+        const updateDocument = {
+            $push: {matches: {user_id: matchedUserId}},
+        }
+       const user =  await users.updateOne(query, updateDocument)
+     req.send(user)
+       } finally{
+    
+        // await client.close()
+       }
+    })
+    
 
-    const query = {user_id : userId}
-    const updateDocument = {
-        $push: {matches: {user_id: matchedUserId}},
-    }
-   const user =  await users.updateOne(query, updateDocument)
- req.send(user)
-   } finally{
-
-    // await client.close()
-   }
-})
-
-// GET ALL USERS BY USER ID 
-
+// GET ALL USERS BY USER ID
 app.get('/users', async (req, res) => {
     // const client = new MongoClient(uri)
 
@@ -222,56 +224,47 @@ app.get('/users', async (req, res) => {
     }
 })
 
-// MESSAGES  BY from_userId and to_userId
+// MESSAGES BY from_userId and to_userId
 app.get('/messages', async (req, res) => {
-
-    const { userId, correspondingUserId } = req.query
-    // const client = new MongoClient(uri)
-    try {
-        // await client.connect()
-        const database = client.db('app-data')
-        const messages = database.collection('messages')
-
-        const query = {
-            from_userId: userId, to_userId: correspondingUserId
-        }
-        const foundMessages = await messages.find(query).toArray()
-        res.send(foundMessages)
-
-    }
-    finally {
-        // await client.close()
-    }
+  const { userId, correspondingUserId } = req.query
+  try {
+    const database = client.db('app-data')
+    const messages = database.collection('messages')
+    const query = { from_userId: userId, to_userId: correspondingUserId }
+    const foundMessages = await messages.find(query).toArray()
+    res.send(foundMessages)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Internal server error')
+  }
 })
-
 
 // ADD MESSAGES Database
 app.post('/message', async (req, res) => {
-    // const client = new MongoClient(uri)
-    const message = req.body.message
+    const message = req.body.message ;
+    console.log(message);
+  try {
+    const database = client.db('app-data')
+    const messages = database.collection('messages')
 
-    try {
-        // await client.connect()
-        const database = client.db('app-data')
-        const messages = database.collection('messages')
-
-        const insertedMessage = await messages.insertOne(message)
-        res.send(insertedMessage)
-    } finally {
-        // await client.close()
-    }
+    const insertedMessage = await messages.insertOne(message)
+    console.log(insertedMessage)
+    io.emit('message', insertedMessage) // Emit the new message to all connected clients
+    res.send(insertedMessage)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Internal server error')
+  }
 })
 
+io.on('connection', (socket) => {
+  console.log(`Socket ${socket.id} connected`)
 
+  socket.on('disconnect', () => {
+    console.log(`Socket ${socket.id} disconnected`)
+  })
+})
 
-
-
-
-
-
-
-
-
-
-
-app.listen(PORT,()=>(console.log('Server running  on PORT '+PORT)))
+server.listen(PORT, () => {
+  console.log(`Server running on PORT ${PORT}`)
+})
