@@ -28,7 +28,7 @@ function EditForm(props) {
             setDobYear(props.loggedUser.dob_year);
             setGenderIdentity(props.loggedUser.gender_identity)
             setGenderInterest(props.loggedUser.gender_interest)
-            setUrl(props.loggedUser.photos)
+            setUrl(props.loggedUser.photos || [])
             console.log(props.loggedUser)
         }
 
@@ -38,9 +38,9 @@ function EditForm(props) {
     const handleFileUpload = async (e) => {
         const file = e.target.files[0]
         const base64string = await fileToBase64(file)
-        console.log(base64string)
-        setUrl(base64string)
-        console.log(url)
+        const newUrl = [...url]
+        newUrl.push(base64string)
+        setUrl(newUrl)
     }
 
 
