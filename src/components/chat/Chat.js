@@ -22,6 +22,8 @@ function Chat(props) {
   
     // Listen for incoming messages from the server
     newSocket.on('messageRes', (message) => {
+      setMessages(messages => [...messages, message])
+      update()
         console.log(message)
     });
   
