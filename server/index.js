@@ -174,10 +174,9 @@ app.put('/user',async (req,res)=>{
 
 // MATCHES
 app.put('/addmatch', async (req, res)=>{
-    //    const client = new MongoClient(uri) 
-       const {userId, matchedUserId}=req.body
-       try{
-        // await client.connect()
+    console.log(req.body)
+    const {userId, matchedUserId}=req.body
+    try{
         const database=client.db('app-data')
         const users = database.collection('users')
     
@@ -185,13 +184,13 @@ app.put('/addmatch', async (req, res)=>{
         const updateDocument = {
             $push: {matches: {user_id: matchedUserId}},
         }
-       const user =  await users.updateOne(query, updateDocument)
-     req.send(user)
-       } finally{
-    
+        const user =  await users.updateOne(query, updateDocument)
+        const updatedUser = await users.findOne(query)
+        res.send(updatedUser.matches)
+    } finally{
         // await client.close()
-       }
-    })
+    }
+})
     
 
 // GET ALL USERS BY USER ID

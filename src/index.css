@@ -17,6 +17,8 @@ code {
 
 /*-------- Dashboard  --------*/
 
+
+
  .dashboard {
   display: flex;
   justify-content: 1rem 2rem;
@@ -122,6 +124,57 @@ code {
 
 
 .card-carosel-tin{
-  width: 400px;
+  width: 380px;
+  height: 640px;
+}
+
+.imageCoversOfCarts{
+  width: 450px;
   height: 650px;
+  background-size:cover;
+  background-position: center;
+  
+    
+   
+
+}
+.carousel-indicators {
+  z-index: 15;
+  bottom: 93%  !important
+  
+
+}
+
+.button-container-tin img {
+  width: 100%;
+}
+
+.overlay-tin {
+  position: inherit;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  overflow: hidden;
+  background: #C33764;  /* fallback colour. Make sure this is just one solid colour. */
+  /* background: -webkit-linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8)); */
+  background: linear-gradient(0deg, rgba(0,0,0,0.9305847338935574) 11%, rgba(190,137,22,0) 28%);
+}
+.user-name-cards{
+  position: absolute;
+}
+.button-container-tin {
+  justify-content: space-between;
+  display: flex;
+  width: 400px;
+  z-index: 10;
+  position: fixed;
+  bottom: 10%;
+  height: 68px;
+}
+.button-container-tin button {
+  width: 19%;
+  height: 110%;
+  border-radius: 60px !important;
 }
