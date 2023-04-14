@@ -43,10 +43,10 @@ function Chat(props) {
         };
     }, []);
 
-    function update() {
+    async function update() {
         console.log("tuka sym")
 
-        messageManager
+        await messageManager
             .getMessages(user, props.correspondingUserId)
             .then((messagesTo) => {
                 messageManager.getMessages(props.correspondingUserId, user)
@@ -69,14 +69,16 @@ function Chat(props) {
         messageManager.sendMessage(message.from, message.to, message.content, message.timestamp)
         socket.emit('message', message);
         setLastMessage(msg);
+
+        setMsg("")
     }
 
-    useEffect(() => {
-        userManager.getUserById(user).then(response => {
+    useEffect(async () => {
+        await userManager.getUserById(user).then(response => {
             setSender(response)
         })
 
-        userManager.getUserById(props.correspondingUserId).then(response => {
+        await userManager.getUserById(props.correspondingUserId).then(response => {
             setRecipient(response)
         })
     }, [])
@@ -85,33 +87,34 @@ function Chat(props) {
         return null;
     }
 
+    function handleEnter(e) {
+        if (e.key == "Enter") {
+            e.preventDefault();
+            const message = {
+                from: user,
+                to: props.correspondingUserId,
+                content: msg,
+                timestamp: new Date().toLocaleTimeString(),
+            };
+            messageManager.sendMessage(message.from, message.to, message.content, message.timestamp)
+            socket.emit('message', message);
+            setLastMessage(msg);
+
+            setMsg("")
+
+        }
 
 
 
-
-
-
-
-
-
-
-
+    }
 
     return (
         <div className="chatContainer">
             <div className="messagesContainer">
                 <div className="chatHeader">
-                    
-                        <img
-                            className="userPhoto"
-                            src={recipient.photos}
-                        ></img>
-                        <h3>{recipient.email}</h3>
-                        
-                            <button className="checkProf">Check profile</button>
-                        
-                    
-
+                    <img className="userPhoto" src={recipient.photos}></img>
+                    <h3>{recipient.email}</h3>
+                    <button className="checkProf">Check profile</button>
                 </div>
                 <div className="msgs">
                     {messages.length > 0 ? (
@@ -129,13 +132,19 @@ function Chat(props) {
                         <div>No messages yet</div>
                     )}
 
-                    <div style={{ float: "left", clear: "both" }}
-                        ref={count}>
-                    </div>
+                    <div style={{ float: "left", clear: "both" }} ref={count}></div>
                 </div>
                 <div className="sendmsgContainer">
-                    <input onChange={(e) => setMsg(e.target.value)} className="chatInputs" type="text" placeholder="write something"></input>
-                    <button onClick={handleSendMessage} className="sendMsg">
+                    <input
+                        value={msg}
+                        onKeyDown={handleEnter}
+                        onChange={(e) => setMsg(e.target.value)}
+                        className="chatInputs" type="text"
+                        placeholder="write something"></input>
+                    <button
+
+                        onClick={handleSendMessage}
+                        className="sendMsg">
                         {">>>"}
                     </button>
                 </div>
