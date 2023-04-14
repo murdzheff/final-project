@@ -3,12 +3,18 @@ import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Onboarding from './pages/Onboarding';
+import { useState } from 'react';
+import userManager from './model/userManager';
 
 
 
 
 function App() {
-  let loggedUser = JSON.parse(localStorage.getItem("token")) || null;
+  
+
+  const loggedUser = async () => {
+    await userManager.getUserById(JSON.parse(localStorage.getItem("token")).userId)
+  }
 
 
   return (

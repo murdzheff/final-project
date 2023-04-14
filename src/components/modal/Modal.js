@@ -20,7 +20,7 @@ function Modal({ modal, toggleModal, type }) {
     function handleRegister() {
         userManager.signup(email, password).then(response => {
             if (response) {
-               return navigate("/onboarding");
+               navigate("/onboarding");
             }
         })
 
@@ -32,7 +32,7 @@ function Modal({ modal, toggleModal, type }) {
     function handleLogin() {
         userManager.login(email, password).then(response => {
             if (response) {
-               return navigate("/dashboard");
+               navigate("/dashboard");
             }
             
         })

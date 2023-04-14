@@ -13,6 +13,7 @@ function Chat(props) {
     const count = useRef(null)
     const [sender, setSender] = useState(null);
     const [recipient, setRecipient] = useState(null)
+    const [isLoading,setIsLoading] = useState(true)
 
     const scrollToBottom = () => {
         count.current?.scrollIntoView({ behavior: "smooth" })
@@ -34,7 +35,6 @@ function Chat(props) {
         // Listen for incoming messages from the server
         newSocket.on('messageRes', (message) => {
             setMessages(messages => [...messages, message].sort((a, b) => b.timestamp - a.timestamp))
-            update()
         });
 
         // Disconnect the socket when the component unmounts
@@ -73,14 +73,18 @@ function Chat(props) {
         setMsg("")
     }
 
-    useEffect(() => {
+    useEffect(() => { 
         userManager.getUserById(user).then(response => {
             setSender(response)
+
+            userManager.getUserById(props.correspondingUserId).then(response => {
+                setRecipient(response)
+    
+                setIsLoading(false)
+            })
         })
 
-        userManager.getUserById(props.correspondingUserId).then(response => {
-            setRecipient(response)
-        })
+        
     }, [])
 
     if (props.type !== 'Chat' || recipient === null) {
@@ -104,47 +108,47 @@ function Chat(props) {
     }
 
     return (
-        <div className="chatContainer">
-            <div className="messagesContainer">
-                <div className="chatHeader">
-                    <img className="userPhoto" src={recipient?.photos[0]}></img>
-                    <h3>{recipient.email}</h3>
-                    <button className="checkProf">Check profile</button>
-                </div>
-                <div className="msgs">
-                    {messages.length > 0 ? (
-                        messages.map((message, index) => (
-                            <div className="message" key={index}>
-                                <span className={message.from !== user ? 'incoming' : 'outgoing'}>
-
-                                    <img className='userPhoto' src={message.from !== user ? recipient?.photos[0] : sender.photos[0]}></img>
-                                    <p>{message.content} </p>
-                                    <p>{message.timestamp}</p>
-                                </span>
-                            </div>
-                        ))
-                    ) : (
-                        <div>No messages yet</div>
-                    )}
-
-                    <div style={{ float: "left", clear: "both" }} ref={count}></div>
-                </div>
-                <div className="sendmsgContainer">
-                    <input
-                        value={msg}
-                        onKeyDown={handleEnter}
-                        onChange={(e) => setMsg(e.target.value)}
-                        className="chatInputs" type="text"
-                        placeholder="write something"></input>
-                    <button
-
-                        onClick={handleSendMessage}
-                        className="sendMsg">
-                        {">>>"}
-                    </button>
-                </div>
-            </div>
+        <div className="chatContainer"> {isLoading === true ? <>loading</> : <div className="messagesContainer">
+        <div className="chatHeader">
+            <img className="userPhoto" src={recipient?.photos[0]}></img>
+            <h3>{recipient.email}</h3>
+            <button className="checkProf">Check profile</button>
         </div>
+        <div className="msgs">
+            {messages.length > 0 ? (
+                messages.map((message, index) => (
+                    <div className="message" key={index}>
+                        <span className={message.from !== user ? 'incoming' : 'outgoing'}>
+
+                            <img className='userPhoto' src={message.from !== user ? recipient?.photos[0] : sender.photos[0]}></img>
+                            <p>{message.content} </p>
+                            <p>{message.timestamp}</p>
+                        </span>
+                    </div>
+                ))
+            ) : (
+                <div>No messages yet</div>
+            )}
+
+            <div style={{ float: "left", clear: "both" }} ref={count}></div>
+        </div>
+        <div className="sendmsgContainer">
+            <input
+                value={msg}
+                onKeyDown={handleEnter}
+                onChange={(e) => setMsg(e.target.value)}
+                className="chatInputs" type="text"
+                placeholder="write something"></input>
+            <button
+
+                onClick={handleSendMessage}
+                className="sendMsg">
+                {">>>"}
+            </button>
+        </div>
+    </div>}
+</div> 
+            
     );
 }
 
