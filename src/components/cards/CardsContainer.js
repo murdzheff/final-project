@@ -56,7 +56,7 @@ function CardsContainer(props) {
 
   const swiped = (direction, nameToDelete) => {
     console.log('removing: ' + nameToDelete)
-    setLastDirection(direction)
+    setLastDirection(direction === 'right' ? 'YES' : 'NO')
   }
 
   const outOfFrame = (name) => {
@@ -72,37 +72,21 @@ function CardsContainer(props) {
 
   return (
     <div className='swipe-container'>
-
       <div className='card-container'>
-      {users.map(user =>
+        {users.map(user =>
           <TinderCard className='swipe' key={user._id}
-              onSwipe={(dir) => swiped(dir, user.email)}
-              onCardLeftScreen={() => outOfFrame(user.email)}>
-              <div style={{ backgroundImage: 'url(' + user.photos + ')' }}
-                  className='card'>
-                  <h3>{user.first_name}</h3>
-              </div>
-          </TinderCard>
-      )}
-
-
-      {/* {characters.map((character) =>
-          <TinderCard  className='swipe' key={character.name} 
-                   onSwipe={(dir) => swiped(dir, character.name)} 
-                 onCardLeftScreen={() => outOfFrame(character.name)}>
-             <div style={{ backgroundImage: 'url(' + character.url + ')' }}
-                 className='card'>
-                            
-
-              <h3>{character.name}</h3>
+            onSwipe={(dir) => swiped(dir, user.email)}
+            onCardLeftScreen={() => outOfFrame(user.email)}>
+            <div style={{ backgroundImage: 'url(' + user.photos + ')' }}
+              className='card'>
+              <h3>{user.first_name}</h3>
             </div>
           </TinderCard>
-        )} */}
+        )}
         <div className='swipe-info'> 
-        {lastDirection ? <p>Yo swiped {lastDirection}</p>:<p/> }
-         </div>
+          {lastDirection ? <p>{lastDirection}</p>:<p/> }
+        </div>
       </div>
-
     </div>
   )
 }

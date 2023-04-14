@@ -40,6 +40,7 @@ function EditForm(props) {
         const base64string = await fileToBase64(file)
         console.log(base64string)
         setUrl(base64string)
+        console.log(url)
     }
 
 
