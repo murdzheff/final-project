@@ -77,7 +77,7 @@ function CardsContainer(props) {
           <TinderCard className='swipe' key={user._id}
             onSwipe={(dir) => swiped(dir, user.email)}
             onCardLeftScreen={() => outOfFrame(user.email)}>
-            <div style={{ backgroundImage: 'url(' + user.photos + ')' }}
+            <div style={{ backgroundImage: 'url(' + user.photos[0] + ')' }}
               className='card'>
               <h3>{user.first_name}</h3>
             </div>
