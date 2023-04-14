@@ -73,17 +73,17 @@ function Chat(props) {
         setMsg("")
     }
 
-    useEffect(async () => {
-        await userManager.getUserById(user).then(response => {
+    useEffect(() => {
+        userManager.getUserById(user).then(response => {
             setSender(response)
         })
 
-        await userManager.getUserById(props.correspondingUserId).then(response => {
+        userManager.getUserById(props.correspondingUserId).then(response => {
             setRecipient(response)
         })
     }, [])
 
-    if (props.type !== 'Chat') {
+    if (props.type !== 'Chat' || recipient === null) {
         return null;
     }
 
@@ -99,20 +99,15 @@ function Chat(props) {
             messageManager.sendMessage(message.from, message.to, message.content, message.timestamp)
             socket.emit('message', message);
             setLastMessage(msg);
-
             setMsg("")
-
         }
-
-
-
     }
 
     return (
         <div className="chatContainer">
             <div className="messagesContainer">
                 <div className="chatHeader">
-                    <img className="userPhoto" src={recipient.photos}></img>
+                    <img className="userPhoto" src={recipient?.photos[0]}></img>
                     <h3>{recipient.email}</h3>
                     <button className="checkProf">Check profile</button>
                 </div>
@@ -122,7 +117,7 @@ function Chat(props) {
                             <div className="message" key={index}>
                                 <span className={message.from !== user ? 'incoming' : 'outgoing'}>
 
-                                    <img className='userPhoto' src={message.from !== user ? recipient.photos : sender.photos}></img>
+                                    <img className='userPhoto' src={message.from !== user ? recipient?.photos[0] : sender.photos[0]}></img>
                                     <p>{message.content} </p>
                                     <p>{message.timestamp}</p>
                                 </span>

@@ -19,7 +19,7 @@ function Modal({ modal, toggleModal, type }) {
 
     function handleRegister() {
         userManager.signup(email, password).then(response => {
-            if (localStorage.getItem("token")) {
+            if (response) {
                return navigate("/onboarding");
             }
         })
@@ -31,8 +31,7 @@ function Modal({ modal, toggleModal, type }) {
 
     function handleLogin() {
         userManager.login(email, password).then(response => {
-
-            if (localStorage.getItem("token")) {
+            if (response) {
                return navigate("/dashboard");
             }
             

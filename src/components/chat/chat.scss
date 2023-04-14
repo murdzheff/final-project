@@ -91,11 +91,14 @@
             background-color: transparent;
             border: none;
             border-radius: 10px;
+            background-color: #00ffff;
+
+            &:hover{
+                background-color: #e8407b;
+            }
         }
 
-        &:hover{
-            background-color: #e8407b;
-        }
+        
     
         .chatInputs{
             width: 200vh;
