@@ -11,6 +11,8 @@ import Chat from '../components/chat/Chat'
 function Dashboard() {
   
   const [type,setType] = useState("Matches")
+  const [matches, setMatches] = useState([])
+
 
   const toggleModal = (e) => {
     console.log("hey")
@@ -21,13 +23,14 @@ function Dashboard() {
       setType("Chat")
     }
   }
+  
 
 
   const user = JSON.parse(localStorage.getItem("token").userId || null)
   return (
     <div className='dashboard'>
       <LeftSideContainer toggleModal={toggleModal} user={user} />
-      <CardsContainer type={type}></CardsContainer>
+      <CardsContainer matches={matches} setMatches={setMatches} type={type}></CardsContainer>
       <Chat loggedUser={user} correspondingUserId={"16f8aea0-d979-11ed-aa9c-d76e0cbebf79"} type={type}></Chat>
 
 
