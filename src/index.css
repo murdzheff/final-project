@@ -36,6 +36,7 @@ code {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  
 }
 
 .swipe {
@@ -45,6 +46,7 @@ code {
 .dashboard .card-container {
   width: 400px;
   height: 650px;
+
 }
 
 .card {
@@ -53,6 +55,10 @@ code {
   border-radius: 30px;
   background-size: cover;
   background-position: center;
+  background-color: rgba(0, 0, 0, 0) !important
+
+
+
 }
 
 

@@ -9,7 +9,7 @@ import X from './X.svg'
 import heart from './heart.svg'
 import arrow from './arrow.svg'
 import reload from './reload.svg'
-
+import PhotoWithPulse from '../loader/loader'
 
 
 function CardsContainer(props) {
