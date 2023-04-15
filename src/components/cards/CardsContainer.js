@@ -9,7 +9,7 @@ import X from './X.svg'
 import heart from './heart.svg'
 import arrow from './arrow.svg'
 import reload from './reload.svg'
-import PhotoWithPulse from '../loader/loader'
+import userManager from '../../model/userManager';
 
 
 function CardsContainer(props) {
@@ -19,26 +19,24 @@ function CardsContainer(props) {
   const [likedUsers, setLikedUsers]=useState([])
 
   useEffect(() => {
+    let a
     axios
       .get('http://localhost:8080/user', {
         params: { userId: JSON.parse(localStorage.getItem('token')).userId },
       })
       .then((response) => {
         const genderInterest = response.data.gender_interest;
-        setLikedUsers(response.data.matches)
-        
+        a=response.data.matches
+        setLikedUsers(response.data.matches);
+
         axios
           .get('http://localhost:8080/gendared-users', {
             params: { gender: genderInterest },
           })
           .then((response) => {
-            // filter out any users whose ID is in the likedUsers array
-            const filteredUsers = response.data.filter(user => {
-              return !likedUsers.some(likedUser => likedUser.user_id === user.user_id);
-            });
-            
+            const filteredUsers =filterArray(response.data, a?a:likedUsers)
+
             setUsers(filteredUsers);
-            
           })
           .catch((error) => {
             console.log(error);
@@ -49,18 +47,26 @@ function CardsContainer(props) {
       });
   }, []);
 
+  function filterArray(array1, array2) {
+    console.log(array1.filter(item1 => !array2.some(item2 => item1.user_id === item2.user_id)))
+    return array1.filter(item1 => !array2.some(item2 => item1.user_id === item2.user_id))
+  }
+
   const swiped = (direction, user) => {
         setSwipedUsers([...swipedUsers, user.email]);
+        console.log(user)
 
         if (direction === 'right') {
            axios.put('http://localhost:8080/addmatch', {
            userId: JSON.parse(localStorage.getItem('token')).userId,
            matchedUserId: user.user_id,
+
            })
             .then((response) => {
              console.log(response);
              setLikedUsers(response.data);
              
+
              })
             .catch((error) => {
              console.log(error);
@@ -75,7 +81,7 @@ function CardsContainer(props) {
   const swipe = (direction) => {
     swipeRef.current.swipe(direction);
     console.log("liker USers are here ::::")
-    console.log(users)
+    
 
     console.log(likedUsers)
 
@@ -148,10 +154,8 @@ function CardsContainer(props) {
           <img src={reload}></img>
         </Button>{' '}
 
-
         <Button className='button-left-tin' onClick={() => swipe('left')} variant="outline-danger">
           <img src={X}></img>
-
         </Button>{' '}
     
         <Button className='button-up-tin' onClick={() => swipe('up')} variant="outline-primary">
@@ -163,12 +167,10 @@ function CardsContainer(props) {
 
         </Button>{' '}
      
-
         <Button className='button-right-tin' onClick={() => swipe('right')} variant="outline-info">
           <img src={arrow}></img>
         </Button>{' '}
-
-     
+        
       </div>
 
     </div>
@@ -176,4 +178,5 @@ function CardsContainer(props) {
 }
 
 export default CardsContainer;
+
 

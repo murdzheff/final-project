@@ -84,19 +84,19 @@ app.post('/login', async (req, res) => {
 
 })
 
-app.get('/users', async (req, res) => {
-    // const client = new MongoClient(uri);
-     try {
-         const databaseName = client.db('app-data')
-         const users = databaseName.collection('users')
+// app.get('/users', async (req, res) => {
+//     // const client = new MongoClient(uri);
+//      try {
+//          const databaseName = client.db('app-data')
+//          const users = databaseName.collection('users')
  
-         const returnedUsers= await users.find().toArray()
-         res.send(returnedUsers)
+//          const returnedUsers= await users.find().toArray()
+//          res.send(returnedUsers)
  
-     }finally{
-         // await client.close()
-     }
- }) 
+//      }finally{
+//          // await client.close()
+//      }
+//  }) 
 
 // USERS BY GANDER
 app.get('/gendared-users', async (req, res) => {
