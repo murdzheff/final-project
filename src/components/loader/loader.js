@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './loader.css'
+import './loader.css';
 
 function PhotoWithPulse(props) {
   const [size, setSize] = useState(140);
@@ -7,13 +7,13 @@ function PhotoWithPulse(props) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setSize(size => {
+      setSize((size) => {
         let newSize = size + 1;
         if (newSize > 500) {
           newSize = 50;
           setOpacity(0.3);
         } else if (newSize > 200) {
-          setOpacity(opacity => opacity - 0.001);
+          setOpacity((opacity) => opacity - 0.001);
         }
         return newSize;
       });
@@ -31,12 +31,13 @@ function PhotoWithPulse(props) {
   const pulseStyle = {
     width: size,
     height: size,
-    opacity: opacity
+    opacity: opacity,
   };
 
   return (
     <div className="photo" onClick={handleClick}>
-      <img src={props.src} alt="" />
+      {/* <img className='photo-loader' src={props.imageSrc} alt="" /> */}
+      <div className='photo-loader' style={{ backgroundImage: `url(${props.imageSrc})` }}></div>
       <div className="pulse" style={pulseStyle}></div>
     </div>
   );
