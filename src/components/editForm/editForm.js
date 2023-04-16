@@ -3,6 +3,7 @@ import userManager from "../../model/userManager";
 import "./editForm.scss"
 import fileToBase64 from "./fileToBase64";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -20,6 +21,7 @@ function EditForm(props) {
     const [genderInterest, setGenderInterest] = useState(" ");
     const [url, setUrl] = useState([])
     const [about, setAbout] = useState(" ");
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (props.loggedUser) {
@@ -64,6 +66,9 @@ function EditForm(props) {
                 matches: props.loggedUser.mathes
             }
         }))
+
+        navigate("/dashboard")
+        
     }
 
     return (

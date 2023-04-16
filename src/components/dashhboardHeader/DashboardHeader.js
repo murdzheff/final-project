@@ -8,17 +8,23 @@ function DashboardHeader(props) {
     <div>
       <h3>{props.user.first_name}</h3>
       <div className='options'>
-        <button className='preferences'>Preferences</button>  
-        <button 
-        className='logout'
-        onClick={() => {
-          localStorage.clear()
-          navigate("/home")
-        }}>
+        <button
+          onClick={() => {
+            navigate("/onboarding")
+          }}
+          className='preferences'>
+          Preferences
+        </button>
+        <button
+          className='logout'
+          onClick={() => {
+            localStorage.clear()
+            navigate("/home")
+          }}>
           Log out
         </button>
-      </div>  
-      
+      </div>
+
     </div>
   )
 }
