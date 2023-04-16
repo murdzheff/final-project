@@ -32,7 +32,19 @@ function EditForm(props) {
             setDobYear(props.loggedUser.dob_year);
             setGenderIdentity(props.loggedUser.gender_identity)
             setGenderInterest(props.loggedUser.gender_interest)
-            setUrl(props.loggedUser?.photos?.length ? props.loggedUser.photos : [null,null,null,null,null])
+            if (props.loggedUser.photos.length === 1) {
+                setUrl([...props.loggedUser.photos,null,null,null,null])
+            } else if (props.loggedUser.photos.length === 2) {
+                setUrl([...props.loggedUser.photos,null,null,null])
+            }  else if (props.loggedUser.photos.length === 3) {
+                setUrl([...props.loggedUser.photos,null,null])
+            }  else if (props.loggedUser.photos.length === 4) {
+                setUrl([...props.loggedUser.photos,null])
+            }  else if (props.loggedUser.photos.length === 5) {
+                setUrl([...props.loggedUser.photos])
+            } else {
+                setUrl([null,null,null,null,null])   
+            }
             console.log(props.loggedUser)
         }
 
@@ -154,7 +166,7 @@ function EditForm(props) {
                     </div>
 
                     <div>
-                        <textarea className="about" onInput={(e) => {setAbout(e.target.value)}}></textarea>
+                        <textarea placeholder="Tell us something about yourself" className="about" onInput={(e) => {setAbout(e.target.value)}}></textarea>
                     </div>
                 </div>
 
