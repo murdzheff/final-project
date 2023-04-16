@@ -22,6 +22,46 @@ function CardsContainer(props) {
   const [profilePic, setProfilePic]=useState("")
 
   
+
+  useEffect(() => {
+    let a
+    axios
+      .get('http://localhost:8080/user', {
+        params: { userId: JSON.parse(localStorage.getItem('token')).userId },
+      })
+      .then((user) => {
+        const genderInterest = user.data.gender_interest;
+        setProfilePic(user.data.photos[0])
+        a=user.data.matches
+        setLikedUsers(user.data.matches?user.data.matches:[]);
+        
+        
+
+        axios
+          .get('http://localhost:8080/gendared-users', {
+            params: { gender: genderInterest },
+          })
+          .then((response) => {
+            
+            const filteredUsers = excludeArrayByUserId(response.data,user.data.matches || [])
+            console.log(filteredUsers)
+            
+            setUsers(filteredUsers);
+            setIsLoading(false);
+
+          })
+          .catch((error) => {
+            console.log(error);
+            setIsLoading(false);
+
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+
+      });
+  }, []);
   
   useEffect(() => {
     let a
@@ -61,7 +101,7 @@ function CardsContainer(props) {
         setIsLoading(false);
 
       });
-  }, [users]);
+  }, [props.type]);
 
 
   function excludeArrayByUserId(array1, array2) {
