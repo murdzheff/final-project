@@ -129,10 +129,10 @@ code {
 
 
 
-.card-carosel-tin{
+/* .card-carosel-tin{
   width: 380px;
   height: 640px;
-}
+} */
 
 .imageCoversOfCarts{
   width: 450px;
@@ -140,9 +140,6 @@ code {
   background-size:cover;
   background-position: center;
   
-    
-   
-
 }
 .carousel-indicators {
   z-index: 15;
@@ -168,7 +165,8 @@ code {
   background: linear-gradient(0deg, rgba(0,0,0,0.9305847338935574) 11%, rgba(190,137,22,0) 28%);
 }
 .user-name-cards{
-  position: absolute;
+ color: white;
+ font-weight: 700;
 }
 .button-container-tin {
   justify-content: space-between;
@@ -201,4 +199,20 @@ code {
   border-radius: 100px;
   background-position: center center;
   background-size: cover;
+}
+.user-information{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 30%;
+  padding: 16px;
+}
+.user-years-cards{
+  color: white;
+  font-size: 26px;
+  margin-left: 13px;
+}
+.carousel-inner{
+  border-radius: 5px;
 }

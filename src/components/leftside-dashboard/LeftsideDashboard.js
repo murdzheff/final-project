@@ -16,38 +16,22 @@ const LeftSideContainer = ({ toggleModal, setChats, setMatches, setRec, setType 
         userManager.getUserById(JSON.parse(localStorage.getItem('token')).userId).then(res => {
             
             setCurrentUser(res);
+            if(res.matches){
+                Promise.all(res.matches.map(e => {
 
-            Promise.all(res.matches.map(e => {
-
-                return e = userManager.getUserById(e.user_id)
-            })).then(result => {
-
-                let trueMatches = []
-                result.forEach(e => {
-                    if (e.matches && e.matches.find(el => el.user_id === res.user_id)) {
-                        trueMatches.push(e)
-                        setMatches(trueMatches)
-                    }
+                    return e = userManager.getUserById(e.user_id)
+                })).then(result => {
+    
+                    let trueMatches = []
+                    result.forEach(e => {
+                        if (e.matches && e.matches.find(el => el.user_id === res.user_id)) {
+                            trueMatches.push(e)
+                            setMatches(trueMatches)
+                        }
+                    })
+                    setMatchedUsers(trueMatches)
                 })
-                
-                setMatchedUsers(trueMatches)
-            })
-
-
-            
-
-
-            // userManager.getUsersByIds(res.matches.map(e => e = e.user_id)).then(result => {
-            //     console.log(result)
-            //     let matched = result.filter(e => {
-            //         return e.matches?.find(e => e.user_id !== JSON.parse(localStorage.getItem('token')).userId)
-            //     })
-
-            //     setMatches(matched)
-            //     return matched;
-
-
-            // })
+            }
         })
     }, [])
 

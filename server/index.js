@@ -223,6 +223,37 @@ app.get('/users', async (req, res) => {
     }
 })
 
+// SET LOCATION OF USER
+
+app.put('/user/:user_id/location', async (req, res) => {
+    const user_id = req.params.user_id;
+    const location = req.body.location;
+  
+    try {
+      const databaseName = client.db('app-data');
+      const users = databaseName.collection('users');
+  
+      const query = { user_id: user_id };
+      const updateDocument = {
+        $set: {
+          location: location
+        },
+      };
+  
+      const updatedUser = await users.updateOne(query, updateDocument);
+  
+      if (updatedUser.modifiedCount === 1) {
+        res.send('User location updated successfully');
+      } else {
+        res.status(404).send('User not found');
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal server error');
+    }
+  });
+
+
 // MESSAGES BY from_userId and to_userId
 app.get('/messages', async (req, res) => {
   const { userId, correspondingUserId } = req.query

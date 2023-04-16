@@ -33,7 +33,7 @@ function CardsContainer(props) {
         const genderInterest = user.data.gender_interest;
         setProfilePic(user.data.photos[0])
         a=user.data.matches
-        setLikedUsers(user.data.matches);
+        setLikedUsers(user.data.matches?user.data.matches:[]);
         
         
 
@@ -43,7 +43,8 @@ function CardsContainer(props) {
           })
           .then((response) => {
             
-            const filteredUsers = excludeArrayByUserId(response.data,user.data.matches)
+            const filteredUsers = excludeArrayByUserId(response.data,user.data.matches?user.data.matches:[])
+            console.log(filteredUsers)
             
             setUsers(filteredUsers);
             setIsLoading(false);
@@ -154,10 +155,11 @@ function CardsContainer(props) {
               onCardLeftScreen={() => outOfFrame(user.first_name)}
             >
               <div className='card'>
-              <div className='bahur'>Bahur</div>
-
-                <CardsCarousel photos={user.photos} />
+                <CardsCarousel  photos={user.photos} />
+                <div className='user-information'>
                 <h3 className='user-name-cards'>{user.first_name}</h3>
+                <span className='user-years-cards'>{new Date().getFullYear() - user.dob_year}</span>
+              </div>
               </div>
             </TinderCard>
           ) : null
