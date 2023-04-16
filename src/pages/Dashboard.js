@@ -4,18 +4,34 @@ import LeftSideContainer from '../components/leftside-dashboard/LeftsideDashboar
 // import userManager from '../model/userManager'
 import CardsContainer from '../components/cards/CardsContainer'
 import Chat from '../components/chat/Chat'
-
+import { Navigate, useNavigate } from "react-router-dom"
+import messageManager from '../model/messageManager'
 
 
 
 function Dashboard() {
-  
-  const [type,setType] = useState("Matches")
-  const [matches, setMatches] = useState([])
 
+
+
+
+  const [type, setType] = useState("Matches")
+  const [matches, setMatches] = useState([])
+  const [rec, setRec] = useState(null)
+  const [chats,setChats] = useState([])
+
+  async function update(id) {
+    await Promise.all([
+        messageManager.getMessages(JSON.parse(localStorage.getItem("token")).userId, id),
+        messageManager.getMessages(id, JSON.parse(localStorage.getItem("token")).userId)
+    ]).then(([messagesTo, messagesFrom]) => {
+        const allMsgs = [...messagesTo, ...messagesFrom].sort((a, b) => b.timestamp - a.timestamp);
+        
+        setChats(allMsgs)
+    });
+}
 
   const toggleModal = (e) => {
-    console.log("hey")
+    
     e.preventDefault();
     if (e.target.textContent === "Matches") {
       setType("Matches")
@@ -23,15 +39,32 @@ function Dashboard() {
       setType("Chat")
     }
   }
-  
+
+  const token = localStorage.getItem("token");
+  const user = token ? JSON.parse(token).userId : null;
+
+  let navigate = useNavigate()
+
+  if (user === null) {
+    
+    return null;
+  }
 
 
-  const user = JSON.parse(localStorage.getItem("token").userId || null)
+
   return (
     <div className='dashboard'>
-      <LeftSideContainer toggleModal={toggleModal} user={user} />
+      <LeftSideContainer
+        matches={matches}
+        setMatches={setMatches}
+        toggleModal={toggleModal}
+        user={user}
+        setRec={setRec}
+        setType={setType}
+        setChats={update} />
       <CardsContainer matches={matches} setMatches={setMatches} type={type}></CardsContainer>
-      <Chat loggedUser={user} correspondingUserId={"16f8aea0-d979-11ed-aa9c-d76e0cbebf79"} type={type}></Chat>
+      {rec !== null ? <Chat loggedUser={user} correspondingUserId={rec} type={type}></Chat> : null}
+
 
 
     </div>

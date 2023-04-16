@@ -41,12 +41,12 @@ code {
 
 .swipe {
   position: absolute;
+  
 }
 
 .dashboard .card-container {
   width: 400px;
   height: 650px;
-
 }
 
 .card {

@@ -1,9 +1,25 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-function DashboardHeader(user) {
-  console.log(user)
+function DashboardHeader(props) {
+  const navigate = useNavigate()
+
   return (
-    <div>{user?.user?.first_name}</div>
+    <div>
+      <h3>{props.user.first_name}</h3>
+      <div className='options'>
+        <button className='preferences'>Preferences</button>  
+        <button 
+        className='logout'
+        onClick={() => {
+          localStorage.clear()
+          navigate("/home")
+        }}>
+          Log out
+        </button>
+      </div>  
+      
+    </div>
   )
 }
 

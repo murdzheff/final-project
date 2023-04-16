@@ -9,7 +9,7 @@ import X from './X.svg'
 import heart from './heart.svg'
 import arrow from './arrow.svg'
 import reload from './reload.svg'
-import userManager from '../../model/userManager';
+
 
 
 function CardsContainer(props) {
@@ -17,25 +17,28 @@ function CardsContainer(props) {
   const swipeRef = useRef(null);
   const [swipedUsers, setSwipedUsers] = useState([]);
   const [likedUsers, setLikedUsers]=useState([])
-
+  
   useEffect(() => {
     let a
     axios
       .get('http://localhost:8080/user', {
         params: { userId: JSON.parse(localStorage.getItem('token')).userId },
       })
-      .then((response) => {
-        const genderInterest = response.data.gender_interest;
-        a=response.data.matches
-        setLikedUsers(response.data.matches);
+      .then((user) => {
+        const genderInterest = user.data.gender_interest;
+        a=user.data.matches
+        setLikedUsers(user.data.matches);
+        
+        
 
         axios
           .get('http://localhost:8080/gendared-users', {
             params: { gender: genderInterest },
           })
           .then((response) => {
-            const filteredUsers =filterArray(response.data, a?a:likedUsers)
-
+            
+            const filteredUsers = excludeArrayByUserId(response.data,user.data.matches)
+            
             setUsers(filteredUsers);
           })
           .catch((error) => {
@@ -47,6 +50,19 @@ function CardsContainer(props) {
       });
   }, []);
 
+
+  function excludeArrayByUserId(array1, array2) {
+    // Create a Set of user IDs in array2 for faster lookups
+    const userIdSet = new Set(array2.map(obj => obj.user_id));
+    
+    // Filter array1 based on whether each object's user_id is NOT in the Set
+    const filteredArray = array1.filter(obj => !userIdSet.has(obj.user_id));
+    const arrayWithoutMe = filteredArray.filter(obj => obj.user_id !== JSON.parse(localStorage.getItem("token")).userId)
+    
+    return arrayWithoutMe;
+  }
+  
+
   function filterArray(array1, array2) {
     console.log(array1.filter(item1 => !array2.some(item2 => item1.user_id === item2.user_id)))
     return array1.filter(item1 => !array2.some(item2 => item1.user_id === item2.user_id))
@@ -54,7 +70,7 @@ function CardsContainer(props) {
 
   const swiped = (direction, user) => {
         setSwipedUsers([...swipedUsers, user.email]);
-        console.log(user)
+        
 
         if (direction === 'right') {
            axios.put('http://localhost:8080/addmatch', {
@@ -63,10 +79,9 @@ function CardsContainer(props) {
 
            })
             .then((response) => {
-             console.log(response);
              setLikedUsers(response.data);
-             
-
+             if (user.matches.find(e => e.user_id === JSON.parse(localStorage.getItem("token")).userId))
+              props.setMatches((matches) => [...matches,user])
              })
             .catch((error) => {
              console.log(error);
@@ -80,10 +95,10 @@ function CardsContainer(props) {
 
   const swipe = (direction) => {
     swipeRef.current.swipe(direction);
-    console.log("liker USers are here ::::")
+    
     
 
-    console.log(likedUsers)
+    
 
 
 
