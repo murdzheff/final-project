@@ -43,7 +43,7 @@ function CardsContainer(props) {
           })
           .then((response) => {
             
-            const filteredUsers = excludeArrayByUserId(response.data,user.data.matches?user.data.matches:[])
+            const filteredUsers = excludeArrayByUserId(response.data,user.data.matches || [])
             console.log(filteredUsers)
             
             setUsers(filteredUsers);
@@ -61,7 +61,7 @@ function CardsContainer(props) {
         setIsLoading(false);
 
       });
-  }, []);
+  }, [users]);
 
 
   function excludeArrayByUserId(array1, array2) {
@@ -155,7 +155,7 @@ function CardsContainer(props) {
               onCardLeftScreen={() => outOfFrame(user.first_name)}
             >
               <div className='card'>
-                <CardsCarousel  photos={user.photos} />
+                <CardsCarousel  photos={user.photos || ["https://mtclinic.org/wp-content/uploads/2021/09/Photo-Unavailable-300x225.jpg"]} />
                 <div className='user-information'>
                 <h3 className='user-name-cards'>{user.first_name}</h3>
                 <span className='user-years-cards'>{new Date().getFullYear() - user.dob_year}</span>

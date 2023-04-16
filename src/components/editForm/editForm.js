@@ -21,6 +21,7 @@ function EditForm(props) {
     const [genderInterest, setGenderInterest] = useState(" ");
     const [url, setUrl] = useState([])
     const [about, setAbout] = useState(" ");
+    const [activeIndex, setActiveIndex] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -31,19 +32,20 @@ function EditForm(props) {
             setDobYear(props.loggedUser.dob_year);
             setGenderIdentity(props.loggedUser.gender_identity)
             setGenderInterest(props.loggedUser.gender_interest)
-            setUrl(props.loggedUser.photos || [])
+            setUrl(props.loggedUser?.photos?.length ? props.loggedUser.photos : [null,null,null,null,null])
             console.log(props.loggedUser)
         }
 
     }, [props.loggedUser])
 
 
-    const handleFileUpload = async (e) => {
+    const handleFileUpload = async (e,index) => {
         const file = e.target.files[0]
         const base64string = await fileToBase64(file)
         const newUrl = [...url]
-        newUrl.push(base64string)
+        newUrl[index] = base64string;
         setUrl(newUrl)
+        setActiveIndex(null)
     }
 
 
@@ -68,7 +70,7 @@ function EditForm(props) {
         }))
 
         navigate("/dashboard")
-        
+
     }
 
     return (
@@ -111,32 +113,56 @@ function EditForm(props) {
                 </div>
                 <div className="photos">
 
-                    <input onChange={handleFileUpload} value={""} type="file" id="file1" name="file1" /><br />
+                    <div className="uploads">
+                        <h2>Upload your photos</h2>
+                        {url.map((file, index) => (
+                            <label
+                                htmlFor={`file-input-${index}`}
+                                key={index}
+                                style={{
+                                    backgroundColor: file ? "white" : "lightgray",
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
+                                    width: "80px",
+                                    height: "100px",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    cursor: "pointer",
+                                    marginRight: "10px",
+                                    objectFit: "contain",
+                                    overflow: "hidden",
+                                    borderRadius: "10px"
+                                }}
+                                onClick={() => setActiveIndex(index)}
+                            >
+                                {file ? (
+                                    <img className="uploadImg" src={file} alt="uploaded file" />
+                                ) : (
+                                    `Upload file ${index + 1}`
+                                )}
+                            </label>
+                        ))}
+                        {activeIndex !== null && (
+                            <input
+                                id={`file-input-${activeIndex}`}
+                                type="file"
+                                onChange={(event) => handleFileUpload(event, activeIndex)}
+                                style={{ display: "none" }}
+                            />
+                        )}
+                    </div>
 
-
-                    <input onChange={handleFileUpload} value={""} type="file" id="file2" name="file2" /><br />
-
-
-                    <input onChange={handleFileUpload} value={""} type="file" id="file3" name="file3" /><br />
-
-
-
-
-                    <input onChange={handleFileUpload} value={""} type="file" id="file4" name="file4" /><br />
-
-
-
-
-                    <input onChange={handleFileUpload} value={""} type="file" id="file5" name="file5" /><br />
-
-
+                    <div>
+                        <textarea className="about" onInput={(e) => {setAbout(e.target.value)}}></textarea>
+                    </div>
                 </div>
 
 
             </div>
 
 
-            
+
 
             <button type="submit">Start your journey</button>
         </form>
