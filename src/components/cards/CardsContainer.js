@@ -9,6 +9,7 @@ import X from './X.svg'
 import heart from './heart.svg'
 import arrow from './arrow.svg'
 import reload from './reload.svg'
+import PhotoWithPulse from '../loader/loader';
 
 
 
@@ -17,6 +18,10 @@ function CardsContainer(props) {
   const swipeRef = useRef(null);
   const [swipedUsers, setSwipedUsers] = useState([]);
   const [likedUsers, setLikedUsers]=useState([])
+  const [isLoading, setIsLoading] = useState(true);
+  const [profilePic, setProfilePic]=useState("")
+
+  
   
   useEffect(() => {
     let a
@@ -26,6 +31,7 @@ function CardsContainer(props) {
       })
       .then((user) => {
         const genderInterest = user.data.gender_interest;
+        setProfilePic(user.data.photos[0])
         a=user.data.matches
         setLikedUsers(user.data.matches);
         
@@ -40,13 +46,19 @@ function CardsContainer(props) {
             const filteredUsers = excludeArrayByUserId(response.data,user.data.matches)
             
             setUsers(filteredUsers);
+            setIsLoading(false);
+
           })
           .catch((error) => {
             console.log(error);
+            setIsLoading(false);
+
           });
       })
       .catch((error) => {
         console.log(error);
+        setIsLoading(false);
+
       });
   }, []);
 
@@ -107,6 +119,9 @@ function CardsContainer(props) {
   if (props.type !== 'Matches') {
     return null;
   }
+  if(isLoading){
+    return <PhotoWithPulse imageSrc={profilePic}/>
+  }
   if (users.length === swipedUsers.length) {
     return (
       <div className='swipe-container'>
@@ -126,7 +141,6 @@ function CardsContainer(props) {
       </div>
     );
   }
-
   return (
     <div className='swipe-container'>
       <div className='card-container'>
@@ -140,6 +154,8 @@ function CardsContainer(props) {
               onCardLeftScreen={() => outOfFrame(user.first_name)}
             >
               <div className='card'>
+              <div className='bahur'>Bahur</div>
+
                 <CardsCarousel photos={user.photos} />
                 <h3 className='user-name-cards'>{user.first_name}</h3>
               </div>
@@ -174,6 +190,7 @@ function CardsContainer(props) {
 
     </div>
   );
+
 }
 
 export default CardsContainer;

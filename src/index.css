@@ -184,3 +184,21 @@ code {
   height: 110%;
   border-radius: 60px !important;
 }
+
+.bahur{
+  position: absolute;
+  color: white;
+  z-index: 15;
+  transform: rotate(-50grad);
+  display: none;
+  
+}
+
+.photo-loader {
+
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+  background-position: center center;
+  background-size: cover;
+}
