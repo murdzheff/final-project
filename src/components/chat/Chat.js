@@ -55,13 +55,10 @@ function Chat(props) {
         return num.toString().padStart(2, '0');
     }
 
-    function sortByTimestamp(array) {
-        return array.sort((a, b) => {
-          const timestampA = new Date(a.Timestamp);
-          const timestampB = new Date(b.Timestamp);
-          return timestampA - timestampB;
-        });
-    }
+    function sortByTimestamp(objects) {
+        return objects.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+      }
+      
       
 
     async function update(id) {
@@ -71,24 +68,24 @@ function Chat(props) {
         ]).then(([messagesTo, messagesFrom]) => {
             let allMsgs = [...messagesTo, ...messagesFrom];
             let sorted = sortByTimestamp(allMsgs)
+            console.log(sorted)
             setMessages(sorted);
         });
     }
 
 
 
-    function getCurrentDateTime() {
+    function getCurrentDatetime() {
         const now = new Date();
         const year = now.getFullYear();
-        const month = padZero(now.getMonth() + 1);
-        const day = padZero(now.getDate());
-        const hour = padZero(now.getHours());
-        const minute = padZero(now.getMinutes());
-        const second = padZero(now.getSeconds());
-        const date = `${year}-${month}-${day}`;
-        const time = `${hour}:${minute}:${second}`;
-        return `${date} ${time}`;
-      }
+        const month = ('0' + (now.getMonth() + 1)).slice(-2);
+        const day = ('0' + now.getDate()).slice(-2);
+        const hour = ('0' + now.getHours()).slice(-2);
+        const minute = ('0' + now.getMinutes()).slice(-2);
+        const second = ('0' + now.getSeconds()).slice(-2);
+        return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+    }
+      
 
     function handleSendMessage(e) {
         e.preventDefault();
@@ -97,7 +94,7 @@ function Chat(props) {
             from: user,
             to: props.correspondingUserId,
             content: msg,
-            timestamp: getCurrentDateTime(),
+            timestamp: getCurrentDatetime(),
         };
         messageManager.sendMessage(message.from, message.to, message.content, message.timestamp)
         socket.emit('message', message);
@@ -136,7 +133,7 @@ function Chat(props) {
                 from: user,
                 to: props.correspondingUserId,
                 content: msg,
-                timestamp: new Date().toLocaleTimeString(),
+                timestamp: getCurrentDatetime(),
             };
             messageManager.sendMessage(message.from, message.to, message.content, message.timestamp)
             socket.emit('message', message);
