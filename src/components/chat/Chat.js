@@ -3,6 +3,7 @@ import messageManager from '../../model/messageManager';
 import './chat.scss';
 import socketIOClient from 'socket.io-client';
 import userManager from '../../model/userManager';
+import EmojiPicker from 'emoji-picker-react';
 
 function Chat(props) {
     let user = JSON.parse(localStorage.getItem('token')).userId;
@@ -10,6 +11,7 @@ function Chat(props) {
     const [messages, setMessages] = useState([]);
     const [lastMessage, setLastMessage] = useState('');
     const [socket, setSocket] = useState(null);
+    const [displayEmo,setDisplayEmo] = useState(false)
     const count = useRef(null)
     const [sender, setSender] = useState(null);
     const [recipient, setRecipient] = useState(null)
@@ -17,6 +19,7 @@ function Chat(props) {
     const scrollToBottom = () => {
         count.current?.scrollIntoView({ behavior: "smooth" })
     }
+    const chatInput = useRef("")
     
     useEffect(() => {
         scrollToBottom()
@@ -48,14 +51,18 @@ function Chat(props) {
 
     }, [props.correspondingUserId]);
 
-    function sortByTimestamp(arr) {
-        arr.sort(function(a, b) {
-          var timeA = new Date("1970/01/01 " + a.timestamp);
-          var timeB = new Date("1970/01/01 " + b.timestamp);
-          return timeA - timeB;
+    function padZero(num) {
+        return num.toString().padStart(2, '0');
+    }
+
+    function sortByTimestamp(array) {
+        return array.sort((a, b) => {
+          const timestampA = new Date(a.Timestamp);
+          const timestampB = new Date(b.Timestamp);
+          return timestampA - timestampB;
         });
-        return arr;
-      }
+    }
+      
 
     async function update(id) {
         await Promise.all([
@@ -70,6 +77,19 @@ function Chat(props) {
 
 
 
+    function getCurrentDateTime() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = padZero(now.getMonth() + 1);
+        const day = padZero(now.getDate());
+        const hour = padZero(now.getHours());
+        const minute = padZero(now.getMinutes());
+        const second = padZero(now.getSeconds());
+        const date = `${year}-${month}-${day}`;
+        const time = `${hour}:${minute}:${second}`;
+        return `${date} ${time}`;
+      }
+
     function handleSendMessage(e) {
         e.preventDefault();
         
@@ -77,7 +97,7 @@ function Chat(props) {
             from: user,
             to: props.correspondingUserId,
             content: msg,
-            timestamp: new Date().toLocaleTimeString(),
+            timestamp: getCurrentDateTime(),
         };
         messageManager.sendMessage(message.from, message.to, message.content, message.timestamp)
         socket.emit('message', message);
@@ -128,7 +148,7 @@ function Chat(props) {
 
 
     return (
-        <div className="chatContainer">
+        <div className="chatContainer" onClick={displayEmo ? () => setDisplayEmo(false) : null}>
             <div className="messagesContainer">
                 <div className="chatHeader">
                     <img className="userPhoto" src={recipient?.photos[0]}></img>
@@ -140,10 +160,9 @@ function Chat(props) {
                         messages.map((message, index) => (
                             <div className="message" key={index}>
                                 <span className={message.from !== user ? 'incoming' : 'outgoing'}>
-
-                                    <img className='userPhoto' src={message.from !== user ? recipient?.photos[0] : sender?.photos[0]}></img>
+                                    <img className='messagePhoto' src={message.from !== user ? recipient?.photos[0] : sender?.photos[0]}></img>
                                     <p>{message.content} </p>
-                                    <p>{message.timestamp}</p>
+                                    <p className='time'>{message.timestamp}</p>
                                 </span>
                             </div>
                         ))
@@ -155,11 +174,16 @@ function Chat(props) {
                 </div>
                 <div className="sendmsgContainer">
                     <input
+                        ref={chatInput}
                         value={msg}
                         onKeyDown={handleEnter}
                         onChange={(e) => setMsg(e.target.value)}
                         className="chatInputs" type="text"
                         placeholder="write something"></input>
+                        <button className='emojiButton' onClick={() => (setDisplayEmo(!displayEmo))}>{":)"}</button>
+                        <div className="emojis">
+                            {displayEmo ? <EmojiPicker  onEmojiClick={(e) => {setMsg(msg => msg + e.emoji)}}/> : null}
+                        </div>
                     <button
 
                         onClick={handleSendMessage}

@@ -27,6 +27,46 @@ function CardsContainer(props) {
 
 
   
+
+  useEffect(() => {
+    let a
+    axios
+      .get('http://localhost:8080/user', {
+        params: { userId: JSON.parse(localStorage.getItem('token')).userId },
+      })
+      .then((user) => {
+        const genderInterest = user.data.gender_interest;
+        setProfilePic(user.data.photos[0])
+        a=user.data.matches
+        setLikedUsers(user.data.matches?user.data.matches:[]);
+        
+        
+
+        axios
+          .get('http://localhost:8080/gendared-users', {
+            params: { gender: genderInterest },
+          })
+          .then((response) => {
+            
+            const filteredUsers = excludeArrayByUserId(response.data,user.data.matches || [])
+            console.log(filteredUsers)
+            
+            setUsers(filteredUsers);
+            setIsLoading(false);
+
+          })
+          .catch((error) => {
+            console.log(error);
+            setIsLoading(false);
+
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+
+      });
+  }, []);
   
   useEffect(() => {
     let a
@@ -48,7 +88,7 @@ function CardsContainer(props) {
           })
           .then((response) => {
             
-            const filteredUsers = excludeArrayByUserId(response.data,user.data.matches?user.data.matches:[])
+            const filteredUsers = excludeArrayByUserId(response.data,user.data.matches || [])
             console.log(filteredUsers)
             
             setUsers(filteredUsers);
@@ -66,7 +106,7 @@ function CardsContainer(props) {
         setIsLoading(false);
 
       });
-  }, []);
+  }, [props.type]);
 
 
   function excludeArrayByUserId(array1, array2) {
@@ -160,7 +200,7 @@ function CardsContainer(props) {
               onCardLeftScreen={() => outOfFrame(user.first_name)}
             >
               <div className='card'>
-                <CardsCarousel  photos={user.photos} />
+                <CardsCarousel  photos={user.photos || ["https://mtclinic.org/wp-content/uploads/2021/09/Photo-Unavailable-300x225.jpg"]} />
                 <div className='user-information'>
                   <div>
                        <h3 className='user-name-cards'>{user.first_name}</h3>
