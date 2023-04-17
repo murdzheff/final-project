@@ -232,3 +232,8 @@ code {
   justify-content: space-between;
   width: 360px;
 }
+
+.infoIcon{
+  z-index: 15;
+  cursor: pointer;
+}

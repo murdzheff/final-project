@@ -11,6 +11,7 @@ function MoreInfo(props) {
   return (
     <div className='more-info-container'>
         <div className='card'>
+            tuk sym
             <CardsCarousel photos={props.user.photos} ></CardsCarousel>
             <h2>{props.user.first_name}</h2>
             <h3>{props.user.gender_identity}</h3>
