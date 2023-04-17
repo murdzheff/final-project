@@ -78,7 +78,7 @@ function EditForm(props) {
                 gender_interest: genderInterest,
                 photos: url,
                 about: about,
-                matches: props.loggedUser.mathes
+                matches: props.loggedUser.matches
             }
         }))
 

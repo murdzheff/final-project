@@ -67,6 +67,15 @@ function CardsContainer(props) {
 
       });
   }, []);
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+  
   
   useEffect(() => {
     let a
@@ -91,7 +100,7 @@ function CardsContainer(props) {
             const filteredUsers = excludeArrayByUserId(response.data,user.data.matches || [])
             console.log(filteredUsers)
             
-            setUsers(filteredUsers);
+            setUsers(shuffleArray(filteredUsers));
             setIsLoading(false);
 
           })

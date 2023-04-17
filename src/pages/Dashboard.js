@@ -66,7 +66,7 @@ function Dashboard() {
         setChats={update} />
       <CardsContainer matches={matches} setInfoUser={setInfoUser} setType={setType} setMatches={setMatches} type={type}></CardsContainer>
       {rec !== null ? <Chat loggedUser={user} setInfoUser={setInfoUser} setType={setType} correspondingUserId={rec} type={type}></Chat> : null}
-      {rec !== null ? <MoreInfo type={type} user={infoUser} ></MoreInfo> : null}
+      {rec !== null ? <MoreInfo type={type} loggedUser={user} user={infoUser} ></MoreInfo> : null}
       
 
 

@@ -159,7 +159,7 @@ app.put('/user',async (req,res)=>{
                 gender_interest:formData.gender_interest,
                 photos: formData.photos,
                 about : formData.about,
-                mathes : formData.matches
+                matches : formData.matches
 
             },
         }
