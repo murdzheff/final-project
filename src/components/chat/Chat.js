@@ -11,7 +11,7 @@ function Chat(props) {
     const [messages, setMessages] = useState([]);
     const [lastMessage, setLastMessage] = useState('');
     const [socket, setSocket] = useState(null);
-    const [displayEmo,setDisplayEmo] = useState(false)
+    const [displayEmo, setDisplayEmo] = useState(false)
     const count = useRef(null)
     const [sender, setSender] = useState(null);
     const [recipient, setRecipient] = useState(null)
@@ -20,13 +20,13 @@ function Chat(props) {
         count.current?.scrollIntoView({ behavior: "smooth" })
     }
     const chatInput = useRef("")
-    
+
     useEffect(() => {
         scrollToBottom()
     }, [messages])
 
     useEffect(() => {
-        
+
         update(props.correspondingUserId)
 
     }, [props.correspondingUserId])
@@ -57,14 +57,14 @@ function Chat(props) {
 
     function sortByTimestamp(objects) {
         return objects.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-      }
-      
-      
+    }
+
+
 
     async function update(id) {
         await Promise.all([
             messageManager.getMessages(user, id),
-            messageManager.getMessages(id,user)
+            messageManager.getMessages(id, user)
         ]).then(([messagesTo, messagesFrom]) => {
             let allMsgs = [...messagesTo, ...messagesFrom];
             let sorted = sortByTimestamp(allMsgs)
@@ -85,11 +85,11 @@ function Chat(props) {
         const second = ('0' + now.getSeconds()).slice(-2);
         return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
     }
-      
+
 
     function handleSendMessage(e) {
         e.preventDefault();
-        
+
         const message = {
             from: user,
             to: props.correspondingUserId,
@@ -106,12 +106,12 @@ function Chat(props) {
     useEffect(() => {
         userManager.getUserById(user).then(response => {
             setSender(response)
-            
+
             userManager.getUserById(props.correspondingUserId)
-            .then(res => {
-                setRecipient(res)
-            })
-            
+                .then(res => {
+                    setRecipient(res)
+                })
+
         })
 
 
@@ -122,7 +122,7 @@ function Chat(props) {
     }
 
     if (recipient === null) {
-        
+
         return <div>Loading...</div>;
     }
 
@@ -148,9 +148,13 @@ function Chat(props) {
         <div className="chatContainer" onClick={displayEmo ? () => setDisplayEmo(false) : null}>
             <div className="messagesContainer">
                 <div className="chatHeader">
-                    <img className="userPhoto" src={recipient?.photos[0]}></img>
-                    <h3>{recipient.email}</h3>
-                    <button className="checkProf">Check profile</button>
+
+                    <div className='recipient'>
+                        <img className="userPhoto" src={recipient?.photos[0]}></img>
+                        <h3>{recipient.email}</h3>
+                    </div>
+
+                    <button onClick={() => { props.setType("info"); props.setInfoUser(recipient) }} className="checkProf">Check profile</button>
                 </div>
                 <div className="msgs">
                     {messages.length > 0 && recipient !== null ? (
@@ -177,10 +181,10 @@ function Chat(props) {
                         onChange={(e) => setMsg(e.target.value)}
                         className="chatInputs" type="text"
                         placeholder="write something"></input>
-                        <button className='emojiButton' onClick={() => (setDisplayEmo(!displayEmo))}>{":)"}</button>
-                        <div className="emojis">
-                            {displayEmo ? <EmojiPicker  onEmojiClick={(e) => {setMsg(msg => msg + e.emoji)}}/> : null}
-                        </div>
+                    <button className='emojiButton' onClick={() => (setDisplayEmo(!displayEmo))}>{":)"}</button>
+                    <div className="emojis">
+                        {displayEmo ? <EmojiPicker onEmojiClick={(e) => { setMsg(msg => msg + e.emoji) }} /> : null}
+                    </div>
                     <button
 
                         onClick={handleSendMessage}

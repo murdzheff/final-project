@@ -1,0 +1,28 @@
+.more-info-container {
+    min-width: 80%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 80vh;
+    width: 60vh;
+    color: aliceblue;
+    max-height: 90vh;
+
+    .card{
+        margin-top: 5vh;
+        background-color: white;
+        max-height: 100vh;
+        font-size: 18px;
+        border: 2px solid rgb(255, 255, 255);
+        overflow: scroll;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 58vh;
+    }
+
+    
+}

@@ -4,17 +4,27 @@
     justify-content: center;
 }
 
-
+.left-side-container{
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 .match {
+
+    display: flex;
+    
 
     label {
         margin: 10px;
         display: flex;
         align-items: center;
-        justify-content: space-evenly;
+        gap: 5px;
         min-height: 50px;
         border-radius: 10px;
+        min-width: 100px;
+        width: 200px;
         
         &:hover {
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);

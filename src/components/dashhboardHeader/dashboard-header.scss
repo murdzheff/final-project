@@ -1,0 +1,35 @@
+.dashBoard-header{
+    display: flex;
+    height: 10vh;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 12px;
+
+    button{
+        border-radius: 10px;
+        height: 40px;
+        font-size: 12px;
+    }
+
+    h3{
+        font-size: 16px;
+    }
+    
+}
+
+.options{
+    display: flex;
+    gap: 5px;
+
+    .logout{
+        background-color: #8b284b;
+        color: white;
+        border: none;
+    }
+
+    .preferences{
+        background-color: #027373;
+        border: 1px solid black;
+        color: white;
+    }
+}

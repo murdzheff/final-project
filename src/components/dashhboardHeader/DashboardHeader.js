@@ -1,11 +1,13 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import "./dashboard-header.scss"
 
 function DashboardHeader(props) {
   const navigate = useNavigate()
 
   return (
-    <div>
+    <div className='dashBoard-header'>
+      <img className='userPhoto' src={props.user.photos[0]}></img>
       <h3>{props.user.first_name}</h3>
       <div className='options'>
         <button

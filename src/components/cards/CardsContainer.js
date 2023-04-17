@@ -217,7 +217,7 @@ function CardsContainer(props) {
                     <FontAwesomeIcon icon={faCircle}style={{ color: '#7cfda3',marginRight: '12px'  }} /> 
                     <p className='information-text'> Онлайн сега </p>
                     </div> 
-                    <FontAwesomeIcon icon={faCircleInfo} style={{fontSize:"30px" , color:"#d7d7d8"}} />       
+                    <FontAwesomeIcon onClick={() => {console.log(user)}} icon={faCircleInfo} style={{fontSize:"30px" , color:"#d7d7d8"}} />       
                   </div>
 
                 </div>

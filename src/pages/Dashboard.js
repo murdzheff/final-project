@@ -6,6 +6,7 @@ import CardsContainer from '../components/cards/CardsContainer'
 import Chat from '../components/chat/Chat'
 import { Navigate, useNavigate } from "react-router-dom"
 import messageManager from '../model/messageManager'
+import MoreInfo from '../components/moreInfo/MoreInfo'
 
 
 
@@ -18,6 +19,7 @@ function Dashboard() {
   const [matches, setMatches] = useState([])
   const [rec, setRec] = useState(null)
   const [chats,setChats] = useState([])
+  const [infoUser,setInfoUser] = useState(rec)
 
   async function update(id) {
     await Promise.all([
@@ -62,9 +64,10 @@ function Dashboard() {
         setRec={setRec}
         setType={setType}
         setChats={update} />
-      <CardsContainer matches={matches} setMatches={setMatches} type={type}></CardsContainer>
-      {rec !== null ? <Chat loggedUser={user} correspondingUserId={rec} type={type}></Chat> : null}
-
+      <CardsContainer matches={matches} setInfoUser={setInfoUser} setType={setType} setMatches={setMatches} type={type}></CardsContainer>
+      {rec !== null ? <Chat loggedUser={user} setInfoUser={setInfoUser} setType={setType} correspondingUserId={rec} type={type}></Chat> : null}
+      {rec !== null ? <MoreInfo type={type} user={infoUser} ></MoreInfo> : null}
+      
 
 
     </div>

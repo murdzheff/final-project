@@ -28,15 +28,24 @@
     }
 
     .chatHeader{
-        height: 100px;
+        height: 70px;
         width: 100%;
         display: flex;
         align-items: center;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: space-evenly;
         background-color: rgba(255, 255, 255, 0.443);
         border-radius: 10px;
         color: #8b284b;
+        
+
+        button{
+            border: none;
+            background-color: #8b284b;
+            border-radius: 10px;
+            color: white;
+            height: 30px;
+        }
     }
 
     .msgs{
@@ -138,4 +147,10 @@
 
 .time {
     font-size: 12px;
+}
+
+.recipient{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
