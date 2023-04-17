@@ -202,10 +202,9 @@ code {
 }
 .user-information{
   position: absolute;
-  display: flex;
   justify-content: center;
   align-items: center;
-  bottom: 30%;
+  bottom: 16%;
   padding: 16px;
 }
 .user-years-cards{
@@ -215,4 +214,21 @@ code {
 }
 .carousel-inner{
   border-radius: 5px;
+}
+.user-information>div{
+  display: flex;
+  align-items:baseline;
+  margin: -7px 0;
+}
+
+.information-text {
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+
+}
+.information-important-tnd{
+  display: flex;
+  justify-content: space-between;
+  width: 360px;
 }

@@ -10,6 +10,10 @@ import heart from './heart.svg'
 import arrow from './arrow.svg'
 import reload from './reload.svg'
 import PhotoWithPulse from '../loader/loader';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLocationDot,faCircle,faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+
 
 
 
@@ -19,7 +23,8 @@ function CardsContainer(props) {
   const [swipedUsers, setSwipedUsers] = useState([]);
   const [likedUsers, setLikedUsers]=useState([])
   const [isLoading, setIsLoading] = useState(true);
-  const [profilePic, setProfilePic]=useState("")
+  const [profilePic, setProfilePic]=useState("");
+
 
   
   
@@ -157,9 +162,25 @@ function CardsContainer(props) {
               <div className='card'>
                 <CardsCarousel  photos={user.photos} />
                 <div className='user-information'>
-                <h3 className='user-name-cards'>{user.first_name}</h3>
-                <span className='user-years-cards'>{new Date().getFullYear() - user.dob_year}</span>
-              </div>
+                  <div>
+                       <h3 className='user-name-cards'>{user.first_name}</h3>
+                       <span className='user-years-cards'>{new Date().getFullYear() - user.dob_year}</span>
+                  </div>
+
+                  <div>
+                  <FontAwesomeIcon icon={faLocationDot}style={{ color: 'white',marginRight: '12px'  }} /> 
+                  <p className='information-text'> На 3 километра разстояние </p>            
+                  </div>
+
+                  <div className='information-important-tnd'>
+                    <div style={{display:"flex"}}>
+                    <FontAwesomeIcon icon={faCircle}style={{ color: '#7cfda3',marginRight: '12px'  }} /> 
+                    <p className='information-text'> Онлайн сега </p>
+                    </div> 
+                    <FontAwesomeIcon icon={faCircleInfo} style={{fontSize:"30px" , color:"#d7d7d8"}} />       
+                  </div>
+
+                </div>
               </div>
             </TinderCard>
           ) : null
