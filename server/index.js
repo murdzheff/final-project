@@ -350,6 +350,7 @@ app.put('/user/:user_id/location', async (req, res) => {
 
 app.get('/users/:userId/messages/:correspondingUserId', async (req, res) => {
   const { userId, correspondingUserId } = req.params
+  
   try {
   const database = client.db('app-data')
   const messages = database.collection('messages')
