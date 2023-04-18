@@ -7,7 +7,7 @@ function DashboardHeader(props) {
 
   return (
     <div className='dashBoard-header'>
-      <img className='userPhoto' src={props.user.photos[0]}></img>
+      { props.user.photos && <img className='userPhoto' src={props.user.photos[0]}></img>}
       <h3>{props.user.first_name}</h3>
       <div className='options'>
         <button
