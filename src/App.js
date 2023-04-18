@@ -11,6 +11,8 @@ import userManager from './model/userManager';
 
 function App() {
   
+  let logged = JSON.parse(localStorage.getItem("token"))
+  logged? console.log(logged.userId) : console.log("bahur") 
 
   const loggedUser = async () => {
     await userManager.getUserById(JSON.parse(localStorage.getItem("token")).userId)
@@ -19,9 +21,9 @@ function App() {
 
   return (
     <Routes>
-      <Route index element={loggedUser ? <Navigate to={'/dashboard'} /> : <Navigate to={'/home'} />}></Route>
+      <Route index element={logged.userId ? <Navigate to={'/dashboard'} /> : <Navigate to={'/home'} />}></Route>
       <Route path='/home' element={<Home />}></Route>
-      <Route path='/dashboard' element={loggedUser ? <Dashboard /> : <Navigate to={"/home"} />}></Route>
+      <Route path='/dashboard' element={logged.userId ? <Dashboard /> : <Navigate to={"/home"} />}></Route>
       <Route path='/onboarding' element={loggedUser ? <Onboarding /> : <Navigate to={"/home"} />}></Route>
     </Routes>
   );

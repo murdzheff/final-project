@@ -84,6 +84,7 @@ app.post('/login', async (req, res) => {
 
 })
 
+
 // app.get('/users', async (req, res) => {
 //     // const client = new MongoClient(uri);
 //      try {
@@ -98,43 +99,105 @@ app.post('/login', async (req, res) => {
 //      }
 //  }) 
 
-// USERS BY GANDER
-app.get('/gendared-users', async (req, res) => {
-    // const client = new MongoClient(uri);
-    const gender = req.query.gender
-    try {
-        // await client.connect()
-        const databaseName = client.db('app-data')
-        const users = databaseName.collection('users')
-        const query ={ gender_identity: {$eq :gender}}
-        const foundUsers = await users.find(query).toArray()
-      
-        res.send(foundUsers)
+// GET all users by gender
+// app.get('/users', async (req, res) => {
+//   const userId = req.get('identity');
+//   if(!userId ) {
+//     res.status(401).send({message: "You are not logged in!"});
+//     return;
+//   }
+//   try {
+//     const { gender } = req.query;
+//     const database = client.db('app-data');
+//     const users = database.collection('users');
+//     const query = { gender_identity: gender, user_id: userId }; // add user_id to the query
+//     const foundUser = await users.findOne(query); // use findOne to check if there's a matching user
+//     if (!foundUser) {
+//       res.status(401).send({message: "Invalid user ID!"}); // respond with an error if the user ID is invalid
+//       return;
+//     }
+//     const foundUsers = await users.find({ gender_identity: gender }).toArray();
+//     res.status(200).json(foundUsers);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Internal server error');
+//   }
+// });
 
-    }finally{
-        // await client.close()
+// CHANGE USER CHARACTERISTICS
+app.put('/users/:userId', async (req, res) => {
+  const userId = req.get('identity');
+  if (!userId) {
+    res.status(401).send({ message: "You are not logged in!" });
+    return;
+  }
+
+  try {
+    const databaseName = client.db('app-data');
+    const users = databaseName.collection('users');
+
+    const query = { user_id: req.params.userId };
+    const foundUser = await users.findOne(query); // check if the user ID exists
+    if (!foundUser) {
+      res.status(401).send({ message: "Invalid user ID!" }); // respond with an error if the user ID is invalid
+      return;
     }
-})
+
+    if (userId !== req.params.userId) { // check if the authenticated user matches the user being updated
+      res.status(401).send({ message: "You do not have permission to update this user!" });
+      return;
+    }
+
+    const formData = req.body.formData;
+    const updateDocument = {
+      $set: {
+        first_name: formData.first_name,
+        dob_day: formData.dob_day,
+        dob_month: formData.dob_month,
+        dob_year: formData.dob_year,
+        show_gender: formData.show_gender,
+        gender_identity: formData.gender_identity,
+        gender_interest: formData.gender_interest,
+        photos: formData.photos,
+        about: formData.about,
+        matches: formData.matches
+      }
+    };
+
+    const updatedUser = await users.updateOne(query, updateDocument);
+    res.send(updatedUser);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ error: 'Something went wrong' });
+  }
+});
+
+
 
 // GETTING USER BY ID
+
 app.get('/user', async (req, res) => {
-    // const client = new MongoClient(uri);
-    const userId = req.query.userId
+  const userId = req.query.userId;
+  const loggedInUserId = req.query.loggedInUserId;
 
-    try {
-        // await client.connect()
-        const database = client.db('app-data')
-        const users = database.collection('users')
+  if (userId !== loggedInUserId) {
+    res.status(401).send({ message: 'You are not authorized to access this data!' });
+    return;
+  }
 
-        const query = { user_id: userId }
-        const user = await users.findOne(query)
-        console.log(user)
-        res.send(user)
+  try {
+    const database = client.db('app-data');
+    const users = database.collection('users');
 
-    } finally {
-        // await client.close()
-    }
-})
+    const query = { user_id: userId };
+    const user = await users.findOne(query);
+    console.log(user);
+    res.send(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal server error');
+  }
+});
 
 
 // CHANGE USERS CHARACTERISTICS
@@ -173,25 +236,54 @@ app.put('/user',async (req,res)=>{
 })
 
 // MATCHES
-app.put('/addmatch', async (req, res)=>{
-    console.log(req.body)
-    const {userId, matchedUserId}=req.body
-    try{
-        const database=client.db('app-data')
-        const users = database.collection('users')
+// app.put('/addmatch', async (req, res)=>{
+//     console.log(req.body)
+//     const {userId, matchedUserId}=req.body
+//     try{
+//         const database=client.db('app-data')
+//         const users = database.collection('users')
     
-        const query = {user_id : userId}
-        const updateDocument = {
-            $push: {matches: {user_id: matchedUserId}},
-        }
-        const user =  await users.updateOne(query, updateDocument)
-        const updatedUser = await users.findOne(query)
-        res.send(updatedUser.matches)
-    } finally{
-        // await client.close()
+//         const query = {user_id : userId}
+//         const updateDocument = {
+//             $push: {matches: {user_id: matchedUserId}},
+//         }
+//         const user =  await users.updateOne(query, updateDocument)
+//         const updatedUser = await users.findOne(query)
+//         res.send(updatedUser.matches)
+//     } finally{
+//         // await client.close()
+//     }
+// })
+    
+// Update a user's matches
+// PUT /users/:userId/matches/:matchedUserId
+
+app.put('/users/:userId/matches/:matchedUserId', async (req, res) => {
+  const userId = req.get('identity');
+  if(!userId ) {
+    res.status(401).send({message: "You are not logged in!"});
+    return;
+  }
+  
+  const { matchedUserId } = req.params;
+
+  try {
+    const database = client.db('app-data')
+    const users = database.collection('users')
+
+    const query = { user_id: userId }
+    const updateDocument = {
+      $push: { matches: { user_id: matchedUserId } },
     }
+    const user = await users.updateOne(query, updateDocument)
+    const updatedUser = await users.findOne(query)
+    res.send(updatedUser.matches)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Internal server error')
+  }
 })
-    
+
 
 // GET ALL USERS BY USER ID
 app.get('/users', async (req, res) => {
@@ -254,21 +346,28 @@ app.put('/user/:user_id/location', async (req, res) => {
   });
 
 
-// MESSAGES BY from_userId and to_userId
-app.get('/messages', async (req, res) => {
-  const { userId, correspondingUserId } = req.query
+// MESSAGES BETWEEN userId and correspondingUserId
+
+app.get('/users/:userId/messages/:correspondingUserId', async (req, res) => {
+  const { userId, correspondingUserId } = req.params
   try {
-    const database = client.db('app-data')
-    const messages = database.collection('messages')
-    const query = { from: userId, to: correspondingUserId }
-    const foundMessages = await messages.find(query).toArray()
-    io.emit("messages", foundMessages)
-    res.send(foundMessages)
-  } catch (error) {
-    console.error(error)
-    res.status(500).send('Internal server error')
+  const database = client.db('app-data')
+  const messages = database.collection('messages')
+  const query = {
+  $or: [
+  { from: userId, to: correspondingUserId },
+  { from: correspondingUserId, to: userId }
+  ]
   }
-})
+  const foundMessages = await messages.find(query).sort({ timestamp: 1 }).toArray() // sort by timestamp in descending order
+  io.emit("messages", foundMessages)
+  res.send(foundMessages)
+  } catch (error) {
+  console.error(error)
+  res.status(500).send('Internal server error')
+  }
+  })
+
 
 // ADD MESSAGES Database
 app.post('/message', async (req, res) => {
