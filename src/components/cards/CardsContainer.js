@@ -13,6 +13,7 @@ import PhotoWithPulse from '../loader/loader';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faCircle, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import userManager from '../../model/userManager';
 
 
 
@@ -35,30 +36,45 @@ function CardsContainer(props) {
     a = props.loggedUser.matches
     setLikedUsers(props.loggedUser.matches || [])
 
+    // axios
+    // .get('http://localhost:8080/gendared-users', {
+    //     params: { gender: genderInterest },
+    //   })
+    //   .then((response) => {
+
+    //     const filteredUsers = excludeArrayByUserId(response.data, props.loggedUser.matches || [])
 
 
+    //     setUsers(filteredUsers);
+    //     setUsers(shuffleArray(filteredUsers));
+    //     setIsLoading(false);
 
 
-    axios
-      .get('http://localhost:8080/gendared-users', {
-        params: { gender: genderInterest },
-      })
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     setIsLoading(false);
+    //   });
+
+    console.log(props.loggedUser.user_id)
+    userManager.getGenderedUsers(genderInterest)
       .then((response) => {
-
-        const filteredUsers = excludeArrayByUserId(response.data, props.loggedUser.matches || [])
-        
+        console.log(response)
+        const filteredUsers = excludeArrayByUserId(response, props.loggedUser.matches || [])
 
         setUsers(filteredUsers);
         setUsers(shuffleArray(filteredUsers));
         setIsLoading(false);
-        
+
 
       })
       .catch((error) => {
         console.log(error);
         setIsLoading(false);
       });
-  }, [props.type]);
+
+
+  }, []);
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -75,31 +91,42 @@ function CardsContainer(props) {
     // Filter array1 based on whether each object's user_id is NOT in the Set
     const filteredArray = array1.filter(obj => !userIdSet.has(obj.user_id));
     const arrayWithoutMe = filteredArray.filter(obj => obj.user_id !== JSON.parse(localStorage.getItem("token")).userId)
-
+    const alreadyLiked = filterObjectsByExclusion(arrayWithoutMe,props.loggedUser.matches)
+    console.log(alreadyLiked)
+    console.log(props.loggedUser.matches)
     return arrayWithoutMe;
   }
 
-
-
+  function filterObjectsByExclusion(originalArray, exclusionArray) {
+    // Use the filter method to return a new array of objects from originalArray
+    // that are not included in exclusionArray
+    return originalArray.filter(obj => !exclusionArray.find(object=>object.user_id===obj.user_id));
+  }
+  function debounce(func, delay) {
+    let timeoutId;
+    return function (...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(this, args);
+      }, delay);
+    };
+  }
+  
+  const debouncedAddMatch = debounce(userManager.addMatch, 500);
+  
 
   const swiped = (direction, user) => {
     setSwipedUsers([...swipedUsers, user.email]);
 
 
     if (direction === 'right') {
-      axios.put('http://localhost:8080/addmatch', {
-        userId: JSON.parse(localStorage.getItem('token')).userId,
-        matchedUserId: user.user_id,
-
-      })
-        .then((response) => {
-          setLikedUsers(response.data);
-          if (user.matches.find(e => e.user_id === JSON.parse(localStorage.getItem("token")).userId))
-            props.setMatches((matches) => [...matches, user])
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+     
+   if(props.loggedUser.matches.find(e=>e.user_id===user.user_id)){
+    debouncedAddMatch(props.loggedUser.user_id, user.user_id)
+    //userManager.addMatch(props.loggedUser.user_id, user.user_id)
+   }else{
+    alert("you already liked this one")
+   }
     }
   };
 
@@ -109,12 +136,6 @@ function CardsContainer(props) {
 
   const swipe = (direction) => {
     swipeRef.current.swipe(direction);
-
-
-
-
-
-
 
   };
 

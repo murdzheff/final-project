@@ -124,6 +124,29 @@ app.post('/login', async (req, res) => {
 //   }
 // });
 
+// GET all users by gender
+app.get('/users', async (req, res) => {
+  try {
+    const { gender } = req.query;
+    const database = client.db('app-data');
+    const users = database.collection('users');
+    const query ={ gender_identity: {$eq :gender}}
+
+    const foundUsers = await users.find( query ).toArray();
+    res.status(200).json(foundUsers);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal server error');
+  }
+});
+
+
+
+
+
+
+
+
 // CHANGE USER CHARACTERISTICS
 app.put('/users/:userId', async (req, res) => {
   const userId = req.get('identity');
@@ -175,29 +198,24 @@ app.put('/users/:userId', async (req, res) => {
 
 
 // GETTING USER BY ID
-
 app.get('/user', async (req, res) => {
-  const userId = req.query.userId;
-  const loggedInUserId = req.query.loggedInUserId;
-
-  if (userId !== loggedInUserId) {
-    res.status(401).send({ message: 'You are not authorized to access this data!' });
-    return;
-  }
+  // const client = new MongoClient(uri);
+  const userId = req.query.userId
 
   try {
-    const database = client.db('app-data');
-    const users = database.collection('users');
+      // await client.connect()
+      const database = client.db('app-data')
+      const users = database.collection('users')
 
-    const query = { user_id: userId };
-    const user = await users.findOne(query);
-    console.log(user);
-    res.send(user);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Internal server error');
+      const query = { user_id: userId }
+      const user = await users.findOne(query)
+      console.log(user)
+      res.send(user)
+
+  } finally {
+      // await client.close()
   }
-});
+})
 
 
 // CHANGE USERS CHARACTERISTICS
@@ -350,7 +368,7 @@ app.put('/user/:user_id/location', async (req, res) => {
 
 app.get('/users/:userId/messages/:correspondingUserId', async (req, res) => {
   const { userId, correspondingUserId } = req.params
-  
+
   try {
   const database = client.db('app-data')
   const messages = database.collection('messages')

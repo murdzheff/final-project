@@ -14,7 +14,7 @@ class UserManager {
         { headers: { 'Content-Type': 'application/json' } }
       );
       if (response.status === 201) {
-        localStorage.setItem("token",JSON.stringify(response.data));
+        localStorage.setItem("token", JSON.stringify(response.data));
         return 'User created successfully';
       } else {
         throw new Error('Signup failed');
@@ -36,7 +36,7 @@ class UserManager {
         { headers: { 'Content-Type': 'application/json' } }
       );
       if (response.status === 200) {
-        localStorage.setItem("token",JSON.stringify(response.data));
+        localStorage.setItem("token", JSON.stringify(response.data));
         return { userId: response.data.userId };
       } else {
         throw new Error('Login failed');
@@ -52,6 +52,8 @@ class UserManager {
 
 
   async getUserById(userId) {
+
+
     try {
       const response = await axios.get(
         'http://localhost:8080/user',
@@ -83,7 +85,7 @@ class UserManager {
     try {
       const response = await axios.put(
         `${this.baseUrl}/user`,
-         formData ,
+        formData,
         { headers: { 'Content-Type': 'application/json' } }
       );
       if (response.status === 200) {
@@ -97,15 +99,18 @@ class UserManager {
   }
 
   async getGenderedUsers(gender) {
-    try {
-      const response = await axios.get(`${this.baseUrl}/gendared-users?gender=${gender}`);
-      if (response.status === 200) {
-        return response.data;
-      } else {
-        throw new Error('Failed to get gendered users');
+    const config = {
+      params: {
+        'gender': `${gender}`
       }
+    };
+
+    try {
+      const response = await axios.get(this.baseUrl + "/users", config);
+      return response.data;
     } catch (error) {
-      throw new Error('Internal server error');
+      console.error(error);
+      throw new Error('Failed to get gendered users');
     }
   }
 
@@ -130,31 +135,29 @@ class UserManager {
   }
 
   async addMatch(userId, matchedUserId) {
-    try {
-      const response = await axios.put(
-        `${this.baseUrl}/addmatch`,
-        { userId, matchedUserId },
-        { headers: { 'Content-Type': 'application/json' } }
-      );
-      if (response.status === 200) {
-        return 'Match added successfully';
-      } else {
-        throw new Error('Failed to add match');
-      }
-    } catch (error) {
-      if (error.response.status === 404) {
-        throw new Error('User not found');
-      } else {
-        throw new Error('Internal server error');
-      }
-    }
+  
+      const response = await axios.put(`/users/${userId}/matches/${matchedUserId}`, null, {
+        headers: {
+          'identity': userId,
+        },
+      })
+        .then(response => {
+          return response.data
+        })
+        .catch(error => {
+         return  new  Error(error)
+          // Handle any errors
+        });
+    
+    
   }
+
 }
 
 
 
 
-const userManager = new UserManager("http://localhost:8080");
+  const userManager = new UserManager("http://localhost:8080");
 
 export default userManager;
 

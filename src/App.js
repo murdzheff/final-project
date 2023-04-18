@@ -17,18 +17,20 @@ function App() {
 
   useEffect(() => {
     let token = JSON.parse(localStorage.getItem("token"));
-    let userId = token.userId
+    let userId = token?.userId
+    if(token!==null){
+      userManager.getUserById(userId).then(res => {
+        if (res !== null) {
+          setLoggedUser(res)
+          navigate("/dashboard")
+          console.log(res)
+        }
+  
+      })
 
-    userManager.getUserById(userId).then(res => {
+    }
 
-      if (res !== null) {
-        setLoggedUser(res)
-        navigate("/dashboard")
-        console.log(loggedUser)
-        console.log(res)
-      }
-
-    })
+ 
   },[])
 
   return (
