@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function Modal({ modal, toggleModal, type }) {
+function Modal({ modal, toggleModal, type, setLoggedUser }) {
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
     const navigate = useNavigate();
@@ -20,7 +20,9 @@ function Modal({ modal, toggleModal, type }) {
     function handleRegister() {
         userManager.signup(email, password).then(response => {
             if (response) {
-               navigate("/onboarding");
+                setLoggedUser(response)
+                navigate("/onboarding");
+
             }
         })
 
@@ -32,9 +34,10 @@ function Modal({ modal, toggleModal, type }) {
     function handleLogin() {
         userManager.login(email, password).then(response => {
             if (response) {
-               navigate("/dashboard");
+                setLoggedUser(response)
+                navigate("/dashboard");
             }
-            
+
         })
     }
 

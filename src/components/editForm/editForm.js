@@ -23,9 +23,11 @@ function EditForm(props) {
     const [about, setAbout] = useState(" ");
     const [activeIndex, setActiveIndex] = useState(null);
     const navigate = useNavigate();
+    console.log(props.loggedUser)
 
     useEffect(() => {
         if (props.loggedUser) {
+            console.log(props.loggedUser)
             setFirstName(props.loggedUser.first_name);
             setDobDay(props.loggedUser.dob_day);
             setDobMonth(props.loggedUser.dob_month);
@@ -49,7 +51,7 @@ function EditForm(props) {
 
 
         }
-    }, [props.loggedUser])
+    }, [])
 
 
     const handleFileUpload = async (e, index) => {
@@ -68,7 +70,7 @@ function EditForm(props) {
         userManager.updateUser(JSON.stringify({
 
             formData: {
-                user_id: JSON.parse(localStorage.getItem('token')).userId,
+                user_id: props.loggedUser.user_id,
                 first_name: firstName,
                 dob_day: dobDay,
                 dob_month: dobMonth,

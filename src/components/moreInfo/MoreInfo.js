@@ -26,29 +26,29 @@ function MoreInfo(props) {
         return null
     }
 
-    function removeMatch () {
-      let index = loggedUser.matches.findIndex(obj => obj.user_id === props.user.user_id)
+    // function removeMatch () {
+    //   let index = loggedUser.matches.findIndex(obj => obj.user_id === props.user.user_id)
 
-      const newMatches = loggedUser.matches;
-      newMatches.splice(index,1)
+    //   const newMatches = loggedUser.matches;
+    //   newMatches.splice(index,1)
 
-      userManager.updateUser(JSON.stringify({
+    //   userManager.updateUser(JSON.stringify({
 
-        formData: {
-            user_id: loggedUser.userId,
-            first_name: loggedUser.first_name,
-            dob_day: loggedUser.dob_day,
-            dob_month: loggedUser.dob_month,
-            dob_year: loggedUser.dob_year,
-            show_gender: loggedUser.show_gender,
-            gender_identity: loggedUser.gender_identity,
-            gender_interest: loggedUser.gender_identity,
-            photos: loggedUser.photos,
-            about: loggedUser.about,
-            matches: newMatches
-        }
-    }))
-    }
+    //     formData: {
+    //         user_id: loggedUser.userId,
+    //         first_name: loggedUser.first_name,
+    //         dob_day: loggedUser.dob_day,
+    //         dob_month: loggedUser.dob_month,
+    //         dob_year: loggedUser.dob_year,
+    //         show_gender: loggedUser.show_gender,
+    //         gender_identity: loggedUser.gender_identity,
+    //         gender_interest: loggedUser.gender_identity,
+    //         photos: loggedUser.photos,
+    //         about: loggedUser.about,
+    //         matches: newMatches
+    //     }
+    // }))
+    // }
 
 
   return (

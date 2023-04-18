@@ -6,7 +6,7 @@ import Modal from '../components/modal/Modal';
 import Chat from '../components/chat/Chat';
 
 
-function Home() {
+function Home(props) {
     const [modal,setModal] = useState(false);
     const [type,setType] = useState("register");
 
@@ -24,7 +24,7 @@ function Home() {
     <div className='Home'>
         <Header toggleModal={toggleModal}></Header>
         <RegisterButton toggleModal={toggleModal}/>
-        <Modal type={type} toggleModal={toggleModal} modal={modal}>dadada</Modal>
+        <Modal type={type} setLoggedUser={props.setLoggedUser} toggleModal={toggleModal} modal={modal}>dadada</Modal>
 
 
     </div>

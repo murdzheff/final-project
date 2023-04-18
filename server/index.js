@@ -255,13 +255,19 @@ app.put('/user/:user_id/location', async (req, res) => {
 
 
 // MESSAGES BY from_userId and to_userId
+// MESSAGES BETWEEN userId and correspondingUserId
 app.get('/messages', async (req, res) => {
   const { userId, correspondingUserId } = req.query
   try {
     const database = client.db('app-data')
     const messages = database.collection('messages')
-    const query = { from: userId, to: correspondingUserId }
-    const foundMessages = await messages.find(query).toArray()
+    const query = {
+      $or: [
+        { from: userId, to: correspondingUserId },
+        { from: correspondingUserId, to: userId }
+      ]
+    }
+    const foundMessages = await messages.find(query).sort({ timestamp: -1 }).toArray() // sort by timestamp in descending order
     io.emit("messages", foundMessages)
     res.send(foundMessages)
   } catch (error) {

@@ -10,7 +10,7 @@ import MoreInfo from '../components/moreInfo/MoreInfo'
 
 
 
-function Dashboard() {
+function Dashboard(props) {
 
 
 
@@ -45,7 +45,7 @@ function Dashboard() {
   const token = localStorage.getItem("token");
   const user = token ? JSON.parse(token).userId : null;
 
-  let navigate = useNavigate()
+ 
 
   if (user === null) {
     
@@ -60,13 +60,13 @@ function Dashboard() {
         matches={matches}
         setMatches={setMatches}
         toggleModal={toggleModal}
-        user={user}
+        loggedUser={props.loggedUser}
         setRec={setRec}
         setType={setType}
         setChats={update} />
-      <CardsContainer matches={matches} setInfoUser={setInfoUser} setType={setType} setMatches={setMatches} type={type}></CardsContainer>
-      {rec !== null ? <Chat loggedUser={user} setInfoUser={setInfoUser} setType={setType} correspondingUserId={rec} type={type}></Chat> : null}
-      {rec !== null ? <MoreInfo type={type} loggedUser={user} user={infoUser} ></MoreInfo> : null}
+      {type === "Matches" && <CardsContainer matches={matches} loggedUser={props.loggedUser} setInfoUser={setInfoUser} setType={setType} setMatches={setMatches} type={type}></CardsContainer>}
+      {rec !== null && type === "Chat" ? <Chat loggedUser={props.loggedUser} setInfoUser={setInfoUser} setType={setType} correspondingUserId={rec} type={type}></Chat> : null}
+      {rec !== null && type === "info" ? <MoreInfo type={type} loggedUser={props.loggedUser} user={infoUser} ></MoreInfo> : null}
       
 
 

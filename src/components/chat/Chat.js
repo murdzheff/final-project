@@ -6,7 +6,7 @@ import userManager from '../../model/userManager';
 import EmojiPicker from 'emoji-picker-react';
 
 function Chat(props) {
-    let user = JSON.parse(localStorage.getItem('token')).userId;
+
     const [msg, setMsg] = useState('');
     const [messages, setMessages] = useState([]);
     const [lastMessage, setLastMessage] = useState('');
@@ -16,6 +16,7 @@ function Chat(props) {
     const [sender, setSender] = useState(null);
     const [recipient, setRecipient] = useState(null)
     const [isLoading, setIsLoading] = useState(0)
+    
     const scrollToBottom = () => {
         count.current?.scrollIntoView({ behavior: "smooth" })
     }
@@ -62,15 +63,10 @@ function Chat(props) {
 
 
     async function update(id) {
-        await Promise.all([
-            messageManager.getMessages(user, id),
-            messageManager.getMessages(id, user)
-        ]).then(([messagesTo, messagesFrom]) => {
-            let allMsgs = [...messagesTo, ...messagesFrom];
-            let sorted = sortByTimestamp(allMsgs)
-            console.log(sorted)
-            setMessages(sorted);
-        });
+        await messageManager.getMessages(props.loggedUser.user_id, id).then(mess => {
+            let sorted = sortByTimestamp(mess)
+            setMessages(mess)
+        })
     }
 
 
@@ -91,7 +87,7 @@ function Chat(props) {
         e.preventDefault();
 
         const message = {
-            from: user,
+            from: props.loggedUser.user_id,
             to: props.correspondingUserId,
             content: msg,
             timestamp: getCurrentDatetime(),
@@ -104,17 +100,13 @@ function Chat(props) {
     }
 
     useEffect(() => {
-        userManager.getUserById(user).then(response => {
-            setSender(response)
 
-            userManager.getUserById(props.correspondingUserId)
-                .then(res => {
-                    setRecipient(res)
-                })
+        setSender(props.loggedUser)
 
-        })
-
-
+        userManager.getUserById(props.correspondingUserId)
+            .then(res => {
+                setRecipient(res)
+            })
     }, [props.correspondingUserId])
 
     if (props.type !== 'Chat') {
@@ -130,7 +122,7 @@ function Chat(props) {
         if (e.key == "Enter") {
             e.preventDefault();
             const message = {
-                from: user,
+                from: props.loggedUser.user_id,
                 to: props.correspondingUserId,
                 content: msg,
                 timestamp: getCurrentDatetime(),
@@ -160,8 +152,8 @@ function Chat(props) {
                     {messages.length > 0 && recipient !== null ? (
                         messages.map((message, index) => (
                             <div className="message" key={index}>
-                                <span className={message.from !== user ? 'incoming' : 'outgoing'}>
-                                    <img className='messagePhoto' src={message.from !== user ? recipient?.photos[0] : sender?.photos[0]}></img>
+                                <span className={message.from !== props.loggedUser.user_id ? 'incoming' : 'outgoing'}>
+                                    <img className='messagePhoto' src={message.from !== props.loggedUser.user_id ? recipient?.photos[0] : sender?.photos[0]}></img>
                                     <p>{message.content} </p>
                                     <p className='time'>{message.timestamp}</p>
                                 </span>
