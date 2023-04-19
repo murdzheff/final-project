@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faCircle, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import userManager from '../../model/userManager';
 import { useLocation } from 'react-router-dom'
+import PopUp from '../popup/PopUp';
 
 
 
@@ -26,6 +27,8 @@ function CardsContainer(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [profilePic, setProfilePic] = useState("");
   const location = useLocation();
+  const [liked,setLiked] = useState(null)
+  const [disliked,setdisLiked] = useState(null)
 
 
 
@@ -111,11 +114,21 @@ function CardsContainer(props) {
     debouncedAddMatch(props.loggedUser.user_id, user.user_id)
     props.setMatches([...props.loggedUser.matches, {user_id: user.user_id}])
     props.loggedUser.matches.push({user_id: user.user_id})
+    setLiked(user);
+    setTimeout(() => {
+      setLiked(null)
+    }, 3000);
     //userManager.addMatch(props.loggedUser.user_id, user.user_id)
    //}else{
     
     
   // }
+    } else {
+      setdisLiked(user);
+
+      setTimeout(() => {
+        setdisLiked(null)
+      }, 3000);
     }
   };
 
@@ -125,7 +138,6 @@ function CardsContainer(props) {
 
   const swipe = (direction) => {
     swipeRef.current.swipe(direction);
-
   };
 
   if (props.type !== 'Matches') {
@@ -155,8 +167,13 @@ function CardsContainer(props) {
       </div>
     );
   }
+
+
   return (
     <div className='swipe-container'>
+
+
+
       <div className='card-container'>
         {users.map((user) => (
           !swipedUsers.includes(user.email) ? (
@@ -218,7 +235,9 @@ function CardsContainer(props) {
         </Button>{' '}
 
       </div>
-
+          
+          {liked && <PopUp message={`You liked ${liked.first_name}, if they like you back you will have a match!`}/>}
+          {disliked && <PopUp message={`You have disliked ${disliked.first_name}, they won't show up for a while...`}/>}
     </div>
   );
 
