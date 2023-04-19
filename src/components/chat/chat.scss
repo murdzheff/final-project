@@ -36,15 +36,41 @@
         justify-content: space-evenly;
         background-color: rgba(255, 255, 255, 0.443);
         border-radius: 10px;
-        color: #8b284b;
+        color: #e84379;
         
+        img {
+            object-fit: cover;
+        }
 
-        button{
-            border: none;
-            background-color: #8b284b;
+        button {
+            background-color: #e84379;
+            position: relative;
+            
             border-radius: 10px;
+            border: #ccc;
+            height: 40px;
             color: white;
-            height: 30px;
+        
+            &:hover {
+                animation: wiggle 0.5s ease-in-out ;
+                background-color: #23a8d3;
+            }
+        
+            @keyframes wiggle {
+                0% {
+                  transform: rotate(0deg);
+                }
+                25% {
+                  transform: rotate(5deg);
+                }
+                75% {
+                  transform: rotate(-5deg);
+                }
+                100% {
+                  transform: rotate(0deg);
+                }
+        
+            }
         }
     }
 
@@ -59,17 +85,19 @@
             display: flex;
             margin-left: 20px;
             
+
+
             .outgoing{
                 margin-left: auto;
-                background-color: rgb(2, 115, 115);
+                background-color: #23a8d3;
             }
             
             .incoming{
                 margin-right: auto;
-                background-color: #8b284b;
+                background-color: #e84379;
             }
 
-            span{
+            div{
                 display: flex;
                 gap: 5px;
                 margin: 10px;
@@ -80,10 +108,16 @@
                 img{
                     height: 25px;
                     width: 25px;
+                    background-repeat: no-repeat;
+                    object-fit: cover;
                 }
 
                 p{
                     margin: 5px;
+                }
+
+                &:hover {
+                    animation: wiggle 0.5s ease-in-out ;
                 }
             }
             
@@ -102,10 +136,14 @@
             background-color: transparent;
             border: none;
             border-radius: 10px;
-            background-color: rgb(2, 115, 115);
+            background-color: transparent;
+
+            img {
+                height: 30px;
+            }
 
             &:hover{
-                background-color: #8b284b;
+                animation: wiggle 0.5s ease-in-out ;
             }
         }
 
@@ -133,7 +171,12 @@
     min-height: 40px;
     min-width: 40px;
     border-radius: 50%;
-    background-color: yellow;
+    border: none;
+    background-color: transparent;
+    
+    img{
+        height: 30px;
+    }
 }
 
 .messagePhoto {
@@ -154,3 +197,8 @@
     align-items: center;
     gap: 10px;
 }
+
+
+
+  
+  

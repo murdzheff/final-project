@@ -50,7 +50,7 @@ const LeftSideContainer = (props) => {
             {currentUser !== null ? <DashboardHeader user={currentUser} /> : null}
 
             <div className='matches-header'>
-                <button className="option" onClick={props.toggleModal} >Matches</button>
+                <button className="optionMatches" onClick={props.toggleModal} >Matches</button>
             </div>
             <div>
                 {matchedUsers.map((el, index) => {

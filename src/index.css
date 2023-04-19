@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-   
+
 }
 
 code {
@@ -19,13 +19,14 @@ code {
 
 
 
- .dashboard {
+.dashboard {
   display: flex;
   justify-content: 1rem 2rem;
   min-width: 100vh;
-  height: 100vh;;
+  height: 100vh;
+  ;
 
-  
+
 }
 
 
@@ -36,12 +37,59 @@ code {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  position: relative;
+  top: 0px;
+  animation: slide-in 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards,
+    wiggle 0.5s ease-in-out;
+
+    
+    
+
+
   
+}
+
+
+
+@keyframes slide-in {
+  0% {
+    top: 100px;
+  }
+
+  50% {
+    top: -50px;
+  }
+
+  100% {
+    top: 0;
+  }
+
+
+}
+
+@keyframes wiggle {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(5deg);
+  }
+
+  75% {
+    transform: rotate(-5deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+
+
 }
 
 .swipe {
   position: absolute;
-  
+
 }
 
 .dashboard .card-container {
@@ -56,9 +104,6 @@ code {
   background-size: cover;
   background-position: center;
   background-color: rgba(0, 0, 0, 0) !important
-
-
-
 }
 
 
@@ -134,18 +179,17 @@ code {
   height: 640px;
 } */
 
-.imageCoversOfCarts{
+.imageCoversOfCarts {
   width: 450px;
   height: 650px;
-  background-size:cover;
+  background-size: cover;
   background-position: center;
-  
+
 }
+
 .carousel-indicators {
   z-index: 15;
-  bottom: 93%  !important
-  
-
+  bottom: 93% !important
 }
 
 .button-container-tin img {
@@ -160,14 +204,17 @@ code {
   height: 100%;
   background: black;
   overflow: hidden;
-  background: #C33764;  /* fallback colour. Make sure this is just one solid colour. */
+  background: #C33764;
+  /* fallback colour. Make sure this is just one solid colour. */
   /* background: -webkit-linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8)); */
-  background: linear-gradient(0deg, rgba(0,0,0,0.9305847338935574) 11%, rgba(190,137,22,0) 28%);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.9305847338935574) 11%, rgba(190, 137, 22, 0) 28%);
 }
-.user-name-cards{
- color: white;
- font-weight: 700;
+
+.user-name-cards {
+  color: white;
+  font-weight: 700;
 }
+
 .button-container-tin {
   justify-content: space-between;
   display: flex;
@@ -177,19 +224,20 @@ code {
   bottom: 10%;
   height: 68px;
 }
+
 .button-container-tin button {
   width: 19%;
   height: 110%;
   border-radius: 60px !important;
 }
 
-.bahur{
+.bahur {
   position: absolute;
   color: white;
   z-index: 15;
   transform: rotate(-50grad);
   display: none;
-  
+
 }
 
 .photo-loader {
@@ -200,40 +248,45 @@ code {
   background-position: center center;
   background-size: cover;
 }
-.user-information{
+
+.user-information {
   position: absolute;
   justify-content: center;
   align-items: center;
   bottom: 16%;
   padding: 16px;
 }
-.user-years-cards{
+
+.user-years-cards {
   color: white;
   font-size: 26px;
   margin-left: 13px;
 }
-.carousel-inner{
+
+.carousel-inner {
   border-radius: 5px;
 }
-.user-information>div{
+
+.user-information>div {
   display: flex;
-  align-items:baseline;
+  align-items: baseline;
   margin: -7px 0;
 }
 
 .information-text {
-    color: white;
-    font-weight: 600;
-    font-size: 18px;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
 
 }
-.information-important-tnd{
+
+.information-important-tnd {
   display: flex;
   justify-content: space-between;
   width: 360px;
 }
 
-.infoIcon{
+.infoIcon {
   z-index: 15;
   cursor: pointer;
 }
