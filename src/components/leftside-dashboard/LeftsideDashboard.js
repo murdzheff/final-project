@@ -22,15 +22,23 @@ const LeftSideContainer = (props) => {
 
         if (props.loggedUser.matches) {
 
-            Promise.all(props.loggedUser.matches.map(e => {
+            let strings = props.loggedUser.matches.map(e => e.user_id).filter(Boolean).join(",")
+            
 
-                return e = userManager.getUserById(e.user_id)
-            }))
+            // Promise.all(props.loggedUser.matches.map(e => {
+
+            //     return e = userManager.getUserById(e.user_id)
+            // }))
+            userManager.getUsersByIds(strings)
                 .then(result => {
+                    console.log(result)
                     let trueMatches = []
                     result.forEach(e => {
-                        if (e.matches && e.matches.find(el => el.user_id === props.loggedUser.user_id)) {
+                        
+                        if (e.matches &&  e.matches.find(el => el.user_id === props.loggedUser.user_id)) {
+                            
                             trueMatches.push(e)
+                            
                             props.setMatches(trueMatches)
                         }
                     })
@@ -50,7 +58,7 @@ const LeftSideContainer = (props) => {
             {currentUser !== null ? <DashboardHeader user={currentUser} /> : null}
 
             <div className='matches-header'>
-                <button className="option" onClick={props.toggleModal} >Matches</button>
+                <button className="optionMatches" onClick={props.toggleModal} >Matches</button>
             </div>
             <div>
                 {matchedUsers.map((el, index) => {

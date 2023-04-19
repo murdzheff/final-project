@@ -26,7 +26,7 @@ app.post('/signup', async (req, res) => {
     const { email, password } = req.body
 
     const generatedUserId = uuidv4()
-    const hashedPassword = await bcrypt.hash(password, 10)
+    const hashedPassword = await bcrypt.hash(password.trim(), 10)
 
     try {
         // await client.connect()
@@ -38,13 +38,14 @@ app.post('/signup', async (req, res) => {
         if (existingUser) {
             return res.status(409).send('User already exists. Plaeace login')
         }
-        const sanitizedEmail = email.toLowerCase()
+        const sanitizedEmail = email.toLowerCase().trim()
 
         const data = {
             user_id: generatedUserId,
             email: sanitizedEmail,
             hashes_password: hashedPassword,
-            photos:  [null,null,null,null,null]
+            photos:  [null,null,null,null,null],
+            matches: []
         }
         const insertedUser = await users.insertOne(data)
 
@@ -210,7 +211,7 @@ app.get('/user', async (req, res) => {
 
       const query = { user_id: userId }
       const user = await users.findOne(query)
-      console.log(user)
+      
       res.send(user)
 
   } finally {
@@ -305,11 +306,30 @@ app.put('/users/:userId/matches/:matchedUserId', async (req, res) => {
 
 
 // GET ALL USERS BY USER ID
-app.get('/users', async (req, res) => {
+
+
+// app.get('/users', async (req, res) => {
+//   const userIds = JSON.parse(req.query.userIds)
+//   console.log(userIds)
+//   try {
+//     const database = client.db('app-data')
+//     const users = database.collection('users')
+//     const foundUsers = await users.find({ user_id: { $in: userIds } }).toArray()
+//     console.log(foundUsers)
+//     res.json(foundUsers)
+//   } catch (error) {
+//     console.error(error)
+//     res.status(500).json({ error: 'An error occurred' })
+//   }
+// })
+
+
+
+app.get('/usersIds', async (req, res) => {
     // const client = new MongoClient(uri)
-
-    const userIds = JSON.parse(req.query.userIds)
-
+    
+    const userIds = req.query.userIds.split(",")
+    console.log("tuka", typeof userIds)
     try {
         // await client.connect()
         const database = client.db('app-data')
@@ -326,7 +346,7 @@ app.get('/users', async (req, res) => {
             ]
 
         const foundUsers = await users.aggregate(pipeline).toArray()
-
+            console.log(foundUsers)
         res.json(foundUsers)
 
     } finally {
@@ -392,13 +412,13 @@ app.get('/users/:userId/messages/:correspondingUserId', async (req, res) => {
 // ADD MESSAGES Database
 app.post('/message', async (req, res) => {
     const message = req.body.message ;
-    console.log(message);
+    
   try {
     const database = client.db('app-data')
     const messages = database.collection('messages')
 
     const insertedMessage = await messages.insertOne(message)
-    console.log(insertedMessage)
+    
 //    io.emit('message', insertedMessage) // Emit the new message to all connected clients
     res.send(insertedMessage)
 
@@ -414,7 +434,7 @@ io.on('connection', (socket) => {
 
   socket.on('message', (data) => {
     io.sockets.emit("messageRes", data);
-    console.log(data)
+    
   });
 
   socket.on('disconnect', () => {

@@ -115,50 +115,68 @@ class UserManager {
     }
   }
 
-  async getUsersByIds(userIds) {
+
+
+
+  getUsersByIds = async (userIds) => {
     try {
-      const response = await axios.get(
-        `${this.baseUrl}/users?userIds=${JSON.stringify(userIds)}`,
-        { headers: { 'Content-Type': 'application/json' } }
-      );
-      if (response.status === 200) {
-        return response.data;
-      } else {
-        throw new Error('Failed to get users by IDs');
-      }
+      const response = await axios.get(`${this.baseUrl}/usersIds`, {
+        params: {
+          userIds: userIds
+        }
+      });
+      return response.data;
     } catch (error) {
-      if (error.response.status === 400) {
-        throw new Error('Invalid user IDs');
-      } else {
-        throw new Error('Internal server error');
-      }
+      console.error(error);
     }
-  }
+  };
+
+
+
+
+    // try {
+    //   const response = await axios.get(
+    //     `${this.baseUrl}/users?userIds=${JSON.stringify(userIds)}`,
+    //     { headers: { 'Content-Type': 'application/json' } }
+    //   );
+    //   if (response.status === 200) {
+    //     return response.data;
+    //   } else {
+    //     throw new Error('Failed to get users by IDs');
+    //   }
+    // } catch (error) {
+    //   if (error.response.status === 400) {
+    //     throw new Error('Invalid user IDs');
+    //   } else {
+    //     throw new Error('Internal server error');
+    //   }
+    // }
+  
 
   async addMatch(userId, matchedUserId) {
-  
-      const response = await axios.put(`http://localhost:8080/users/user=${userId}/matches/${matchedUserId}`, null, {
-        headers: {
-          'identity': userId,
-        },
-      })
-        .then(response => {
-          return response.data
-        })
-        .catch(error => {
-         return  new  Error(error)
-          // Handle any errors
-        });
-    
-    
-  }
+
+  const response = await axios.put(`http://localhost:8080/users/user=${userId}/matches/${matchedUserId}`, null, {
+    headers: {
+      'identity': userId,
+    },
+  })
+    .then(response => {
+      return response.data
+    })
+    .catch(error => {
+      return new Error(error)
+      // Handle any errors
+    });
+
+
+}
 
 }
 
 
 
 
-  const userManager = new UserManager("http://localhost:8080");
+const userManager = new UserManager("http://localhost:8080");
 
 export default userManager;
 

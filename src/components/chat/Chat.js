@@ -4,6 +4,8 @@ import './chat.scss';
 import socketIOClient from 'socket.io-client';
 import userManager from '../../model/userManager';
 import EmojiPicker from 'emoji-picker-react';
+import Arrow from "./send-mail.png"
+import Emoj from "./emoji.png"
 
 function Chat(props) {
 
@@ -16,7 +18,7 @@ function Chat(props) {
     const [sender, setSender] = useState(null);
     const [recipient, setRecipient] = useState(null)
     const [isLoading, setIsLoading] = useState(0)
-    
+
     const scrollToBottom = () => {
         count.current?.scrollIntoView({ behavior: "smooth" })
     }
@@ -146,17 +148,17 @@ function Chat(props) {
                         <h3>{recipient.email}</h3>
                     </div>
 
-                    <button onClick={() => { props.setType("info"); props.setInfoUser(recipient) }} className="checkProf">Check profile</button>
+                    <button style={{ backgroundColor: "#e23f80" }} onClick={() => { props.setType("info"); props.setInfoUser(recipient) }} className="checkProf">Check profile</button>
                 </div>
                 <div className="msgs">
                     {messages.length > 0 && recipient !== null ? (
                         messages.map((message, index) => (
                             <div className="message" key={index}>
-                                <span className={message.from !== props.loggedUser.user_id ? 'incoming' : 'outgoing'}>
+                                <div className={message.from !== props.loggedUser.user_id ? 'incoming' : 'outgoing'}>
                                     <img className='messagePhoto' src={message.from !== props.loggedUser.user_id ? recipient?.photos[0] : sender?.photos[0]}></img>
                                     <p>{message.content} </p>
-                                    <p className='time'>{message.timestamp}</p>
-                                </span>
+                                    <p className='time'>{message.timestamp.slice(10,)}</p>
+                                </div>
                             </div>
                         ))
                     ) : (
@@ -173,7 +175,9 @@ function Chat(props) {
                         onChange={(e) => setMsg(e.target.value)}
                         className="chatInputs" type="text"
                         placeholder="write something"></input>
-                    <button className='emojiButton' onClick={() => (setDisplayEmo(!displayEmo))}>{":)"}</button>
+                    <button className='emojiButton' onClick={() => (setDisplayEmo(!displayEmo))}>
+                        <img src={Emoj}></img>
+                    </button>
                     <div className="emojis">
                         {displayEmo ? <EmojiPicker onEmojiClick={(e) => { setMsg(msg => msg + e.emoji) }} /> : null}
                     </div>
@@ -181,7 +185,7 @@ function Chat(props) {
 
                         onClick={handleSendMessage}
                         className="sendMsg">
-                        {">>>"}
+                        <img src={Arrow}></img>
                     </button>
                 </div>
             </div>

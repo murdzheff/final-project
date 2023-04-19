@@ -1,6 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import "./dashboard-header.scss"
+import Settings from "./setting.png"
+import Logout from "./logout.png"
 
 function DashboardHeader(props) {
   const navigate = useNavigate()
@@ -15,7 +17,7 @@ function DashboardHeader(props) {
             navigate("/onboarding")
           }}
           className='preferences'>
-          Preferences
+          <img src={Settings} ></img>
         </button>
         <button
           className='logout'
@@ -23,7 +25,7 @@ function DashboardHeader(props) {
             localStorage.clear()
             navigate("/home")
           }}>
-          Log out
+            <img src={Logout}></img>
         </button>
       </div>
 
