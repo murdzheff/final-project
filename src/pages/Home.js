@@ -15,7 +15,7 @@ function Home(props) {
     
     const toggleModal = (e) => {
         e.preventDefault();
-        if (e.target.textContent === "Register") {
+        if (e.target.textContent === "Създай профил") {
             setType("register")
         } else {
             setType("login")

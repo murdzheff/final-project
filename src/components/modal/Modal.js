@@ -33,6 +33,7 @@ function Modal({ modal, toggleModal, type, setSuccess, loggedUser }) {
 
 
     function handleLogin() {
+        
         userManager.login(email, password).then(response => {
 
             setTimeout(() => {
