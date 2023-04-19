@@ -125,12 +125,12 @@ function Modal({ modal, toggleModal, type, setSuccess, loggedUser }) {
   function handleLogin(e) {
     e.preventDefault();
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setErrorMessage("Please enter a valid email address");
-      return;
-    }
+    // // Email validation
+    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // if (!emailRegex.test(email)) {
+    //   setErrorMessage("Please enter a valid email address");
+    //   return;
+    // }
 
     userManager.login(email, password)
       .then(response => {
