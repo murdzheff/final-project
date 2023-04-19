@@ -101,7 +101,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
 }
 
 .about {
@@ -117,4 +117,8 @@
     object-fit: cover;
     background-repeat: no-repeat;
     height: 100px;
+}
+
+.resetPhoto {
+    color: red;
 }
