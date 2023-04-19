@@ -81,6 +81,7 @@ app.post('/login', async (req, res) => {
         res.status(400).send('Invalid Credentials')
     } catch (err) {
         console.log(err)
+        res.status(400).send('Invalid Credentials')
     }
 
 

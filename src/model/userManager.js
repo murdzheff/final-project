@@ -43,7 +43,7 @@ class UserManager {
       }
     } catch (error) {
       if (error.response.status === 400) {
-        throw new Error('Invalid credentials');
+        return error;
       } else {
         throw new Error('Internal server error');
       }
