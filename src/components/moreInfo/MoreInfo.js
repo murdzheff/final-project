@@ -58,7 +58,7 @@ function MoreInfo(props) {
             <h2>{props.user.first_name}</h2>
             <h3>Gender: {props.user.gender_identity}</h3>
             <h4>{2023 - props.user.dob_year} years old</h4>
-            {props.user.about.length > 2 && <p>About: <br/> {props.user.about}</p>}
+            {props.user.about?.length > 2 && <p>About: <br/> {props.user.about}</p>}
             {/* {foundInMatches ? <button className='unmatch' onClick={removeMatch}>Unmatch</button> : null} */}
         </div>
     </div>

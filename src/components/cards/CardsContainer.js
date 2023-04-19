@@ -125,7 +125,6 @@ function CardsContainer(props) {
 
   const swipe = (direction) => {
     swipeRef.current.swipe(direction);
-
   };
 
   if (props.type !== 'Matches') {
