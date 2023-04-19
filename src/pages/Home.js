@@ -14,8 +14,9 @@ function Home(props) {
     const [type,setType] = useState("register");
     
     const toggleModal = (e) => {
+        console.log(e.target.textContent)
         e.preventDefault();
-        if (e.target.textContent === "Register") {
+        if (e.target.textContent === "Създай профил") {
             setType("register")
         } else {
             setType("login")
@@ -31,7 +32,7 @@ function Home(props) {
         <img src={backgroundImg}></img>
         <Header toggleModal={toggleModal}></Header>
         <RegisterButton toggleModal={toggleModal}/>
-        {<Modal success={props.success} setSuccess={props.setSuccess} loggedUser={props.loggedUser} type={type} setLoggedUser={props.setLoggedUser} toggleModal={toggleModal} modal={modal}>dadada</Modal>}
+        {<Modal success={props.success} setSuccess={props.setSuccess} setType={setType} loggedUser={props.loggedUser} type={type} setLoggedUser={props.setLoggedUser} toggleModal={toggleModal} modal={modal}>dadada</Modal>}
         <ClientReviews/>
 
         </div>
