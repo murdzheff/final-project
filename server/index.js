@@ -5,6 +5,7 @@ const { v1: uuidv4 } = require('uuid')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const cors = require('cors')
+const { error } = require('console')
 const app = express()
 app.use(cors())
 app.use(express.json({ limit: '50mb' }))
@@ -215,7 +216,11 @@ app.get('/user', async (req, res) => {
       
       res.send(user)
 
-  } finally {
+  } catch{
+    console.log(error)
+
+  }
+  finally {
       // await client.close()
   }
 })

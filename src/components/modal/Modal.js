@@ -156,10 +156,17 @@ function Modal({ modal, toggleModal, type, setSuccess, loggedUser }) {
     <div className='overlay'>
       <div className='modal'>
         <button className='closeModal' onClick={toggleModal}>X</button>
-        <img src={Logo} alt="Logo"></img>
-        {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-        <form>
-          <input
+        <img className='logo' src={Logo} alt="Logo"></img>
+        {type === "register" &&
+           <h4 className='header-register'>Създай профил</h4>
+          }
+            {type === "login" &&
+           <h4 className='header-register'>Да започваме</h4>
+          }
+         <h5 className='content-home-form'>С натискане на бутона Впиши се , ти се съгласяваш с нашите Условия. Приятно сърфиране!</h5>
+        {errorMessage && <Alert className='alert' variant="danger">{errorMessage}</Alert>}
+        <form className='form-home'>
+          <input className='email'
             onChange={e => setEmail(e.target.value)}
             placeholder='Your email'
             type='email'
@@ -167,6 +174,7 @@ function Modal({ modal, toggleModal, type, setSuccess, loggedUser }) {
             required
           />
           <input
+          className='password'
             onChange={e => setPassword(e.target.value)}
             placeholder='Your password'
             type='password'
@@ -175,6 +183,7 @@ function Modal({ modal, toggleModal, type, setSuccess, loggedUser }) {
           />
           {type === "register" &&
             <input
+            className='confirmPassword'
               onChange={e => setConfirmPassword(e.target.value)}
               placeholder='Confirm your password'
               type='password'

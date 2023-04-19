@@ -1,95 +1,162 @@
+$color_1: white;
+$color_2: #fe4a69;
+$font-family_1: 'Montserrat', sans-serif;
+$background-color_1: transparent;
+$background-color_2: rgba(255, 255, 255, 0.969);
+$background-color_3: #fe4a69;
+$background-color_4: #bd364d;
+$border-color_1: #bd364d;
+$border-color_2: #fe4a69;
+
 .overlay {
     position: absolute;
     top: 0px;
     min-height: 100%;
-    background-color: transparent;
+    background-color: $background-color_1;
     z-index: 2;
     min-width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    
-
-
 
     .modal {
-        width: 40vh;
-        background-color: rgba(255, 255, 255, 0.969);
-        min-height: 45vh;
-        
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        gap: 50px;
-        position: relative;
-        
-        
-
-        img{
+        img {
             height: 60px;
         }
 
         button {
-            
-            
-            max-width: 40vh;
-            color: white;
+            //max-width: 40vh;
+            color: $color_1;
             font-size: large;
             border: none;
             border-radius: 5px;
             min-height: 4vh;
-            background-color: #fe4a69;
-            min-width: 15%;
+            background-color: $background-color_3;
+            min-width: 40%;
             margin-top: 10px;
             cursor: pointer;
 
             &:hover {
-                background-color: #bd364d;
+                background-color: $background-color_4;
             }
         }
 
         form {
             display: flex;
             flex-direction: column;
-            
-            height: 25vh;
-            
+            // height: 25vh;
             align-items: center;
             justify-content: center;
 
             input {
-                background-color: transparent;
+                background-color: $background-color_1;
                 border: none;
                 border-bottom: 2px dashed #fe4a69;
                 height: 5vh;
+                width: 100%;
                 font-size: larger;
-                color: #fe4a69;
+                color: $color_2;
+                transition: border-color 0.3s ease-in-out;
+                font-family: $font-family_1;
 
+                &:hover {
+                    border-color: $border-color_1;
+                }
 
-
-                button {
-                    color: white;
-                    font-size: larger;
-                    border: none;
-                    border-radius: 5px;
-                    min-height: 4vh;
-                    background-color: #fe4a69;
-                    min-width: 15%;
-                    
-                    cursor: pointer;
-
-                    &:hover {
-                        background-color: #bd364d;
-                    }
+                &:focus {
+                    border-color: $border-color_2;
+                    outline: none;
+                    transition: border-color 0.3s ease-in-out;
+                    outline: none;
                 }
             }
 
-            textarea:focus, input:focus{
-                outline: none;
+            button {
+                color: $color_1;
+                font-size: larger;
+                border: none;
+                border-radius: 5px;
+                min-height: 4vh;
+                min-width: 15%;
+                cursor: pointer;
+                background-image: linear-gradient(45deg, #fe4a69, #bd364d);
+                transition: background-color 0.3s ease-in-out;
+                font-family: $font-family_1;
+
+                &:hover {
+                    background-image: linear-gradient(45deg, #bd364d, #fe4a69);
+                }
+            }
+
+            textarea {
+                &:focus {
+                    outline: none;
+                }
             }
         }
     }
 }
 
+.modal {
+    overflow: hidden;
+    width: 34vw;
+    background-color: $background-color_2;
+    min-height: 45vh;
+    height: 100vh;
+    border-radius: 10px;
+    gap: 50px;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 0px 0px;
+    justify-items: center;
+    align-items: center;
+    grid-template-areas:
+        ". . . . b"
+        ". . l . ."
+        ". . . . ."
+        ". h h h ."
+        ". . . . ."
+        ". c c c ."
+        ". c c c ."
+        ". . . . ."
+        ". a a a ."
+        ". f f f ."
+        ". f f f ."
+        ". f f f ."
+        ". f f f ."
+        ". f f f ."
+        ". f f f ."
+        ". f f f ."
+        ". f f f ."
+        ". . . . .";
+}
+
+.logo {
+    grid-area: l;
+}
+
+.form-home {
+    grid-area: f;
+}
+
+.closeModal {
+    grid-area: b;
+}
+
+.alert {
+    grid-area: a;
+}
+
+.header-register {
+    grid-area: h;
+}
+
+.content-home-form {
+    grid-area: c;
+}
+
+form {
+    width: 140%l;
+}

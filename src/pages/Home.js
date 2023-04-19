@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Modal from '../components/modal/Modal';
 import Chat from '../components/chat/Chat';
 import { Navigate } from 'react-router-dom';
-import './styles/home-page.css'
+import './styles/home-page.scss'
 import backgroundImg from './styles/images/tinderBackground.webp'
 import ClientReviews from '../components/clientReviews/clientReviews';
 
@@ -25,20 +25,32 @@ function Home(props) {
     } 
 
     
-
-  return (
-    <div className='Home'>
-        <div className='home-page-container'>
-        <img src={backgroundImg}></img>
-        <Header toggleModal={toggleModal}></Header>
-        <RegisterButton toggleModal={toggleModal}/>
-        {<Modal success={props.success} setSuccess={props.setSuccess} setType={setType} loggedUser={props.loggedUser} type={type} setLoggedUser={props.setLoggedUser} toggleModal={toggleModal} modal={modal}>dadada</Modal>}
-        <ClientReviews/>
-
+    return (
+        <div className="Home">
+          <div className="home-page-container">
+            <img src={backgroundImg} alt="background"></img>
+            <Header toggleModal={toggleModal}></Header>
+            <RegisterButton toggleModal={toggleModal} />
+            {modal && (
+              <div className="overlay-home-page">
+                <Modal
+                  success={props.success}
+                  setSuccess={props.setSuccess}
+                  setType={setType}
+                  loggedUser={props.loggedUser}
+                  type={type}
+                  setLoggedUser={props.setLoggedUser}
+                  toggleModal={toggleModal}
+                  modal={modal}
+                >
+                  dadada
+                </Modal>
+              </div>
+            )}
+            <ClientReviews />
+          </div>
         </div>
-       
-    </div>
-  )
+      );
 }
 
 export default Home;
