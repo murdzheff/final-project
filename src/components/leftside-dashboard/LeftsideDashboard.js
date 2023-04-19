@@ -30,6 +30,7 @@ const LeftSideContainer = (props) => {
             //     return e = userManager.getUserById(e.user_id)
             // }))
             userManager.getUsersByIds(strings)
+            
                 .then(result => {
                     console.log(result)
                     let trueMatches = []

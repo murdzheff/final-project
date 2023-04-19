@@ -229,6 +229,7 @@ code {
     width: 17%;
     height: 97%;
     border-radius: 60px !important;
+    
 
 }
 
@@ -256,11 +257,12 @@ code {
   align-items: center;
   bottom: 16%;
   padding: 16px;
+  
 }
 
 .user-years-cards {
   color: white;
-  font-size: 26px;
+  font-size: 28px;
   margin-left: 13px;
 }
 
@@ -277,7 +279,7 @@ code {
 .information-text {
   color: white;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 12px;
 
 }
 
