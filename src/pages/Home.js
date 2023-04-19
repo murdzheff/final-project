@@ -5,7 +5,9 @@ import { useState } from 'react';
 import Modal from '../components/modal/Modal';
 import Chat from '../components/chat/Chat';
 import { Navigate } from 'react-router-dom';
-
+import './styles/home-page.css'
+import backgroundImg from './styles/images/tinderBackground.webp'
+import ClientReviews from '../components/clientReviews/clientReviews';
 
 function Home(props) {
     const [modal,setModal] = useState(false);
@@ -25,11 +27,15 @@ function Home(props) {
 
   return (
     <div className='Home'>
+        <div className='home-page-container'>
+        <img src={backgroundImg}></img>
         <Header toggleModal={toggleModal}></Header>
         <RegisterButton toggleModal={toggleModal}/>
         {<Modal success={props.success} setSuccess={props.setSuccess} loggedUser={props.loggedUser} type={type} setLoggedUser={props.setLoggedUser} toggleModal={toggleModal} modal={modal}>dadada</Modal>}
+        <ClientReviews/>
 
-
+        </div>
+       
     </div>
   )
 }

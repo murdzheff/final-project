@@ -226,9 +226,10 @@ code {
 }
 
 .button-container-tin button {
-  width: 19%;
-  height: 110%;
-  border-radius: 60px !important;
+    width: 17%;
+    height: 97%;
+    border-radius: 60px !important;
+
 }
 
 .bahur {
