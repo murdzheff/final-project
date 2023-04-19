@@ -26,7 +26,7 @@ app.post('/signup', async (req, res) => {
     const { email, password } = req.body
 
     const generatedUserId = uuidv4()
-    const hashedPassword = await bcrypt.hash(password, 10)
+    const hashedPassword = await bcrypt.hash(password.trim(), 10)
 
     try {
         // await client.connect()
@@ -38,13 +38,14 @@ app.post('/signup', async (req, res) => {
         if (existingUser) {
             return res.status(409).send('User already exists. Plaeace login')
         }
-        const sanitizedEmail = email.toLowerCase()
+        const sanitizedEmail = email.toLowerCase().trim()
 
         const data = {
             user_id: generatedUserId,
             email: sanitizedEmail,
             hashes_password: hashedPassword,
-            photos:  [null,null,null,null,null]
+            photos:  [null,null,null,null,null],
+            matches: []
         }
         const insertedUser = await users.insertOne(data)
 
