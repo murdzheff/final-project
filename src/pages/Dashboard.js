@@ -49,9 +49,7 @@ function Dashboard(props) {
   const token = localStorage.getItem("token");
   const user = token ? JSON.parse(token).userId : null;
 
-  userManager.getUsersByIds(props.loggedUser.matches).then(res => {
-    console.log(res)
-  })
+  
 
   if (user === null) {
     

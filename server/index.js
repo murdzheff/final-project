@@ -307,52 +307,51 @@ app.put('/users/:userId/matches/:matchedUserId', async (req, res) => {
 // GET ALL USERS BY USER ID
 
 
-app.get('/users', async (req, res) => {
-  const userIds = JSON.parse(req.query.userIds)
-  console.log(userIds)
-  try {
-    const database = client.db('app-data')
-    const users = database.collection('users')
-    const foundUsers = await users.find({ user_id: { $in: userIds } }).toArray()
-    console.log(foundUsers)
-    res.json(foundUsers)
-  } catch (error) {
-    console.error(error)
-    res.status(500).json({ error: 'An error occurred' })
-  }
-})
-
-
-
-
 // app.get('/users', async (req, res) => {
-//     // const client = new MongoClient(uri)
-
-//     const userIds = JSON.parse(req.query.userIds)
-//     console.log(userIds)
-//     try {
-//         // await client.connect()
-//         const database = client.db('app-data')
-//         const users = database.collection('users')
-//         const pipeline =
-//             [
-//                 {
-//                     '$match': {
-//                         'user_id': {
-//                             '$in': userIds
-//                         }
-//                     }
-//                 }
-//             ]
-
-//         const foundUsers = await users.aggregate(pipeline).toArray()
-//             console.log(foundUsers)
-//         res.json(foundUsers)
-
-//     } finally {
-//         // await client.close()
-//     }
+//   const userIds = JSON.parse(req.query.userIds)
+//   console.log(userIds)
+//   try {
+//     const database = client.db('app-data')
+//     const users = database.collection('users')
+//     const foundUsers = await users.find({ user_id: { $in: userIds } }).toArray()
+//     console.log(foundUsers)
+//     res.json(foundUsers)
+//   } catch (error) {
+//     console.error(error)
+//     res.status(500).json({ error: 'An error occurred' })
+//   }
 // })
+
+
+
+app.get('/usersIds', async (req, res) => {
+    // const client = new MongoClient(uri)
+    
+    const userIds = req.query.userIds.split(",")
+    console.log("tuka", typeof userIds)
+    try {
+        // await client.connect()
+        const database = client.db('app-data')
+        const users = database.collection('users')
+        const pipeline =
+            [
+                {
+                    '$match': {
+                        'user_id': {
+                            '$in': userIds
+                        }
+                    }
+                }
+            ]
+
+        const foundUsers = await users.aggregate(pipeline).toArray()
+            console.log(foundUsers)
+        res.json(foundUsers)
+
+    } finally {
+        // await client.close()
+    }
+})
 
 // SET LOCATION OF USER
 

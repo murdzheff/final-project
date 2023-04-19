@@ -98,7 +98,7 @@ function CardsContainer(props) {
     };
   }
   
-  const debouncedAddMatch = debounce(userManager.addMatch, 500);
+  const debouncedAddMatch = debounce(userManager.addMatch, 1500);
   
 
   const swiped = (direction, user) => {

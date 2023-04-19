@@ -120,9 +120,9 @@ class UserManager {
 
   getUsersByIds = async (userIds) => {
     try {
-      const response = await axios.get(`${this.baseUrl}/users`, {
+      const response = await axios.get(`${this.baseUrl}/usersIds`, {
         params: {
-          userIds: JSON.stringify(userIds)
+          userIds: userIds
         }
       });
       return response.data;

@@ -22,8 +22,8 @@ const LeftSideContainer = (props) => {
 
         if (props.loggedUser.matches) {
 
-            let strings = props.loggedUser.matches.map(e => e = e.user_id)
-            console.log(strings)
+            let strings = props.loggedUser.matches.map(e => e.user_id).filter(Boolean).join(",")
+            
 
             // Promise.all(props.loggedUser.matches.map(e => {
 
