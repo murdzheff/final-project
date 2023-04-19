@@ -210,7 +210,7 @@ app.get('/user', async (req, res) => {
 
       const query = { user_id: userId }
       const user = await users.findOne(query)
-      console.log(user)
+      
       res.send(user)
 
   } finally {
@@ -305,34 +305,54 @@ app.put('/users/:userId/matches/:matchedUserId', async (req, res) => {
 
 
 // GET ALL USERS BY USER ID
+
+
 app.get('/users', async (req, res) => {
-    // const client = new MongoClient(uri)
-
-    const userIds = JSON.parse(req.query.userIds)
-
-    try {
-        // await client.connect()
-        const database = client.db('app-data')
-        const users = database.collection('users')
-        const pipeline =
-            [
-                {
-                    '$match': {
-                        'user_id': {
-                            '$in': userIds
-                        }
-                    }
-                }
-            ]
-
-        const foundUsers = await users.aggregate(pipeline).toArray()
-
-        res.json(foundUsers)
-
-    } finally {
-        // await client.close()
-    }
+  const userIds = JSON.parse(req.query.userIds)
+  console.log(userIds)
+  try {
+    const database = client.db('app-data')
+    const users = database.collection('users')
+    const foundUsers = await users.find({ user_id: { $in: userIds } }).toArray()
+    console.log(foundUsers)
+    res.json(foundUsers)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: 'An error occurred' })
+  }
 })
+
+
+
+
+// app.get('/users', async (req, res) => {
+//     // const client = new MongoClient(uri)
+
+//     const userIds = JSON.parse(req.query.userIds)
+//     console.log(userIds)
+//     try {
+//         // await client.connect()
+//         const database = client.db('app-data')
+//         const users = database.collection('users')
+//         const pipeline =
+//             [
+//                 {
+//                     '$match': {
+//                         'user_id': {
+//                             '$in': userIds
+//                         }
+//                     }
+//                 }
+//             ]
+
+//         const foundUsers = await users.aggregate(pipeline).toArray()
+//             console.log(foundUsers)
+//         res.json(foundUsers)
+
+//     } finally {
+//         // await client.close()
+//     }
+// })
 
 // SET LOCATION OF USER
 
@@ -392,13 +412,13 @@ app.get('/users/:userId/messages/:correspondingUserId', async (req, res) => {
 // ADD MESSAGES Database
 app.post('/message', async (req, res) => {
     const message = req.body.message ;
-    console.log(message);
+    
   try {
     const database = client.db('app-data')
     const messages = database.collection('messages')
 
     const insertedMessage = await messages.insertOne(message)
-    console.log(insertedMessage)
+    
 //    io.emit('message', insertedMessage) // Emit the new message to all connected clients
     res.send(insertedMessage)
 
@@ -414,7 +434,7 @@ io.on('connection', (socket) => {
 
   socket.on('message', (data) => {
     io.sockets.emit("messageRes", data);
-    console.log(data)
+    
   });
 
   socket.on('disconnect', () => {

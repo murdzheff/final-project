@@ -8,6 +8,7 @@ import { Navigate, useNavigate } from "react-router-dom"
 import messageManager from '../model/messageManager'
 import MoreInfo from '../components/moreInfo/MoreInfo'
 import { Nav } from 'react-bootstrap'
+import userManager from '../model/userManager'
 
 
 
@@ -48,7 +49,9 @@ function Dashboard(props) {
   const token = localStorage.getItem("token");
   const user = token ? JSON.parse(token).userId : null;
 
- 
+  userManager.getUsersByIds(props.loggedUser.matches).then(res => {
+    console.log(res)
+  })
 
   if (user === null) {
     
