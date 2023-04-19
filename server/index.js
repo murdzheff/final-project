@@ -43,7 +43,8 @@ app.post('/signup', async (req, res) => {
         const data = {
             user_id: generatedUserId,
             email: sanitizedEmail,
-            hashes_password: hashedPassword
+            hashes_password: hashedPassword,
+            photos:  [null,null,null,null,null]
         }
         const insertedUser = await users.insertOne(data)
 

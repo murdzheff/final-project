@@ -4,14 +4,14 @@ import "./editForm.scss"
 import fileToBase64 from "./fileToBase64";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
 
 
 
 
 
 function EditForm(props) {
-
+    const location = useLocation()
     const [firstName, setFirstName] = useState(" ");
     const [dobDay, setDobDay] = useState(" ");
     const [dobMonth, setDobMonth] = useState(" ");
@@ -27,7 +27,6 @@ function EditForm(props) {
 
     useEffect(() => {
         if (props.loggedUser) {
-            console.log(props.loggedUser)
             setFirstName(props.loggedUser.first_name);
             setDobDay(props.loggedUser.dob_day);
             setDobMonth(props.loggedUser.dob_month);
@@ -51,7 +50,7 @@ function EditForm(props) {
 
 
         }
-    }, [])
+    }, [location])
 
 
     const handleFileUpload = async (e, index) => {
@@ -63,28 +62,35 @@ function EditForm(props) {
         setActiveIndex(null)
     }
 
+    console.log(props)
 
     function handleSubmit(e) {
         e.preventDefault()
 
+        const updatedUser = {
+            user_id: props.loggedUser.user_id,
+            first_name: firstName,
+            dob_day: dobDay,
+            dob_month: dobMonth,
+            dob_year: dobYear,
+            show_gender: showGender,
+            gender_identity: genderIdentity,
+            gender_interest: genderInterest,
+            photos: url,
+            about: about,
+            matches: props.loggedUser.matches
+        }
+
         userManager.updateUser(JSON.stringify({
 
-            formData: {
-                user_id: props.loggedUser.user_id,
-                first_name: firstName,
-                dob_day: dobDay,
-                dob_month: dobMonth,
-                dob_year: dobYear,
-                show_gender: showGender,
-                gender_identity: genderIdentity,
-                gender_interest: genderInterest,
-                photos: url,
-                about: about,
-                matches: props.loggedUser.matches
-            }
-        }))
+            formData: updatedUser
 
-        navigate("/dashboard")
+        })).then(response => {
+            props.setLoggedUser(updatedUser)
+            navigate("/dashboard")
+        })
+
+        
 
     }
 

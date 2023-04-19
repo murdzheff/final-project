@@ -17,12 +17,12 @@ function Onboarding(props) {
     //     })
     // }, [])
 
-   
+   console.log(props)
 
 
   return (
     <div className='onBoarding-container'>
-        <EditForm loggedUser={props.loggedUser} />
+        <EditForm setLoggedUser={props.setLoggedUser} loggedUser={props.loggedUser} />
     </div>
   )
 }

@@ -67,6 +67,7 @@ class UserManager {
         }
       );
       if (response.status === 200) {
+        console.log(response.data)
         return response.data;
       } else {
         throw new Error('Failed to get users by IDs');
@@ -136,7 +137,7 @@ class UserManager {
 
   async addMatch(userId, matchedUserId) {
   
-      const response = await axios.put(`/users/${userId}/matches/${matchedUserId}`, null, {
+      const response = await axios.put(`http://localhost:8080/users/user=${userId}/matches/${matchedUserId}`, null, {
         headers: {
           'identity': userId,
         },

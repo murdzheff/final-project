@@ -10,19 +10,20 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function Modal({ modal, toggleModal, type, setLoggedUser }) {
+function Modal({ modal, toggleModal, type, setSuccess, loggedUser }) {
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
     const navigate = useNavigate();
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("token")))
 
     if (!modal) return null;
 
     function handleRegister() {
         userManager.signup(email, password).then(response => {
             if (response) {
-                setLoggedUser(response)
+                
+                setSuccess(true)
                 navigate("/onboarding");
-
             }
         })
 
@@ -33,10 +34,16 @@ function Modal({ modal, toggleModal, type, setLoggedUser }) {
 
     function handleLogin() {
         userManager.login(email, password).then(response => {
-            if (response) {
-                setLoggedUser(response)
-                navigate("/dashboard");
-            }
+
+            setTimeout(() => {
+                if (JSON.parse(localStorage.getItem("token"))) {
+                    setSuccess(true)
+                    navigate("/dashboard"); 
+                }
+            }, 400);
+
+
+
 
         })
     }

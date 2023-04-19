@@ -14,7 +14,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faCircle, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import userManager from '../../model/userManager';
-
+import { useLocation } from 'react-router-dom'
 
 
 
@@ -25,41 +25,22 @@ function CardsContainer(props) {
   const [likedUsers, setLikedUsers] = useState([])
   const [isLoading, setIsLoading] = useState(true);
   const [profilePic, setProfilePic] = useState("");
-
+  const location = useLocation();
 
 
 
   useEffect(() => {
     let a
     const genderInterest = props.loggedUser.gender_interest;
-    setProfilePic(props.loggedUser.photos[0])
+    setProfilePic(props.loggedUser.photos[0] || "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg")
     a = props.loggedUser.matches
     setLikedUsers(props.loggedUser.matches || [])
 
-    // axios
-    // .get('http://localhost:8080/gendared-users', {
-    //     params: { gender: genderInterest },
-    //   })
-    //   .then((response) => {
-
-    //     const filteredUsers = excludeArrayByUserId(response.data, props.loggedUser.matches || [])
-
-
-    //     setUsers(filteredUsers);
-    //     setUsers(shuffleArray(filteredUsers));
-    //     setIsLoading(false);
-
-
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     setIsLoading(false);
-    //   });
 
     console.log(props.loggedUser.user_id)
     userManager.getGenderedUsers(genderInterest)
       .then((response) => {
-        console.log(response)
+        
         const filteredUsers = excludeArrayByUserId(response, props.loggedUser.matches || [])
 
         setUsers(filteredUsers);
@@ -69,12 +50,11 @@ function CardsContainer(props) {
 
       })
       .catch((error) => {
-        console.log(error);
         setIsLoading(false);
       });
 
 
-  }, []);
+  }, [location]);
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -90,24 +70,30 @@ function CardsContainer(props) {
 
     // Filter array1 based on whether each object's user_id is NOT in the Set
     const filteredArray = array1.filter(obj => !userIdSet.has(obj.user_id));
-    const arrayWithoutMe = filteredArray.filter(obj => obj.user_id !== JSON.parse(localStorage.getItem("token")).userId)
-    const alreadyLiked = filterObjectsByExclusion(arrayWithoutMe,props.loggedUser.matches)
-    console.log(alreadyLiked)
-    console.log(props.loggedUser.matches)
-    return arrayWithoutMe;
+    const arrayWithoutMe = filteredArray.filter(obj => obj.user_id !== props.loggedUser.user_id)
+    let noPhotos = filterArray(arrayWithoutMe)
+    return noPhotos;
+    
   }
 
-  function filterObjectsByExclusion(originalArray, exclusionArray) {
-    // Use the filter method to return a new array of objects from originalArray
-    // that are not included in exclusionArray
-    return originalArray.filter(obj => !exclusionArray.find(object=>object.user_id===obj.user_id));
+
+  
+  function filterArray(array) {
+    return array.filter(obj => {
+      const { photos } = obj;
+      if (!photos) return false;
+      const filteredPhotos = photos.filter(photo => photo !== null);
+      return filteredPhotos.length >= 1 && filteredPhotos.length <= 5;
+    });
   }
+  
+
   function debounce(func, delay) {
     let timeoutId;
     return function (...args) {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
-        func.apply(this, args);
+        func.apply(func, args);
       }, delay);
     };
   }
@@ -121,12 +107,15 @@ function CardsContainer(props) {
 
     if (direction === 'right') {
      
-   if(props.loggedUser.matches.find(e=>e.user_id===user.user_id)){
+  //  if(props.loggedUser.matches.find(e => e.user_id !== user.user_id)){
     debouncedAddMatch(props.loggedUser.user_id, user.user_id)
+    props.setMatches([...props.loggedUser.matches, {user_id: user.user_id}])
+    props.loggedUser.matches.push({user_id: user.user_id})
     //userManager.addMatch(props.loggedUser.user_id, user.user_id)
-   }else{
-    alert("you already liked this one")
-   }
+   //}else{
+    
+    
+  // }
     }
   };
 

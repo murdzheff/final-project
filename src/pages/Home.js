@@ -4,12 +4,13 @@ import RegisterButton from '../components/registerButton/RegisterButton'
 import { useState } from 'react';
 import Modal from '../components/modal/Modal';
 import Chat from '../components/chat/Chat';
+import { Navigate } from 'react-router-dom';
 
 
 function Home(props) {
     const [modal,setModal] = useState(false);
     const [type,setType] = useState("register");
-
+    
     const toggleModal = (e) => {
         e.preventDefault();
         if (e.target.textContent === "Register") {
@@ -20,11 +21,13 @@ function Home(props) {
         setModal(!modal)
     } 
 
+    
+
   return (
     <div className='Home'>
         <Header toggleModal={toggleModal}></Header>
         <RegisterButton toggleModal={toggleModal}/>
-        <Modal type={type} setLoggedUser={props.setLoggedUser} toggleModal={toggleModal} modal={modal}>dadada</Modal>
+        {<Modal success={props.success} setSuccess={props.setSuccess} loggedUser={props.loggedUser} type={type} setLoggedUser={props.setLoggedUser} toggleModal={toggleModal} modal={modal}>dadada</Modal>}
 
 
     </div>

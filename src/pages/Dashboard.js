@@ -7,6 +7,8 @@ import Chat from '../components/chat/Chat'
 import { Navigate, useNavigate } from "react-router-dom"
 import messageManager from '../model/messageManager'
 import MoreInfo from '../components/moreInfo/MoreInfo'
+import { Nav } from 'react-bootstrap'
+
 
 
 
@@ -14,12 +16,13 @@ function Dashboard(props) {
 
 
 
-
+  const navigate = useNavigate()
   const [type, setType] = useState("Matches")
   const [matches, setMatches] = useState([])
   const [rec, setRec] = useState(null)
   const [chats,setChats] = useState([])
   const [infoUser,setInfoUser] = useState(rec)
+  const [refresh,setRefresh] = useState(false);
 
   async function update(id) {
     await Promise.all([
@@ -49,22 +52,25 @@ function Dashboard(props) {
 
   if (user === null) {
     
-    return null;
+    return null
   }
 
 
 
   return (
     <div className='dashboard'>
-      <LeftSideContainer
+      {props.loggedUser?.photos && <LeftSideContainer
+        type={type}
         matches={matches}
         setMatches={setMatches}
         toggleModal={toggleModal}
         loggedUser={props.loggedUser}
         setRec={setRec}
         setType={setType}
-        setChats={update} />
-      {type === "Matches" && <CardsContainer matches={matches} loggedUser={props.loggedUser} setInfoUser={setInfoUser} setType={setType} setMatches={setMatches} type={type}></CardsContainer>}
+        setChats={update} />}
+        
+      
+      {type === "Matches" && props.loggedUser && <CardsContainer update={props.update} setUpdate={props.setUpdate} matches={matches} loggedUser={props.loggedUser} setInfoUser={setInfoUser} setType={setType} setMatches={setMatches} type={type}></CardsContainer>}
       {rec !== null && type === "Chat" ? <Chat loggedUser={props.loggedUser} setInfoUser={setInfoUser} setType={setType} correspondingUserId={rec} type={type}></Chat> : null}
       {rec !== null && type === "info" ? <MoreInfo type={type} loggedUser={props.loggedUser} user={infoUser} ></MoreInfo> : null}
       
