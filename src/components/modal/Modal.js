@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function Modal({ modal, toggleModal, type, setSuccess, loggedUser }) {
+function Modal({ modal, toggleModal, type, setSuccess, setType}) {
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
     const navigate = useNavigate();
@@ -53,7 +53,7 @@ function Modal({ modal, toggleModal, type, setSuccess, loggedUser }) {
 
 
     return (
-        <div className='overlay'>
+        <div className='overlay' onClick={() => {setType("nothing")}}>
             <div className='modal'>
                 <button className='closeModal' onClick={toggleModal}>X</button>
                 <img src={Logo}></img>

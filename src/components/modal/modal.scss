@@ -8,20 +8,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 
 
 
     .modal {
         width: 40vh;
         background-color: rgba(255, 255, 255, 0.969);
-        min-height: 50vh;
+        min-height: 45vh;
+        
         border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
         gap: 50px;
-
+        position: relative;
+        
         
 
         img{
@@ -29,6 +32,9 @@
         }
 
         button {
+            
+            
+            max-width: 40vh;
             color: white;
             font-size: large;
             border: none;
@@ -36,6 +42,7 @@
             min-height: 4vh;
             background-color: #fe4a69;
             min-width: 15%;
+            margin-top: 10px;
             cursor: pointer;
 
             &:hover {
@@ -46,7 +53,11 @@
         form {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            
+            height: 25vh;
+            
+            align-items: center;
+            justify-content: center;
 
             input {
                 background-color: transparent;
@@ -66,6 +77,7 @@
                     min-height: 4vh;
                     background-color: #fe4a69;
                     min-width: 15%;
+                    
                     cursor: pointer;
 
                     &:hover {
