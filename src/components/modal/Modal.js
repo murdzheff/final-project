@@ -1,78 +1,3 @@
-// import React from 'react'
-// import "./modal.scss"
-// import Logo from "./logo.png"
-// import { useState } from 'react';
-// import userManager from "../../model/userManager"
-// import { useNavigate } from 'react-router-dom';
-
-
-// function Modal({ modal, toggleModal, type, setSuccess, loggedUser }) {
-//     const [password, setPassword] = useState("")
-//     const [email, setEmail] = useState("")
-//     const navigate = useNavigate();
-//     const [user, setUser] = useState(JSON.parse(localStorage.getItem("token")))
-
-//     if (!modal) return null;
-
-//     function handleRegister() {
-//         userManager.signup(email, password).then(response => {
-//             if (response) {
-                
-//                 setSuccess(true)
-//                 navigate("/onboarding");
-//             }
-//         })
-
-//     }
-
-
-
-
-//     function handleLogin() {
-//         userManager.login(email, password).then(response => {
-
-//             setTimeout(() => {
-//                 if (JSON.parse(localStorage.getItem("token"))) {
-//                     setSuccess(true)
-//                     navigate("/dashboard"); 
-//                 }
-//             }, 400);
-
-
-
-
-//         })
-//     }
-
-
-
-
-//     return (
-//         <div className='overlay'>
-//             <div className='modal'>
-//                 <button className='closeModal' onClick={toggleModal}>X</button>
-//                 <img src={Logo}></img>
-//                 <form>
-//                     <input onChange={
-//                         (e) => {
-//                             setEmail(e.target.value)
-//                         }
-//                     } placeholder='Your email' type='email'></input>
-//                     <input onChange={
-//                         (e) => {
-//                             setPassword(e.target.value)
-//                         }
-//                     } placeholder='Your password' type='password'></input>
-//                     {type === "register" ? <input placeholder='Confirm your password' type='password'></input> : null}
-//                     <button onClick={type === "register" ? handleRegister : handleLogin} type='submit'>Get to swiping</button>
-//                 </form>
-//             </div>
-//         </div>
-//     )
-// }
-
-// export default Modal
-
 import React, { useState } from 'react';
 import "./modal.scss";
 import Logo from "./logo.png";
@@ -86,7 +11,6 @@ function Modal({ modal, toggleModal, type, setSuccess, loggedUser }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("token"));
   
   if (!modal) return null;
 
@@ -124,13 +48,6 @@ function Modal({ modal, toggleModal, type, setSuccess, loggedUser }) {
 
   function handleLogin(e) {
     e.preventDefault();
-
-    // // Email validation
-    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    // if (!emailRegex.test(email)) {
-    //   setErrorMessage("Please enter a valid email address");
-    //   return;
-    // }
 
     userManager.login(email, password)
       .then(response => {

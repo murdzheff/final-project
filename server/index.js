@@ -89,45 +89,6 @@ app.post('/login', async (req, res) => {
 })
 
 
-// app.get('/users', async (req, res) => {
-//     // const client = new MongoClient(uri);
-//      try {
-//          const databaseName = client.db('app-data')
-//          const users = databaseName.collection('users')
- 
-//          const returnedUsers= await users.find().toArray()
-//          res.send(returnedUsers)
- 
-//      }finally{
-//          // await client.close()
-//      }
-//  }) 
-
-// GET all users by gender
-// app.get('/users', async (req, res) => {
-//   const userId = req.get('identity');
-//   if(!userId ) {
-//     res.status(401).send({message: "You are not logged in!"});
-//     return;
-//   }
-//   try {
-//     const { gender } = req.query;
-//     const database = client.db('app-data');
-//     const users = database.collection('users');
-//     const query = { gender_identity: gender, user_id: userId }; // add user_id to the query
-//     const foundUser = await users.findOne(query); // use findOne to check if there's a matching user
-//     if (!foundUser) {
-//       res.status(401).send({message: "Invalid user ID!"}); // respond with an error if the user ID is invalid
-//       return;
-//     }
-//     const foundUsers = await users.find({ gender_identity: gender }).toArray();
-//     res.status(200).json(foundUsers);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('Internal server error');
-//   }
-// });
-
 // GET all users by gender
 app.get('/users', async (req, res) => {
   try {
@@ -261,25 +222,7 @@ app.put('/user',async (req,res)=>{
 
 })
 
-// MATCHES
-// app.put('/addmatch', async (req, res)=>{
-//     console.log(req.body)
-//     const {userId, matchedUserId}=req.body
-//     try{
-//         const database=client.db('app-data')
-//         const users = database.collection('users')
-    
-//         const query = {user_id : userId}
-//         const updateDocument = {
-//             $push: {matches: {user_id: matchedUserId}},
-//         }
-//         const user =  await users.updateOne(query, updateDocument)
-//         const updatedUser = await users.findOne(query)
-//         res.send(updatedUser.matches)
-//     } finally{
-//         // await client.close()
-//     }
-// })
+
     
 // Update a user's matches
 // PUT /users/:userId/matches/:matchedUserId
@@ -312,25 +255,6 @@ app.put('/users/:userId/matches/:matchedUserId', async (req, res) => {
 
 
 // GET ALL USERS BY USER ID
-
-
-// app.get('/users', async (req, res) => {
-//   const userIds = JSON.parse(req.query.userIds)
-//   console.log(userIds)
-//   try {
-//     const database = client.db('app-data')
-//     const users = database.collection('users')
-//     const foundUsers = await users.find({ user_id: { $in: userIds } }).toArray()
-//     console.log(foundUsers)
-//     res.json(foundUsers)
-//   } catch (error) {
-//     console.error(error)
-//     res.status(500).json({ error: 'An error occurred' })
-//   }
-// })
-
-
-
 app.get('/usersIds', async (req, res) => {
     // const client = new MongoClient(uri)
     
@@ -448,6 +372,6 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(PORT, () => {
+server.listen(PORT, '192.168.1.243', () => {
   console.log(`Server running on PORT ${PORT}`)
 })

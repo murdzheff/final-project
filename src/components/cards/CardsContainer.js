@@ -25,8 +25,8 @@ function CardsContainer(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [profilePic, setProfilePic] = useState("");
   const location = useLocation();
-  const [liked,setLiked] = useState(null)
-  const [disliked,setdisLiked] = useState(null)
+  const [liked, setLiked] = useState(null)
+  const [disliked, setdisLiked] = useState(null)
 
 
 
@@ -38,7 +38,7 @@ function CardsContainer(props) {
 
     userManager.getGenderedUsers(genderInterest)
       .then((response) => {
-        
+
         const filteredUsers = excludeArrayByUserId(response, props.loggedUser.matches || [])
 
         setUsers(filteredUsers);
@@ -71,11 +71,11 @@ function CardsContainer(props) {
     const arrayWithoutMe = filteredArray.filter(obj => obj.user_id !== props.loggedUser.user_id)
     let noPhotos = filterArray(arrayWithoutMe)
     return noPhotos;
-    
+
   }
 
 
-  
+
   function filterArray(array) {
     return array.filter(obj => {
       const { photos } = obj;
@@ -84,7 +84,7 @@ function CardsContainer(props) {
       return filteredPhotos.length >= 1 && filteredPhotos.length <= 5;
     });
   }
-  
+
 
   function debounce(func, delay) {
     let timeoutId;
@@ -95,29 +95,29 @@ function CardsContainer(props) {
       }, delay);
     };
   }
-  
+
   const debouncedAddMatch = debounce(userManager.addMatch, 1500);
-  
+
 
   const swiped = (direction, user) => {
     setSwipedUsers([...swipedUsers, user.email]);
 
 
     if (direction === 'right') {
-     
-  //  if(props.loggedUser.matches.find(e => e.user_id !== user.user_id)){
-    debouncedAddMatch(props.loggedUser.user_id, user.user_id)
-    props.setMatches([...props.loggedUser.matches, {user_id: user.user_id}])
-    props.loggedUser.matches.push({user_id: user.user_id})
-    setLiked(user);
-    setTimeout(() => {
-      setLiked(null)
-    }, 3000);
-    //userManager.addMatch(props.loggedUser.user_id, user.user_id)
-   //}else{
-    
-    
-  // }
+
+      //  if(props.loggedUser.matches.find(e => e.user_id !== user.user_id)){
+      debouncedAddMatch(props.loggedUser.user_id, user.user_id)
+      props.setMatches([...props.loggedUser.matches, { user_id: user.user_id }])
+      props.loggedUser.matches.push({ user_id: user.user_id })
+      setLiked(user);
+      setTimeout(() => {
+        setLiked(null)
+      }, 3000);
+      //userManager.addMatch(props.loggedUser.user_id, user.user_id)
+      //}else{
+
+
+      // }
     } else {
       setdisLiked(user);
 
@@ -127,9 +127,6 @@ function CardsContainer(props) {
     }
   };
 
-  const outOfFrame = (name) => {
-    console.log(name + ' left the screen!');
-  };
 
   const swipe = (direction) => {
     swipeRef.current.swipe(direction);
@@ -146,19 +143,14 @@ function CardsContainer(props) {
   if (users.length === swipedUsers.length) {
     return (
       <div className='swipe-container'>
-        <div className='card-container'>
-          <p>No more users to swipe!</p>
-        </div>
-        <div className='button-container-tin'>
-          <Button className='button-left-tin' onClick={() => setSwipedUsers([])}  >
+        <div className='card-container-no-users'>
+          <p>No more users to swipe! <br></br> Come back tomorrow! </p>
+          <Button className='refreshUsers' onClick={() => setSwipedUsers([])}  >
             <img src={reload} />
           </Button>{' '}
-          <Button disabled>X</Button>
-          <Button disabled>Y</Button>
-          <Button disabled>Z</Button>
-          <Button disabled>D</Button>
-
         </div>
+
+
       </div>
     );
   }
@@ -177,7 +169,6 @@ function CardsContainer(props) {
               className='swipe'
               key={user._id}
               onSwipe={(dir) => swiped(dir, user)}
-              onCardLeftScreen={() => outOfFrame(user.first_name)}
             >
               <div className='card'>
                 <CardsCarousel photos={user.photos || ["https://mtclinic.org/wp-content/uploads/2021/09/Photo-Unavailable-300x225.jpg"]} />
@@ -208,7 +199,7 @@ function CardsContainer(props) {
       </div>
 
       <div className='button-container-tin'>
-        <Button className='button-left-tin'  variant="outline-warning">
+        <Button className='button-left-tin' variant="outline-warning">
           <img src={reload}></img>
         </Button>{' '}
 
@@ -230,9 +221,9 @@ function CardsContainer(props) {
         </Button>{' '}
 
       </div>
-          
-          {liked && <PopUp message={`You liked ${liked.first_name}, if they like you back you will have a match!`}/>}
-          {disliked && <PopUp message={`You have disliked ${disliked.first_name}, they won't show up for a while...`}/>}
+
+      {liked && <PopUp message={`You liked ${liked.first_name}, if they like you back you will have a match!`} />}
+      {disliked && <PopUp message={`You have disliked ${disliked.first_name}, they won't show up for a while...`} />}
     </div>
   );
 

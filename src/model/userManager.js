@@ -56,7 +56,7 @@ class UserManager {
 
     try {
       const response = await axios.get(
-        'http://localhost:8080/user',
+        `${this.baseUrl}/user`,
         {
           params: {
             userId: userId
@@ -128,32 +128,11 @@ class UserManager {
       console.error(error);
     }
   };
-
-
-
-
-    // try {
-    //   const response = await axios.get(
-    //     `${this.baseUrl}/users?userIds=${JSON.stringify(userIds)}`,
-    //     { headers: { 'Content-Type': 'application/json' } }
-    //   );
-    //   if (response.status === 200) {
-    //     return response.data;
-    //   } else {
-    //     throw new Error('Failed to get users by IDs');
-    //   }
-    // } catch (error) {
-    //   if (error.response.status === 400) {
-    //     throw new Error('Invalid user IDs');
-    //   } else {
-    //     throw new Error('Internal server error');
-    //   }
-    // }
   
 
   async addMatch(userId, matchedUserId) {
 
-  const response = await axios.put(`http://localhost:8080/users/user=${userId}/matches/${matchedUserId}`, null, {
+  const response = await axios.put(`${this.baseUrl}/users/user=${userId}/matches/${matchedUserId}`, null, {
     headers: {
       'identity': userId,
     },
@@ -174,7 +153,7 @@ class UserManager {
 
 
 
-const userManager = new UserManager("http://localhost:8080");
+const userManager = new UserManager("http://192.168.1.243:8080");
 
 export default userManager;
 

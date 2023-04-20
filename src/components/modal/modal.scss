@@ -56,6 +56,7 @@ $border-color_2: #fe4a69;
                 width: 100%;
                 font-size: larger;
                 color: $color_2;
+                z-index: 3;
                 transition: border-color 0.3s ease-in-out;
                 font-family: $font-family_1;
 
@@ -99,12 +100,13 @@ $border-color_2: #fe4a69;
 
 .modal {
     overflow: hidden;
-    width: 34vw;
+    width: 50vh;
     background-color: $background-color_2;
     min-height: 45vh;
-    height: 100vh;
+    height: 80vh;
     border-radius: 10px;
     gap: 50px;
+    z-index: 10;
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;

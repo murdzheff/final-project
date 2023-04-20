@@ -32,8 +32,11 @@ function EditForm(props) {
             setGenderIdentity(props.loggedUser.gender_identity)
             setGenderInterest(props.loggedUser.gender_interest)
             setAbout(props.loggedUser.about);
+
+            
+
             if (props.loggedUser.photos === undefined) {
-                setUrl([null, null, null, null, null])
+                setUrl()
             } else if (props.loggedUser.photos.length === 1) {
                 setUrl([...props.loggedUser.photos, null, null, null, null])
             } else if (props.loggedUser.photos.length === 2) {

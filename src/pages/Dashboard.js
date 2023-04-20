@@ -4,26 +4,21 @@ import LeftSideContainer from '../components/leftside-dashboard/LeftsideDashboar
 // import userManager from '../model/userManager'
 import CardsContainer from '../components/cards/CardsContainer'
 import Chat from '../components/chat/Chat'
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import messageManager from '../model/messageManager'
 import MoreInfo from '../components/moreInfo/MoreInfo'
-import { Nav } from 'react-bootstrap'
-import userManager from '../model/userManager'
+
 
 
 
 
 function Dashboard(props) {
 
-
-
-  const navigate = useNavigate()
   const [type, setType] = useState("Matches")
   const [matches, setMatches] = useState([])
   const [rec, setRec] = useState(null)
   const [chats,setChats] = useState([])
   const [infoUser,setInfoUser] = useState(rec)
-  const [refresh,setRefresh] = useState(false);
 
   function sortByTimestamp(objects) {
     return objects.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));

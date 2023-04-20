@@ -18,7 +18,6 @@ function Chat(props) {
     const count = useRef(null)
     const [sender, setSender] = useState(null);
     const [recipient, setRecipient] = useState(null)
-    const [isLoading, setIsLoading] = useState(0)
 
     const scrollToBottom = () => {
         count.current?.scrollIntoView({ behavior: "smooth" })
@@ -37,7 +36,7 @@ function Chat(props) {
 
     useEffect(() => {
         // Connect to the server using socket.io
-        const newSocket = socketIOClient('http://localhost:8080');
+        const newSocket = socketIOClient('http://192.168.1.243:8080');
         setSocket(newSocket);
 
         // Listen for incoming messages from the server
@@ -55,9 +54,6 @@ function Chat(props) {
 
     }, [props.correspondingUserId]);
 
-    function padZero(num) {
-        return num.toString().padStart(2, '0');
-    }
 
     function sortByTimestamp(objects) {
         return objects.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
