@@ -102,8 +102,8 @@ $border-color_2: #fe4a69;
     overflow: hidden;
     width: 50vh;
     background-color: $background-color_2;
-    min-height: 45vh;
-    height: 80vh;
+    // min-height: 45vh;
+    height: 99vh;
     border-radius: 10px;
     gap: 50px;
     z-index: 10;
@@ -161,5 +161,8 @@ $border-color_2: #fe4a69;
 }
 
 form {
-    width: 140%l;
+    width: 140%;
 }
+
+
+
