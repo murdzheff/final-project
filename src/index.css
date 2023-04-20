@@ -24,7 +24,7 @@ code {
   justify-content: 1rem 2rem;
   min-width: 100vh;
   height: 100vh;
-  ;
+  
 
 
 }
@@ -94,7 +94,10 @@ code {
 
 .dashboard .card-container {
   width: 400px;
-  height: 650px;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .card {
@@ -183,7 +186,7 @@ code {
 .imageCoversOfCarts {
 
   width: 450px;
-  height: 90vh;
+  height: 80vh;
   background-size: cover;
   background-position: center;
 
