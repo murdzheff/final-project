@@ -1,8 +1,4 @@
-.matches-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
 
 .left-side-container{
     border-radius: 10px;
@@ -114,8 +110,9 @@
 
 .optionMatches {
     background-color: #e84379;
-    position: relative;
-    right: 100px;
+    
+    align-self: center;
+    justify-self: center;
     border-radius: 10px;
     border: #ccc;
     height: 40px;
@@ -141,4 +138,10 @@
         }
 
     }
+}
+
+.matchesHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

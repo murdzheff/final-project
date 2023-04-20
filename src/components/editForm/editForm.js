@@ -26,14 +26,14 @@ function EditForm(props) {
 
     useEffect(() => {
         if (props.loggedUser) {
-            setFirstName(props.loggedUser.first_name);
-            setDobDay(props.loggedUser.dob_day);
-            setDobMonth(props.loggedUser.dob_month);
-            setDobYear(props.loggedUser.dob_year);
-            setGenderIdentity(props.loggedUser.gender_identity)
-            setGenderInterest(props.loggedUser.gender_interest)
+            setFirstName(props.loggedUser.first_name || "");
+            setDobDay(props.loggedUser.dob_day || 0);
+            setDobMonth(props.loggedUser.dob_month || 0);
+            setDobYear(props.loggedUser.dob_year || 0);
+            setGenderIdentity(props.loggedUser.gender_identity || "man")
+            setGenderInterest(props.loggedUser.gender_interest || "woman")
             setAgeInterest(props.loggedUser.age_interest || 30)
-            setAbout(props.loggedUser.about);
+            setAbout(props.loggedUser.about || "");
 
 
 

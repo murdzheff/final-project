@@ -91,8 +91,7 @@ function Dashboard(props) {
           setType={setType}
           correspondingUserId={rec}
           type={type}></Chat> : null}
-      {rec !== null &&
-        type === "info" ?
+      { type === "info" ?
         <MoreInfo
           type={type}
           loggedUser={props.loggedUser} user={infoUser} ></MoreInfo> : null}
