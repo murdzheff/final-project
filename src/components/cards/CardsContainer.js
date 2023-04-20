@@ -87,38 +87,21 @@ function CardsContainer(props) {
   }
 
 
-  function debounce(func, delay) {
-    let timeoutId;
-    return function (...args) {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        func.apply(func, args);
-      }, delay);
-    };
-  }
-
-  const debouncedAddMatch = debounce(userManager.addMatch, 1500);
-
-
   const swiped = (direction, user) => {
     setSwipedUsers([...swipedUsers, user.email]);
 
 
     if (direction === 'right') {
-
+      console.log(props.loggedUser.user_id)
       //  if(props.loggedUser.matches.find(e => e.user_id !== user.user_id)){
-      debouncedAddMatch(props.loggedUser.user_id, user.user_id)
+      // debouncedAddMatch(props.loggedUser.user_id, user.user_id)
+      userManager.addMatch(props.loggedUser.user_id, user.user_id)
       props.setMatches([...props.loggedUser.matches, { user_id: user.user_id }])
       props.loggedUser.matches.push({ user_id: user.user_id })
       setLiked(user);
       setTimeout(() => {
         setLiked(null)
       }, 3000);
-      //userManager.addMatch(props.loggedUser.user_id, user.user_id)
-      //}else{
-
-
-      // }
     } else {
       setdisLiked(user);
 
