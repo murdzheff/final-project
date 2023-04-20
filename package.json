@@ -28,6 +28,7 @@
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "react-tinder-card": "^1.6.2",
+    "react-toggle-dark-mode": "^1.1.1",
     "reactstrap": "^9.1.9",
     "redux": "^4.2.1",
     "sass": "^1.61.0",
