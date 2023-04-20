@@ -10,8 +10,6 @@ export default function Header({toggleModal}) {
             
             <div className='menu-box'>
             <img  className='logo' src={Logo}></img></div>
-            
-
             <button className='header-button' onClick={toggleModal}>Впиши се</button>
 
         </div>

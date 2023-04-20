@@ -69,9 +69,10 @@ function CardsContainer(props) {
     // Filter array1 based on whether each object's user_id is NOT in the Set
     const filteredArray = array1.filter(obj => !userIdSet.has(obj.user_id));
     const arrayWithoutMe = filteredArray.filter(obj => obj.user_id !== props.loggedUser.user_id)
+    
     let noPhotos = filterArray(arrayWithoutMe)
-    return noPhotos;
-
+    let ageFilter = noPhotos.filter(e => {return 2023 - e.dob_year < props.loggedUser?.age_interest})
+    return ageFilter;
   }
 
 

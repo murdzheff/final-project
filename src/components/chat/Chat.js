@@ -36,7 +36,7 @@ function Chat(props) {
 
     useEffect(() => {
         // Connect to the server using socket.io
-        const newSocket = socketIOClient('http://192.168.1.243:8080');
+        const newSocket = socketIOClient('http://localhost:8080');
         setSocket(newSocket);
 
         // Listen for incoming messages from the server
@@ -178,7 +178,7 @@ function Chat(props) {
                         <img src={Emoj}></img>
                     </button>
                     <div className="emojis">
-                        {displayEmo ? <EmojiPicker onEmojiClick={(e) => { setMsg(msg => msg + e.emoji) }} /> : null}
+                        {displayEmo ? <EmojiPicker lazyLoadEmojis={true} onEmojiClick={(e) => { setMsg(msg => msg + e.emoji) }} /> : null}
                     </div>
                     <button
 

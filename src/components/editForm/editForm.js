@@ -18,6 +18,7 @@ function EditForm(props) {
     const [showGender, setShowGender] = useState(true);
     const [genderIdentity, setGenderIdentity] = useState(" ");
     const [genderInterest, setGenderInterest] = useState(" ");
+    const [ageInterest, setAgeInterest] = useState("30")
     const [url, setUrl] = useState([])
     const [about, setAbout] = useState(" ");
     const [activeIndex, setActiveIndex] = useState(null);
@@ -31,9 +32,10 @@ function EditForm(props) {
             setDobYear(props.loggedUser.dob_year);
             setGenderIdentity(props.loggedUser.gender_identity)
             setGenderInterest(props.loggedUser.gender_interest)
+            setAgeInterest(props.loggedUser.age_interest || 30)
             setAbout(props.loggedUser.about);
 
-            
+
 
             if (props.loggedUser.photos === undefined) {
                 setUrl()
@@ -87,6 +89,7 @@ function EditForm(props) {
                 show_gender: showGender,
                 gender_identity: genderIdentity,
                 gender_interest: genderInterest,
+                age_interest: ageInterest,
                 photos: url,
                 about: about,
                 matches: props.loggedUser.matches
@@ -148,6 +151,19 @@ function EditForm(props) {
                             <option value="non-binary">Non-binary</option>
                             <option value="other">Other</option>
                         </select>
+                    </label>
+                    <label>
+                        Age Interest:
+                        <input
+                            type="number"
+                            name="age"
+                            className="age"
+                            min="18"
+                            placeholder="Enter your age (minimum 18)"
+                            value={ageInterest}
+                            required
+                            onInput={(e) => setAgeInterest(e.target.value)}
+                        />
                     </label>
                 </div>
                 <div className="photos">

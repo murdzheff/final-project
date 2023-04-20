@@ -22,6 +22,6 @@ class MessageManager {
   }
 }
 
-const messageManager = new MessageManager("192.168.1.243:8080");
+const messageManager = new MessageManager("localhost:8080");
 
 export default messageManager;

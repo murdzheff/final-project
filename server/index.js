@@ -47,6 +47,7 @@ app.post('/signup', async (req, res) => {
             hashes_password: hashedPassword,
             photos:  [null,null,null,null,null],
             matches: []
+
         }
         const insertedUser = await users.insertOne(data)
 
@@ -146,6 +147,7 @@ app.put('/users/:userId', async (req, res) => {
         show_gender: formData.show_gender,
         gender_identity: formData.gender_identity,
         gender_interest: formData.gender_interest,
+        age_interest: formData.age_interest,
         photos: formData.photos,
         about: formData.about,
         matches: formData.matches
@@ -198,6 +200,7 @@ app.put('/user',async (req,res)=>{
         const users = databaseName.collection('users')
 
         const queary = { user_id: formData.user_id  }
+        console.log(typeof formData.age_interest)
         const updateDocument = {
             $set:{
                 first_name:formData.first_name,
@@ -207,6 +210,7 @@ app.put('/user',async (req,res)=>{
                 show_gender: formData.show_gender,
                 gender_identity:formData.gender_identity,
                 gender_interest:formData.gender_interest,
+                age_interest: formData.age_interest,
                 photos: formData.photos,
                 about : formData.about,
                 matches : formData.matches
@@ -259,7 +263,7 @@ app.get('/usersIds', async (req, res) => {
     // const client = new MongoClient(uri)
     
     const userIds = req.query.userIds.split(",")
-    console.log("tuka", typeof userIds)
+    
     try {
         // await client.connect()
         const database = client.db('app-data')
@@ -276,7 +280,7 @@ app.get('/usersIds', async (req, res) => {
             ]
 
         const foundUsers = await users.aggregate(pipeline).toArray()
-            console.log(foundUsers)
+            
         res.json(foundUsers)
 
     } finally {
@@ -372,6 +376,6 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(PORT, '192.168.1.243', () => {
+server.listen(PORT, () => {
   console.log(`Server running on PORT ${PORT}`)
 })
