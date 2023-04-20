@@ -15,6 +15,7 @@ import { faLocationDot, faCircle, faCircleInfo } from '@fortawesome/free-solid-s
 import userManager from '../../model/userManager';
 import { useLocation } from 'react-router-dom'
 import PopUp from '../popup/PopUp';
+import './styles.css'
 
 
 
