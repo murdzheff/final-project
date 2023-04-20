@@ -1,63 +1,192 @@
-.container {
-    min-height: 93vh;
+// .container {
+//     min-height: 93vh;
     
-    background-color: transparent;
+//     background-color: transparent;
 
 
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    color: white;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     flex-direction: column;
+//     color: white;
 
 
-    button {
-        color: white;
-        font-size: 26px;
-        font-weight: 600;
-        border: none;
-        border-radius: 5px;
-        min-height: 4vh;
-        padding: 10px;
-        color: white;
-        font-size: 26px;
-        border: none;
-        border-radius: 39px;
-        min-height: 4vh;
-        padding: 10px 32px;
-        background: linear-gradient(90deg, rgb(253, 54, 117) 0%, rgb(255, 101, 93) 100%);
-        background-size: 400% 400%;
-        min-width: 15%;
-        cursor: pointer;
+//     button {
+//         color: white;
+//         font-size: 26px;
+//         font-weight: 600;
+//         border: none;
+//         border-radius: 5px;
+//         min-height: 4vh;
+//         padding: 10px;
+//         color: white;
+//         font-size: 26px;
+//         border: none;
+//         border-radius: 39px;
+//         min-height: 4vh;
+//         padding: 10px 32px;
+//         background: linear-gradient(90deg, rgb(253, 54, 117) 0%, rgb(255, 101, 93) 100%);
+//         background-size: 400% 400%;
+//         min-width: 15%;
+//         cursor: pointer;
     
 
-        background-size: 400% 400%;
+//         background-size: 400% 400%;
       
   
-      @keyframes gradient {
-        0% {
-          background-position: 50% 0%;
-        }
-        50% {
-          background-position: 50% 100%;
-        }
-        100% {
-          background-position: 50% 0%;
-        }
+//       @keyframes gradient {
+//         0% {
+//           background-position: 50% 0%;
+//         }
+//         50% {
+//           background-position: 50% 100%;
+//         }
+//         100% {
+//           background-position: 50% 0%;
+//         }
+//       }
+
+
+//         min-width: 15%;
+//         cursor: pointer;
+
+//         &:hover {
+//             background-color: #bd364d;
+//         }
+//     }
+//     h1{
+//       font-size: 116px;
+//       font-weight: 900;
+//     }
+
+// }
+
+.container {
+  min-height: 93vh;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+
+  button {
+    color: white;
+    font-size: 26px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    min-height: 4vh;
+    padding: 10px;
+    color: white;
+    font-size: 26px;
+    border: none;
+    border-radius: 39px;
+    min-height: 4vh;
+    padding: 10px 32px;
+    background: linear-gradient(
+      90deg,
+      rgb(253, 54, 117) 0%,
+      rgb(255, 101, 93) 100%
+    );
+    background-size: 400% 400%;
+    min-width: 15%;
+    cursor: pointer;
+
+    background-size: 400% 400%;
+
+    @keyframes gradient {
+      0% {
+        background-position: 50% 0%;
       }
-
-
-        min-width: 15%;
-        cursor: pointer;
-
-        &:hover {
-            background-color: #bd364d;
-        }
-    }
-    h1{
-      font-size: 116px;
-      font-weight: 900;
+      50% {
+        background-position: 50% 100%;
+      }
+      100% {
+        background-position: 50% 0%;
+      }
     }
 
+    min-width: 15%;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #bd364d;
+    }
+  }
+
+  h1 {
+    font-size: 116px;
+    font-weight: 900;
+  }
+
+  /* Media queries */
+  @media screen and (max-width: 768px) {
+    /* Adjust font-size and padding of button for smaller screens */
+    button {
+      font-size: 20px;
+      padding: 8px 24px;
+    }
+
+    h1 {
+      font-size: 80px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    /* Adjust font-size and padding of button and font-size of heading for even smaller screens */
+    button {
+      font-size: 16px;
+      padding: 6px 20px;
+    }
+
+    h1 {
+      font-size: 60px;
+    }
+  }
+}
+.container {
+  min-height: 93vh;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+  text-align: center; /* add text-align property to center h1 */
+
+  button {
+    /* button styles */
+  }
+
+  h1 {
+    font-size: 116px;
+    font-weight: 900;
+  }
+
+  /* Media queries */
+  @media screen and (max-width: 768px) {
+    /* Adjust font-size and padding of button for smaller screens */
+    button {
+      font-size: 20px;
+      padding: 8px 24px;
+    }
+
+    h1 {
+      font-size: 80px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    /* Adjust font-size and padding of button and font-size of heading for even smaller screens */
+    button {
+      font-size: 16px;
+      padding: 6px 20px;
+    }
+
+    h1 {
+      font-size: 60px;
+    }
+  }
 }

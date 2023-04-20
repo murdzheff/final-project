@@ -1,86 +1,102 @@
-.header {
-     display: flex;
-     justify-content: space-between;
-     padding: 0 40px;
-     align-items: center;
-     position: sticky;
-     z-index:1 ;
+// .header {
+//      display: flex;
+//      justify-content: space-between;
+//      padding: 0 40px;
+//      align-items: center;
+//      position: sticky;
+//      z-index:1 ;
 
    
-        top: 0;
+//         top: 0;
      
-    // min-height: 5vh;
-    // max-height: 10vh;
-    // background-color: transparent;
-    // justify-content: space-around;
-    // align-items: center;
-    // overflow: hidden;
-    // gap: 60%;
-    // padding: 1vh;
-
-    .logo {
-        max-height: 10vh;
-        margin-right: 20px;
-    }
+    
+//     .logo {
+//         max-height: 10vh;
+//         margin-right: 20px;
+//     }
    
 
-    // button {
-
-    //    // background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    //     //background-size: 400% 400%;
-    //    // animation: gradient 15s ease infinite;
-
-    //     // font-size: larger;
-
-    //     // @keyframes gradient {
-    //     //     0% {
-    //     //         background-position: 0% 50%;
-    //     //     }
-
-    //     //     50% {
-    //     //         background-position: 100% 50%;
-    //     //     }
-
-    //     //     100% {
-    //     //         background-position: 0% 50%;
-    //     //     }
-    //     // }
+    
+// }
+// .menu-box{
+//     width: 600px;
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     .menu{
+//         text-decoration: none;
+//         color: white;
+//         margin-right: 20px;
+//         font-size: 25px;
+//         font-weight: 600;
+//         cursor: pointer;
+    
+// }
+// }
+// .menu:hover{
+//     color: #d6002f;
 
 
-    //     // color: white;
-    //     // border: none;
-    //     // border-radius: 5px;
-    //     // min-height: 3vh;
+// }
+// .header-button{
+//     color: black;
+//     width: 146px;
+//     font-size: 24px;
+//     font-weight: 600;
+//     border-radius: 20px;
+//     border: none;
+//     height: 43px;
+//     background-color: white;
+// }
+// .header-button:hover{
+   
+//     background-color: rgb(218, 212, 212);
+// }
 
-    //     // min-width: 10vh;
-    //     // cursor: pointer;
 
-    //     // &:hover {
-    //     //     background-color: transparent;
-    //     // }
-    // }
-}
-.menu-box{
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  
+  .logo {
+    max-height: 10vh;
+    margin-right: 20px;
+  }
+  
+  .menu-box {
     width: 600px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .menu{
-        text-decoration: none;
-        color: white;
-        margin-right: 20px;
-        font-size: 25px;
-        font-weight: 600;
-        cursor: pointer;
-    
-}
-}
-.menu:hover{
+  }
+  
+  .menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .menu a {
+    text-decoration: none;
+    color: white;
+    margin-right: 20px;
+    font-size: 25px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .menu a:hover {
     color: #d6002f;
-
-
-}
-.header-button{
+  }
+  
+  .header-button {
     color: black;
     width: 146px;
     font-size: 24px;
@@ -89,8 +105,41 @@
     border: none;
     height: 43px;
     background-color: white;
-}
-.header-button:hover{
-   
+  }
+  
+  .header-button:hover {
     background-color: rgb(218, 212, 212);
-}
+  }
+  
+  @media screen and (max-width: 768px) {
+    .header {
+      padding: 0 20px;
+    }
+  
+    .menu-box {
+      width: 100%;
+      justify-content: space-between;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  
+    .logo {
+      max-height: 7vh;
+    }
+  
+    .menu {
+      justify-content: space-between;
+      width: 100%;
+    }
+  
+    .menu a {
+      margin-right: 0;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+  
+    .header-button {
+      width: 100%;
+      margin-top: 20px;
+    }
+  }
