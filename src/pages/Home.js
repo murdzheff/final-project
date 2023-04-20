@@ -46,7 +46,6 @@ function Home(props) {
               toggleModal={toggleModal}
               modal={modal}
             >
-              dadada
             </Modal>
           </div>
         )}

@@ -4,9 +4,9 @@ import LeftSideContainer from '../components/leftside-dashboard/LeftsideDashboar
 // import userManager from '../model/userManager'
 import CardsContainer from '../components/cards/CardsContainer'
 import Chat from '../components/chat/Chat'
-import { useNavigate } from "react-router-dom"
 import messageManager from '../model/messageManager'
 import MoreInfo from '../components/moreInfo/MoreInfo'
+import React from 'react'
 
 
 
@@ -14,28 +14,29 @@ import MoreInfo from '../components/moreInfo/MoreInfo'
 
 
 function Dashboard(props) {
-
   const [type, setType] = useState("Matches")
   const [matches, setMatches] = useState([])
   const [rec, setRec] = useState(null)
-  const [chats,setChats] = useState([])
-  const [infoUser,setInfoUser] = useState(rec)
+  const [chats, setChats] = useState([])
+  const [infoUser, setInfoUser] = useState(rec)
+
+
 
   function sortByTimestamp(objects) {
     return objects.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-}
+  }
 
 
 
-async function update(id) {
+  async function update(id) {
     await messageManager.getMessages(props.loggedUser.user_id, id).then(mess => {
-        let sorted = sortByTimestamp(mess)
-        setChats(sorted)
+      let sorted = sortByTimestamp(mess)
+      setChats(sorted)
     })
-}
+  }
 
   const toggleModal = (e) => {
-    
+
     e.preventDefault();
     if (e.target.textContent === "Matches") {
       setType("Matches")
@@ -47,10 +48,10 @@ async function update(id) {
   const token = localStorage.getItem("token");
   const user = token ? JSON.parse(token).userId : null;
 
-  
+
 
   if (user === null) {
-    
+
     return null
   }
 
@@ -58,6 +59,9 @@ async function update(id) {
 
   return (
     <div className='dashboard'>
+
+
+
       {props.loggedUser?.photos && <LeftSideContainer
         type={type}
         matches={matches}
@@ -67,31 +71,31 @@ async function update(id) {
         setRec={setRec}
         setType={setType}
         setChats={update} />}
-        
-      
-      {type === "Matches" && props.loggedUser && 
-      <CardsContainer 
-      update={props.update} 
-      setUpdate={props.setUpdate} 
-      matches={matches} 
-      loggedUser={props.loggedUser} 
-      setInfoUser={setInfoUser} 
-      setType={setType} 
-      setMatches={setMatches} 
-      type={type}></CardsContainer>}
-      {rec !== null && type === "Chat" ? 
-      <Chat 
-      loggedUser={props.loggedUser} 
-      setInfoUser={setInfoUser} 
-      setType={setType} 
-      correspondingUserId={rec} 
-      type={type}></Chat> : null}
-      {rec !== null && 
-      type === "info" ? 
-      <MoreInfo 
-      type={type} 
-      loggedUser={props.loggedUser} user={infoUser} ></MoreInfo> : null}
-      
+
+
+      {type === "Matches" && props.loggedUser &&
+        <CardsContainer
+          update={props.update}
+          setUpdate={props.setUpdate}
+          matches={matches}
+          loggedUser={props.loggedUser}
+          setInfoUser={setInfoUser}
+          setType={setType}
+          setMatches={setMatches}
+          type={type}></CardsContainer>}
+      {rec !== null && type === "Chat" ?
+        <Chat
+          loggedUser={props.loggedUser}
+          setInfoUser={setInfoUser}
+          setType={setType}
+          correspondingUserId={rec}
+          type={type}></Chat> : null}
+      {rec !== null &&
+        type === "info" ?
+        <MoreInfo
+          type={type}
+          loggedUser={props.loggedUser} user={infoUser} ></MoreInfo> : null}
+
 
 
     </div>
