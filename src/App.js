@@ -27,7 +27,14 @@ function App() {
         userManager.getUserById(userId).then(res => {
           if (res !== null) {
             setLoggedUser(res);
-            navigate("/dashboard");
+            console.log(res.user_name)
+            if (res.first_name) {
+              
+              navigate("/dashboard");
+            } else {
+              navigate("/onboarding")
+            }
+
           }
 
 
@@ -46,7 +53,7 @@ function App() {
       <Route index element={loggedUser ? <Navigate to={'/dashboard'} /> : <Navigate to={'/home'} />}></Route>
       <Route path='/home' element={<Home setSuccess={setSuccess} success={success} setLoggedUser={setLoggedUser} loggedUser={loggedUser} />}></Route>
       <Route path='/dashboard' element={!loggedUser ? <Navigate to={"/home"} /> : <Dashboard update={update} setUpdate={setUpdate} setLoggedUser={setLoggedUser} loggedUser={loggedUser} />}></Route>
-      <Route path='/onboarding' element={!loggedUser ? <Navigate to={"/home"} /> : <Onboarding setLoggedUser={setLoggedUser} loggedUser={loggedUser} />}></Route>
+      <Route path='/onboarding' element={loggedUser && <Onboarding setLoggedUser={setLoggedUser} loggedUser={loggedUser} />}></Route>
     </Routes>
   );
 }

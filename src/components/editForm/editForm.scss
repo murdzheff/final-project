@@ -308,6 +308,7 @@
       
       @media only screen and (max-width: 768px) {
       .editProfileForm {
+        overflow: scroll;
       height: auto;
       width: 90vw;
       }

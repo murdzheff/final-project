@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
 import userManager from "../../model/userManager";
 
-function Modal({ modal, toggleModal, type, setSuccess, loggedUser }) {
+function Modal({ modal, toggleModal, type, setSuccess, success }) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -16,7 +16,7 @@ function Modal({ modal, toggleModal, type, setSuccess, loggedUser }) {
 
   function handleRegister(e) {
     e.preventDefault();
-
+    console.log("tuk")
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -40,7 +40,8 @@ function Modal({ modal, toggleModal, type, setSuccess, loggedUser }) {
     userManager.signup(email, password)
       .then(response => {
         if (response) {
-          setSuccess(true);
+          
+          setSuccess(!success);
           navigate("/onboarding");
         }
       });
@@ -53,7 +54,8 @@ function Modal({ modal, toggleModal, type, setSuccess, loggedUser }) {
       .then(response => {
         setTimeout(() => {
           if (JSON.parse(localStorage.getItem("token"))) {
-            setSuccess(true);
+            setSuccess(!success);
+            console.log("login run")
             navigate("/dashboard");
           }else{
             setErrorMessage("Wrong email or password");
