@@ -153,7 +153,7 @@ class UserManager {
 
 
 
-const userManager = new UserManager("http://192.168.1.243:8080");
+const userManager = new UserManager("http://localhost:8080");
 
 export default userManager;
 
