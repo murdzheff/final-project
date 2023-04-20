@@ -23,6 +23,7 @@ function DashboardHeader(props) {
           className='logout'
           onClick={() => {
             localStorage.clear()
+            props.setLoggedUser(null)
             navigate("/home")
           }}>
             <img src={Logout}></img>

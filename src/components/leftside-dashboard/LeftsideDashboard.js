@@ -50,7 +50,7 @@ const LeftSideContainer = (props) => {
 
 
         <div className="left-side-container">
-            {currentUser !== null ? <DashboardHeader user={currentUser} /> : null}
+            {currentUser !== null ? <DashboardHeader setLoggedUser={props.setLoggedUser} user={currentUser} /> : null}
             <br></br>
             <div className='matches-header'>
                 <button className="optionMatches" onClick={props.toggleModal} >Matches</button>

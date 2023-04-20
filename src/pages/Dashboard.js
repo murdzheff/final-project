@@ -65,6 +65,7 @@ function Dashboard(props) {
       {props.loggedUser?.photos && <LeftSideContainer
         type={type}
         matches={matches}
+        setLoggedUser={props.setLoggedUser}
         setMatches={setMatches}
         toggleModal={toggleModal}
         loggedUser={props.loggedUser}

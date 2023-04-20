@@ -46,7 +46,8 @@ app.post('/signup', async (req, res) => {
             email: sanitizedEmail,
             hashes_password: hashedPassword,
             photos:  [null,null,null,null,null],
-            matches: []
+            matches: [],
+            gender_interest: "woman"
 
         }
         const insertedUser = await users.insertOne(data)
