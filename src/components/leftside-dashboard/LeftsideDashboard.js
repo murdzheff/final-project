@@ -24,15 +24,9 @@ const LeftSideContainer = (props) => {
 
             let strings = props.loggedUser.matches.map(e => e.user_id).filter(Boolean).join(",")
             
-
-            // Promise.all(props.loggedUser.matches.map(e => {
-
-            //     return e = userManager.getUserById(e.user_id)
-            // }))
             userManager.getUsersByIds(strings)
             
                 .then(result => {
-                    console.log(result)
                     let trueMatches = []
                     result.forEach(e => {
                         

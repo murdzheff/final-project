@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import userManager from "../../model/userManager";
 import "./editForm.scss"
 import fileToBase64 from "./fileToBase64";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
@@ -23,7 +22,6 @@ function EditForm(props) {
     const [about, setAbout] = useState(" ");
     const [activeIndex, setActiveIndex] = useState(null);
     const navigate = useNavigate();
-    console.log(props.loggedUser)
 
     useEffect(() => {
         if (props.loggedUser) {
@@ -64,7 +62,6 @@ function EditForm(props) {
         setActiveIndex(null)
     }
 
-    console.log(props)
 
     function resetFile(index) {
         setUrl((prevUrls) => {
@@ -124,7 +121,12 @@ function EditForm(props) {
                     </label>
                     <span className="checkBox">
                         Show Gender:
-                        <input style={{ height: 20 }} type="checkbox" checked={showGender} onChange={(e) => setShowGender(e.target.checked)} />
+                        <input
+                            style={{ height: 20 }}
+                            type="checkbox"
+                            checked={showGender}
+                            onChange={(e) => setShowGender(e.target.checked)}
+                        />
                     </span>
                     <label>
                         Gender Identity:
@@ -217,7 +219,11 @@ function EditForm(props) {
                     </div>
 
                     <div>
-                        <textarea required value={about} placeholder="Tell us something about yourself" className="about" onInput={(e) => { setAbout(e.target.value) }}></textarea>
+                        <textarea required
+                            value={about}
+                            placeholder="Tell us something about yourself"
+                            className="about"
+                            onInput={(e) => { setAbout(e.target.value) }}></textarea>
                     </div>
                 </div>
 

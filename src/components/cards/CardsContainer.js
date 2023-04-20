@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
 import TinderCard from 'react-tinder-card';
 import CardsCarousel from './CardsCarosel';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,7 +22,6 @@ function CardsContainer(props) {
   const [users, setUsers] = useState([]);
   const swipeRef = useRef(null);
   const [swipedUsers, setSwipedUsers] = useState([]);
-  const [likedUsers, setLikedUsers] = useState([])
   const [isLoading, setIsLoading] = useState(true);
   const [profilePic, setProfilePic] = useState("");
   const location = useLocation();
@@ -37,10 +35,7 @@ function CardsContainer(props) {
     const genderInterest = props.loggedUser.gender_interest;
     setProfilePic(props.loggedUser.photos[0] || "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg")
     a = props.loggedUser.matches
-    setLikedUsers(props.loggedUser.matches || [])
 
-
-    console.log(props.loggedUser.user_id)
     userManager.getGenderedUsers(genderInterest)
       .then((response) => {
         
@@ -213,7 +208,7 @@ function CardsContainer(props) {
       </div>
 
       <div className='button-container-tin'>
-        <Button className='button-left-tin' onClick={() => swipe('left')} variant="outline-warning">
+        <Button className='button-left-tin'  variant="outline-warning">
           <img src={reload}></img>
         </Button>{' '}
 
@@ -221,7 +216,7 @@ function CardsContainer(props) {
           <img src={X}></img>
         </Button>{' '}
 
-        <Button className='button-up-tin' onClick={() => swipe('up')} variant="outline-primary">
+        <Button className='button-up-tin' variant="outline-primary">
           <img src={StarBtn}></img>
         </Button>{' '}
 
@@ -230,7 +225,7 @@ function CardsContainer(props) {
 
         </Button>{' '}
 
-        <Button className='button-right-tin' onClick={() => swipe('right')} variant="outline-info">
+        <Button className='button-right-tin' variant="outline-info">
           <img src={arrow}></img>
         </Button>{' '}
 

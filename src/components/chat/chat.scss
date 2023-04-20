@@ -33,7 +33,7 @@
         display: flex;
         align-items: center;
         flex-direction: row;
-        justify-content: space-evenly;
+        justify-content: space-around;
         background-color: rgba(255, 255, 255, 0.443);
         border-radius: 10px;
         color: #e84379;
@@ -43,9 +43,13 @@
         }
 
         button {
-            background-color: #e84379;
+            background-color: transparent;
             position: relative;
             
+            img {
+                height: 40px;
+            }
+
             border-radius: 10px;
             border: #ccc;
             height: 40px;
@@ -53,7 +57,6 @@
         
             &:hover {
                 animation: wiggle 0.5s ease-in-out ;
-                background-color: #23a8d3;
             }
         
             @keyframes wiggle {
@@ -198,6 +201,9 @@
     gap: 10px;
 }
 
+.checkProf {
+    background-color: transparent;
+}
 
 
   

@@ -67,7 +67,6 @@ class UserManager {
         }
       );
       if (response.status === 200) {
-        console.log(response.data)
         return response.data;
       } else {
         throw new Error('Failed to get users by IDs');
@@ -82,7 +81,6 @@ class UserManager {
   }
 
   async updateUser(formData) {
-    console.log(formData)
     try {
       const response = await axios.put(
         `${this.baseUrl}/user`,

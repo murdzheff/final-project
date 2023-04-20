@@ -6,6 +6,7 @@ import userManager from '../../model/userManager';
 import EmojiPicker from 'emoji-picker-react';
 import Arrow from "./send-mail.png"
 import Emoj from "./emoji.png"
+import Info from "./info.png"
 
 function Chat(props) {
 
@@ -67,7 +68,7 @@ function Chat(props) {
     async function update(id) {
         await messageManager.getMessages(props.loggedUser.user_id, id).then(mess => {
             let sorted = sortByTimestamp(mess)
-            setMessages(mess)
+            setMessages(sorted)
         })
     }
 
@@ -148,7 +149,9 @@ function Chat(props) {
                         <h3>{recipient.email}</h3>
                     </div>
 
-                    <button style={{ backgroundColor: "#e23f80" }} onClick={() => { props.setType("info"); props.setInfoUser(recipient) }} className="checkProf">Check profile</button>
+                    <button onClick={() => { props.setType("info"); props.setInfoUser(recipient) }} className="checkProf">
+                        <img src={Info}></img>
+                    </button>
                 </div>
                 <div className="msgs">
                     {messages.length > 0 && recipient !== null ? (

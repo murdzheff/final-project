@@ -25,15 +25,17 @@ function Dashboard(props) {
   const [infoUser,setInfoUser] = useState(rec)
   const [refresh,setRefresh] = useState(false);
 
-  async function update(id) {
-    await Promise.all([
-        messageManager.getMessages(JSON.parse(localStorage.getItem("token")).userId, id),
-        messageManager.getMessages(id, JSON.parse(localStorage.getItem("token")).userId)
-    ]).then(([messagesTo, messagesFrom]) => {
-        const allMsgs = [...messagesTo, ...messagesFrom].sort((a, b) => b.timestamp - a.timestamp);
-        
-        setChats(allMsgs)
-    });
+  function sortByTimestamp(objects) {
+    return objects.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+}
+
+
+
+async function update(id) {
+    await messageManager.getMessages(props.loggedUser.user_id, id).then(mess => {
+        let sorted = sortByTimestamp(mess)
+        setChats(sorted)
+    })
 }
 
   const toggleModal = (e) => {
@@ -71,9 +73,28 @@ function Dashboard(props) {
         setChats={update} />}
         
       
-      {type === "Matches" && props.loggedUser && <CardsContainer update={props.update} setUpdate={props.setUpdate} matches={matches} loggedUser={props.loggedUser} setInfoUser={setInfoUser} setType={setType} setMatches={setMatches} type={type}></CardsContainer>}
-      {rec !== null && type === "Chat" ? <Chat loggedUser={props.loggedUser} setInfoUser={setInfoUser} setType={setType} correspondingUserId={rec} type={type}></Chat> : null}
-      {rec !== null && type === "info" ? <MoreInfo type={type} loggedUser={props.loggedUser} user={infoUser} ></MoreInfo> : null}
+      {type === "Matches" && props.loggedUser && 
+      <CardsContainer 
+      update={props.update} 
+      setUpdate={props.setUpdate} 
+      matches={matches} 
+      loggedUser={props.loggedUser} 
+      setInfoUser={setInfoUser} 
+      setType={setType} 
+      setMatches={setMatches} 
+      type={type}></CardsContainer>}
+      {rec !== null && type === "Chat" ? 
+      <Chat 
+      loggedUser={props.loggedUser} 
+      setInfoUser={setInfoUser} 
+      setType={setType} 
+      correspondingUserId={rec} 
+      type={type}></Chat> : null}
+      {rec !== null && 
+      type === "info" ? 
+      <MoreInfo 
+      type={type} 
+      loggedUser={props.loggedUser} user={infoUser} ></MoreInfo> : null}
       
 
 

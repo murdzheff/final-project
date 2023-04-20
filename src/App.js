@@ -28,7 +28,6 @@ function App() {
           if (res !== null) {
             setLoggedUser(res);
             navigate("/dashboard");
-            console.log(res)
           }
 
 
