@@ -16,8 +16,8 @@ function EditForm(props) {
     const [dobMonth, setDobMonth] = useState(" ");
     const [dobYear, setDobYear] = useState(" ");
     const [showGender, setShowGender] = useState(true);
-    const [genderIdentity, setGenderIdentity] = useState(" ");
-    const [genderInterest, setGenderInterest] = useState(" ");
+    const [genderIdentity, setGenderIdentity] = useState("man");
+    const [genderInterest, setGenderInterest] = useState("woman");
     const [ageInterest, setAgeInterest] = useState("30")
     const [url, setUrl] = useState([])
     const [about, setAbout] = useState(" ");

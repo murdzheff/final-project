@@ -15,34 +15,40 @@ const LeftSideContainer = (props) => {
 
 
     useEffect(() => {
+        
+            setCurrentUser(props.loggedUser)
 
-        setCurrentUser(props.loggedUser)
+            console.log("i run")
 
+            if (props.loggedUser.matches) {
 
+                let strings = props.loggedUser.matches.map(e => e.user_id).filter(Boolean).join(",")
 
-        if (props.loggedUser.matches) {
+                userManager.getUsersByIds(strings)
 
-            let strings = props.loggedUser.matches.map(e => e.user_id).filter(Boolean).join(",")
-            
-            userManager.getUsersByIds(strings)
-            
-                .then(result => {
-                    let trueMatches = []
-                    result.forEach(e => {
+                    .then(result => {
+                        let trueMatches = []
+                        result.forEach(e => {
+
+                            if (e.matches && e.matches.find(el => el.user_id === props.loggedUser.user_id)) {
+
+                                trueMatches.push(e)
+
+                                props.setMatches(trueMatches)
+                            }
+                        })
+
                         
-                        if (e.matches &&  e.matches.find(el => el.user_id === props.loggedUser.user_id)) {
-                            
-                            trueMatches.push(e)
-                            
-                            props.setMatches(trueMatches)
-                        }
+                        setMatchedUsers(trueMatches)
+
                     })
-                    setMatchedUsers(trueMatches)
-
-                })
-        }
+            }
 
 
+       
+
+
+        
 
     }, [props.matches.length])
 
