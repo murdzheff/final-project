@@ -7,6 +7,7 @@ import Chat from '../components/chat/Chat'
 import messageManager from '../model/messageManager'
 import MoreInfo from '../components/moreInfo/MoreInfo'
 import React from 'react'
+import NavigationMenu from '../components/hamburgerMenu/hamburgerMenu'
 
 
 
@@ -59,7 +60,6 @@ function Dashboard(props) {
 
   return (
     <div className='dashboard'>
-
 
 
       {props.loggedUser?.photos && <LeftSideContainer
