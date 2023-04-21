@@ -165,7 +165,7 @@ function CardsContainer(props) {
 
                   <div>
                     <FontAwesomeIcon icon={faLocationDot} style={{ color: 'white', marginRight: '12px' }} />
-                    <p className='information-text'> На 3 километра разстояние </p>
+                    <p className='information-text'> На {Math.ceil(Math.random() * 200)} километра разстояние </p>
                   </div>
 
                   <div className='information-important-tnd'>
