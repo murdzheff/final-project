@@ -1,26 +1,33 @@
-.dashBoard-header{
+.dashBoard-header {
     display: flex;
     height: 10vh;
     align-items: center;
     justify-content: space-around;
     font-size: 12px;
-    
 
-    button{
+    .online {
+        min-height: 15px;
+        min-width: 15px;
+        border-radius: 50%;
+        background-color: rgb(111, 185, 0);
+    }
+
+
+    button {
         border-radius: 10px;
         height: 40px;
         font-size: 12px;
     }
 
-    h3{
+    h3 {
         font-size: 16px;
     }
-    
+
 }
 
 
 
-.options{
+.options {
     display: flex;
     gap: 5px;
 
@@ -28,7 +35,7 @@
         object-fit: cover;
     }
 
-    .logout{
+    .logout {
         background-color: transparent;
         color: white;
         border: none;
@@ -38,12 +45,12 @@
             object-fit: cover;
         }
 
-        &:hover{
-            animation: wiggle 0.5s ease-in-out ;
+        &:hover {
+            animation: wiggle 0.5s ease-in-out;
         }
     }
 
-    .preferences{
+    .preferences {
         background-color: transparent;
         border: none;
         color: white;
@@ -52,8 +59,8 @@
             height: 40px;
         }
 
-        &:hover{
-            animation: wiggle 0.5s ease-in-out ;
+        &:hover {
+            animation: wiggle 0.5s ease-in-out;
         }
     }
 }

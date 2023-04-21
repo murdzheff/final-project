@@ -23,7 +23,7 @@ function DashboardHeader(props) {
         <button
           className='logout'
           onClick={() => {
-            userManager.logout(JSON.parse(localStorage.getItem("token")).token)
+            userManager.logout(JSON.parse(localStorage.getItem("token")).user_id)
             localStorage.clear()
             props.setLoggedUser(null)
             navigate("/home")

@@ -128,28 +128,28 @@ class UserManager {
       console.error(error);
     }
   };
-  
+
 
   async addMatch(userId, matchedUserId) {
 
-  const response = await axios.put(`${this.baseUrl}/users/user=${userId}/matches/${matchedUserId}`, null, {
-    headers: {
-      'identity': userId,
-    },
-  })
-    .then(response => {
-      return response.data
+    const response = await axios.put(`${this.baseUrl}/users/user=${userId}/matches/${matchedUserId}`, null, {
+      headers: {
+        'identity': userId,
+      },
     })
-    .catch(error => {
-      return new Error(error)
-      // Handle any errors
-    });
-}
+      .then(response => {
+        return response.data
+      })
+      .catch(error => {
+        return new Error(error)
+        // Handle any errors
+      });
+  }
 
   async logout(token) {
     const response = await axios.delete(`${this.baseUrl}/logout`, {
       data: {
-        token: token
+        user_id: token
       }
     }).then(response => {
       console.log(response.data);
@@ -159,8 +159,18 @@ class UserManager {
     });
   }
 
-}
 
+  getSessionUserIds = async () => {
+    try {
+      const response = await axios.get(`${this.baseUrl}/sessions/userIds`);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
+
+}
 
 
 

@@ -169,10 +169,10 @@ function CardsContainer(props) {
                   </div>
 
                   <div className='information-important-tnd'>
-                    <div style={{ display: "flex" }}>
+                    {props.onlineUsers.includes(user.user_id) && <div style={{ display: "flex" }}>
                       <FontAwesomeIcon icon={faCircle} style={{ color: '#7cfda3', marginRight: '12px' }} />
                       <p className='information-text'> Онлайн сега </p>
-                    </div>
+                    </div>}
                     <FontAwesomeIcon className='infoIcon' onClick={() => { props.setType("info"); console.log(user); props.setInfoUser(user) }} icon={faCircleInfo} style={{ fontSize: "30px", color: "#d7d7d8" }} />
                   </div>
 

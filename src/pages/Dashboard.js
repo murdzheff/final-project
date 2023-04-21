@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import LeftSideContainer from '../components/leftside-dashboard/LeftsideDashboard'
 // import DashboardHeader from '../components/dashhboardHeader/DashboardHeader'
 // import userManager from '../model/userManager'
@@ -7,7 +7,7 @@ import Chat from '../components/chat/Chat'
 import messageManager from '../model/messageManager'
 import MoreInfo from '../components/moreInfo/MoreInfo'
 import React from 'react'
-import NavigationMenu from '../components/hamburgerMenu/hamburgerMenu'
+import userManager from '../model/userManager'
 
 
 
@@ -20,7 +20,27 @@ function Dashboard(props) {
   const [rec, setRec] = useState(null)
   const [chats, setChats] = useState([])
   const [infoUser, setInfoUser] = useState(rec)
+  const [onlineUsers, setOnlineUsers] = useState([])
 
+
+
+  useEffect(() => {
+    
+    userManager.getSessionUserIds().then(res => {
+      setOnlineUsers(res)
+    })
+
+
+    let interval = setInterval(() => {
+      userManager.getSessionUserIds().then(res => {
+        setOnlineUsers(res)
+      })
+    }, 30000);
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
 
 
   function sortByTimestamp(objects) {
@@ -70,7 +90,8 @@ function Dashboard(props) {
         loggedUser={props.loggedUser}
         setRec={setRec}
         setType={setType}
-        setChats={update} />}
+        setChats={update}
+        onlineUsers={onlineUsers} />}
 
 
       {type === "Matches" && props.loggedUser &&
@@ -81,16 +102,18 @@ function Dashboard(props) {
           loggedUser={props.loggedUser}
           setInfoUser={setInfoUser}
           setType={setType}
+          onlineUsers={onlineUsers}
           setMatches={setMatches}
           type={type}></CardsContainer>}
       {rec !== null && type === "Chat" ?
         <Chat
           loggedUser={props.loggedUser}
           setInfoUser={setInfoUser}
+          onlineUsers={onlineUsers}
           setType={setType}
           correspondingUserId={rec}
           type={type}></Chat> : null}
-      { type === "info" ?
+      {type === "info" ?
         <MoreInfo
           type={type}
           loggedUser={props.loggedUser} user={infoUser} ></MoreInfo> : null}

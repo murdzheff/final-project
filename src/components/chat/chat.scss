@@ -1,7 +1,4 @@
-
-
-
-.userPhoto{
+.userPhoto {
     height: 50px;
     width: 50px;
     border-radius: 50%;
@@ -18,7 +15,7 @@
     width: 60vh;
     color: aliceblue;
 
-    .messagesContainer{
+    .messagesContainer {
         background-color: rgba(255, 255, 255, 0.724);
         width: 60%;
         display: flex;
@@ -27,7 +24,7 @@
         overflow: hidden;
     }
 
-    .chatHeader{
+    .chatHeader {
         height: 70px;
         width: 100%;
         display: flex;
@@ -37,7 +34,14 @@
         background-color: rgba(255, 255, 255, 0.443);
         border-radius: 10px;
         color: #e84379;
-        
+
+        .online {
+            min-height: 15px;
+            min-width: 15px;
+            border-radius: 50%;
+            background-color: rgb(111, 185, 0);
+        }
+
         img {
             object-fit: cover;
         }
@@ -45,7 +49,7 @@
         button {
             background-color: transparent;
             position: relative;
-            
+
             img {
                 height: 40px;
             }
@@ -54,53 +58,56 @@
             border: #ccc;
             height: 40px;
             color: white;
-        
+
             &:hover {
-                animation: wiggle 0.5s ease-in-out ;
+                animation: wiggle 0.5s ease-in-out;
             }
-        
+
             @keyframes wiggle {
                 0% {
-                  transform: rotate(0deg);
+                    transform: rotate(0deg);
                 }
+
                 25% {
-                  transform: rotate(5deg);
+                    transform: rotate(5deg);
                 }
+
                 75% {
-                  transform: rotate(-5deg);
+                    transform: rotate(-5deg);
                 }
+
                 100% {
-                  transform: rotate(0deg);
+                    transform: rotate(0deg);
                 }
-        
+
             }
         }
     }
 
-    .msgs{
-        
+    .msgs {
+
         height: 500px;
         width: 100%;
         overflow: scroll;
-        
-        
-        div{
+
+
+        div {
             display: flex;
             margin-left: 20px;
-            
 
 
-            .outgoing{
+
+            .outgoing {
                 margin-left: auto;
                 background-color: #23a8d3;
             }
-            
-            .incoming{
+
+            .incoming {
                 margin-right: auto;
                 background-color: #e84379;
             }
 
-            div{
+            div {
                 display: flex;
                 gap: 5px;
                 margin: 10px;
@@ -108,33 +115,34 @@
                 align-items: center;
 
 
-                img{
+                img {
                     height: 25px;
                     width: 25px;
                     background-repeat: no-repeat;
                     object-fit: cover;
                 }
 
-                p{
+                p {
                     margin: 5px;
                 }
 
                 &:hover {
-                    animation: wiggle 0.5s ease-in-out ;
+                    animation: wiggle 0.5s ease-in-out;
                 }
             }
-            
+
         }
 
-        
+
     }
-    
+
 
     .sendmsgContainer {
         display: flex;
         border-radius: 10px;
         margin: 5px;
-        .sendMsg{
+
+        .sendMsg {
             width: 20%;
             background-color: transparent;
             border: none;
@@ -145,14 +153,14 @@
                 height: 30px;
             }
 
-            &:hover{
-                animation: wiggle 0.5s ease-in-out ;
+            &:hover {
+                animation: wiggle 0.5s ease-in-out;
             }
         }
 
-        
-    
-        .chatInputs{
+
+
+        .chatInputs {
             width: 200vh;
             height: 40px;
             font-size: 18px;
@@ -176,8 +184,8 @@
     border-radius: 50%;
     border: none;
     background-color: transparent;
-    
-    img{
+
+    img {
         height: 30px;
     }
 }
@@ -188,14 +196,14 @@
     min-height: 40px;
     min-width: 40px;
     border-radius: 50%;
-    
+
 }
 
 .time {
     font-size: 12px;
 }
 
-.recipient{
+.recipient {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -204,7 +212,3 @@
 .checkProf {
     background-color: transparent;
 }
-
-
-  
-  

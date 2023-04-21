@@ -142,7 +142,8 @@ function Chat(props) {
 
                     <div className='recipient'>
                         <img className="userPhoto" src={recipient?.photos[0]}></img>
-                        <h3>{recipient.email}</h3>
+                        <h3>{recipient.first_name}</h3>
+                        {props.onlineUsers.includes(recipient.user_id) && <div className='online'></div>}
                     </div>
 
                     <button onClick={() => { props.setType("info"); props.setInfoUser(recipient) }} className="checkProf">

@@ -18,6 +18,11 @@ function App() {
 
 
   useEffect(() => {
+
+
+    
+
+
     const fetchUser = async () => {
 
       let token = JSON.parse(localStorage.getItem("token"));
@@ -29,7 +34,7 @@ function App() {
             setLoggedUser(res);
             console.log(res.user_name)
             if (res.first_name) {
-              
+
               navigate("/dashboard");
             } else {
               navigate("/onboarding")
@@ -43,6 +48,8 @@ function App() {
 
       }
     };
+
+
 
     fetchUser();
   }, [success]);

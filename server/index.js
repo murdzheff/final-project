@@ -78,7 +78,7 @@ app.post('/login', async (req, res) => {
           })
 
           // Insert token into "Sessions" collection
-          await sessions.insertOne({ token })
+          await sessions.insertOne({ userId: user.user_id })
 
           return res.status(200).json({ token , userId: user.user_id})
       }
@@ -93,12 +93,12 @@ app.post('/login', async (req, res) => {
 
 //LOGOUT ROUTE
 app.delete('/logout', async (req, res) => {
-  const { token } = req.body;
+  const { userId } = req.body;
 
   try {
     const databaseName = client.db('app-data');
     const sessions = databaseName.collection('sessions');
-    await sessions.deleteOne({ token });
+    await sessions.deleteOne( userId );
 
     res.status(200).send('Logged out successfully');
 
@@ -109,6 +109,23 @@ app.delete('/logout', async (req, res) => {
 
   } finally {
     //  SOMETHING
+  }
+});
+
+
+app.get('/sessions/userIds', async (req, res) => {
+  try {
+    const databaseName = client.db('app-data');
+    const sessions = databaseName.collection('sessions');
+    
+    // Retrieve an array of all userIds from the sessions collection
+    const userIds = await sessions.distinct('userId');
+
+    res.status(200).json(userIds);
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Error retrieving userIds');
   }
 });
 

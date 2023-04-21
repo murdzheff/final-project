@@ -44,7 +44,11 @@ function Modal({ modal, toggleModal, type, setSuccess, success }) {
           setSuccess(!success);
           navigate("/onboarding");
         }
-      });
+      })
+      .catch(err => {
+        console.log(err),
+        setErrorMessage("Email already exists")
+      })
   }
 
   function handleLogin(e) {

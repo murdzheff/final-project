@@ -45,6 +45,13 @@
         width: 200px;
         margin-left: 30px;
 
+        .online {
+          min-height: 15px;
+          min-width: 15px;
+          border-radius: 50%;
+          background-color: rgb(111, 185, 0);
+        }
+
         img {
             
             object-fit: cover;

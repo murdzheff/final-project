@@ -15,40 +15,40 @@ const LeftSideContainer = (props) => {
 
 
     useEffect(() => {
-        
-            setCurrentUser(props.loggedUser)
 
-            console.log("i run")
+        setCurrentUser(props.loggedUser)
 
-            if (props.loggedUser.matches) {
+        console.log("i run")
 
-                let strings = props.loggedUser.matches.map(e => e.user_id).filter(Boolean).join(",")
+        if (props.loggedUser.matches) {
 
-                userManager.getUsersByIds(strings)
+            let strings = props.loggedUser.matches.map(e => e.user_id).filter(Boolean).join(",")
 
-                    .then(result => {
-                        let trueMatches = []
-                        result.forEach(e => {
+            userManager.getUsersByIds(strings)
 
-                            if (e.matches && e.matches.find(el => el.user_id === props.loggedUser.user_id)) {
+                .then(result => {
+                    let trueMatches = []
+                    result.forEach(e => {
 
-                                trueMatches.push(e)
+                        if (e.matches && e.matches.find(el => el.user_id === props.loggedUser.user_id)) {
 
-                                props.setMatches(trueMatches)
-                            }
-                        })
+                            trueMatches.push(e)
 
-                        
-                        setMatchedUsers(trueMatches)
-
+                            props.setMatches(trueMatches)
+                        }
                     })
-            }
 
 
-       
+                    setMatchedUsers(trueMatches)
+
+                })
+        }
 
 
-        
+
+
+
+
 
     }, [props.matches.length])
 
@@ -65,21 +65,23 @@ const LeftSideContainer = (props) => {
             <div>
                 {matchedUsers.map((el, index) => {
 
-                    return el = <div className='match' key={index}>
-                        <label htmlFor={"my-button" + index}>
-                            <img className='userPhoto' src={el.photos[0] || "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"}></img>
-                            <p>{el.first_name}</p>
-                        </label>
-                        <button id={"my-button" + index} value={el.user_id} style={{ display: "none" }} onClick={(e) => {
+                    return el =
+                        <div className='match' key={index}>
+                            <label htmlFor={"my-button" + index}>
+                                <img className='userPhoto' src={el.photos[0] || "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"}></img>
+                                <p>{el.first_name}</p>
+                                {props.onlineUsers.includes(el.user_id) && <div className='online'></div>}
+                            </label>
+                            <button id={"my-button" + index} value={el.user_id} style={{ display: "none" }} onClick={(e) => {
 
-                            props.setRec(e.target.value)
-                            props.setChats(e.target.value)
+                                props.setRec(e.target.value)
+                                props.setChats(e.target.value)
 
-                            props.setType("Chat")
+                                props.setType("Chat")
 
 
-                        }}></button>
-                    </div>
+                            }}></button>
+                        </div>
                 })}
             </div>
         </div>
