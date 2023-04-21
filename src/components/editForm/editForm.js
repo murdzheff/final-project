@@ -121,9 +121,11 @@ function EditForm(props) {
                     </label>
                     <label className="date">
                         Date of Birth:
-                        <input type="number" required value={dobDay} onChange={(e) => setDobDay(e.target.value)} placeholder="Day" />
-                        <input type="number" required value={dobMonth} onChange={(e) => setDobMonth(e.target.value)} placeholder="Month" />
-                        <input type="number" required value={dobYear} onChange={(e) => setDobYear(e.target.value)} placeholder="Year" />
+                        <input type="date" min="1940-05-01" max={"2005-05-01"} onInput={(e) => {
+                            setDobDay(e.target.value.slice(8));
+                            setDobMonth(e.target.value.slice(5,7));
+                            setDobYear(e.target.value.slice(0,4));
+                        }}></input>
                     </label>
                     <span className="checkBox">
                         Show Gender:
