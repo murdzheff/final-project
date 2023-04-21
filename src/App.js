@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+
+
 function App() {
 
   const navigate = useNavigate();
@@ -18,11 +20,29 @@ function App() {
 
 
   useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      // Call your logout function here
+      if(loggedUser.user_id) {
+        userManager.logout(JSON.parse(localStorage.getItem("token"))?.user_id);
+  
+        // Send the logout event to the server using sendBeacon()
+        const data = JSON.stringify({ user_id: loggedUser.user_id });
+        navigator.sendBeacon("localhost:8080/logout", data);
+      }
+    };
+  
+    window.addEventListener('beforeunload', handleBeforeUnload);
+  
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+  
 
 
-    
 
 
+  useEffect(() => {
     const fetchUser = async () => {
 
       let token = JSON.parse(localStorage.getItem("token"));
@@ -48,9 +68,6 @@ function App() {
 
       }
     };
-
-
-
     fetchUser();
   }, [success]);
 
@@ -66,3 +83,7 @@ function App() {
 }
 
 export default App;
+
+
+
+

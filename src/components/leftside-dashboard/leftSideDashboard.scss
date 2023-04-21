@@ -1,152 +1,158 @@
+.left-side-container {
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 15%;
 
 
-.left-side-container{
-    border-radius: 10px;
-    margin-left: 10px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 15%;
 
-    
-        
-        background-color: #ccc;
-        position: relative;
-        left: -100px;
-        animation: slide-in 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
-      }
-      
-      @keyframes slide-in {
-        0% {
-          left: -100px;
-        }
-        50% {
-          left: 50px;
-        }
-        100% {
-          left: 0;
-        }
-      
-      
+  background-color: #ccc;
+  position: relative;
+  left: -100px;
+  animation: slide-in 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+}
+
+@keyframes slide-in {
+  0% {
+    left: -100px;
+  }
+
+  50% {
+    left: 50px;
+  }
+
+  100% {
+    left: 0;
+  }
+
+
 }
 
 .match {
 
+  display: flex;
+
+
+  label {
+    margin: 10px;
     display: flex;
-    
+    align-items: center;
+    gap: 5px;
+    min-height: 50px;
+    border-radius: 10px;
+    min-width: 100px;
+    width: 200px;
+    margin-left: 30px;
 
-    label {
-        margin: 10px;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        min-height: 50px;
-        border-radius: 10px;
-        min-width: 100px;
-        width: 200px;
-        margin-left: 30px;
-
-        .online {
-          min-height: 15px;
-          min-width: 15px;
-          border-radius: 50%;
-          background-color: rgb(111, 185, 0);
-        }
-
-        img {
-            
-            object-fit: cover;
-        }
-        
-        &:hover {
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            color: white;
-
-            
-            animation: wiggle 0.5s ease-in-out ;
-                
-            
-        
-            @keyframes wiggle {
-                0% {
-                  transform: rotate(0deg);
-                }
-                25% {
-                  transform: rotate(5deg);
-                }
-                75% {
-                  transform: rotate(-5deg);
-                }
-                100% {
-                  transform: rotate(0deg);
-                }
-        
-            }
-
-
-            @keyframes gradient {
-                0% {
-                    background-position: 0% 50%;
-                }
-
-                50% {
-                    background-position: 100% 50%;
-                }
-
-                100% {
-                    background-position: 0% 50%;
-                }
-            }
-        }
-
-        img{
-            position: relative;
-            height: 50px;
-            width: 50px;
-            right: 20px;
-            
-        }
-
-        p {
-            margin: 0;
-        }
+    .online {
+      min-height: 15px;
+      min-width: 15px;
+      border-radius: 50%;
+      background-color: rgb(111, 185, 0);
     }
+
+    img {
+
+      object-fit: cover;
+    }
+
+    &:hover {
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      color: white;
+
+
+      animation: wiggle 0.5s ease-in-out;
+
+
+
+      @keyframes wiggle {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        25% {
+          transform: rotate(5deg);
+        }
+
+        75% {
+          transform: rotate(-5deg);
+        }
+
+        100% {
+          transform: rotate(0deg);
+        }
+
+      }
+
+
+      @keyframes gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+
+        50% {
+          background-position: 100% 50%;
+        }
+
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+    }
+
+    img {
+      position: relative;
+      height: 50px;
+      width: 50px;
+      right: 20px;
+
+    }
+
+    p {
+      margin: 0;
+    }
+  }
 
 }
 
 
 .optionMatches {
-    background-color: #e84379;
-    
-    align-self: center;
-    justify-self: center;
-    border-radius: 10px;
-    border: #ccc;
-    height: 40px;
-    color: white;
-    width: 60%;
+  background-color: #e84379;
 
-    &:hover {
-        animation: wiggle 2s ease-in-out ;
-        background-color: #23a8d3;
+  align-self: center;
+  justify-self: center;
+  border-radius: 10px;
+  border: #ccc;
+  height: 40px;
+  color: white;
+  width: 60%;
+
+  &:hover {
+    animation: wiggle 2s ease-in-out;
+    background-color: #23a8d3;
+  }
+
+  @keyframes wiggle {
+    0% {
+      transform: rotate(0deg);
     }
 
-    @keyframes wiggle {
-        0% {
-          transform: rotate(0deg);
-        }
-        25% {
-          transform: rotate(5deg);
-        }
-        75% {
-          transform: rotate(-5deg);
-        }
-        100% {
-          transform: rotate(0deg);
-        }
-
+    25% {
+      transform: rotate(5deg);
     }
+
+    75% {
+      transform: rotate(-5deg);
+    }
+
+    100% {
+      transform: rotate(0deg);
+    }
+
+  }
 }
 
 .matchesHeader {

@@ -72,7 +72,7 @@ function CardsContainer(props) {
     const arrayWithoutMe = filteredArray.filter(obj => obj.user_id !== props.loggedUser.user_id)
     
     let noPhotos = filterArray(arrayWithoutMe)
-    let ageFilter = noPhotos.filter(e => {return 2023 - e.dob_year < props.loggedUser?.age_interest})
+    let ageFilter = noPhotos.filter(e => {return 2023 - e.dob_year < props.loggedUser?.age_interest.max && e.dob_year > props.loggedUser?.age_interest.min})
     return ageFilter;
   }
 

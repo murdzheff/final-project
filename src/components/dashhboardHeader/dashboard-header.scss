@@ -1,17 +1,27 @@
 .dashBoard-header {
     display: flex;
-    height: 10vh;
+    height: 15vh;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     font-size: 12px;
+    flex-direction: column;
+    gap: 2vh;
+    margin: 1vh;
 
-    .online {
-        min-height: 15px;
-        min-width: 15px;
-        border-radius: 50%;
-        background-color: rgb(111, 185, 0);
+    div {
+        gap: 1vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
 
+    .userPhotoHeader {
+        height: 6vh;
+        width: 6vh;
+        border-radius: 50%;
+
+    }
 
     button {
         border-radius: 10px;
