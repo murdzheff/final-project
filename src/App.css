@@ -11,6 +11,7 @@ body {
     margin: 0px;
     padding: 0px;
     overflow-x: hidden; 
+    
 
   
   @keyframes gradient {
@@ -31,8 +32,5 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  
-}
-.modal{
   
 }
