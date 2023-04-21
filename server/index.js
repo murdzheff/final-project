@@ -62,34 +62,6 @@ app.post('/signup', async (req, res) => {
     }
 })
 
-// app.post('/login', async (req, res) => {
-//     // const client = new MongoClient(uri);
-//     const { email, password } = req.body
-
-//     try {
-//         // await client.connect()
-//         const databaseName = client.db('app-data')
-//         const users = databaseName.collection('users')
-
-//         const user = await users.findOne({ email })
-//         const correctPassword = await bcrypt.compare(password, user.hashes_password)
-
-//         if (user && correctPassword) {
-//             const token = jwt.sign(user, email, {
-//                 expiresIn: 60 * 24
-//             })
-//             return res.status(200).json({ token , userId: user.user_id})
-
-//         }
-//         return res.status(400).send('Invalid Credentials')
-//     } catch (err) {
-//         console.log(err)
-//         res.status(400).send('Invalid Credentials')
-//     }
-
-
-// })
-
 app.post('/login', async (req, res) => {
   const { email, password } = req.body
   try {
@@ -116,9 +88,29 @@ app.post('/login', async (req, res) => {
       console.log(err)
       res.status(400).send('Invalid Credentials')
   } finally {
-      await client.close();
   }
 })
+
+//LOGOUT ROUTE
+app.delete('/logout', async (req, res) => {
+  const { token } = req.body;
+
+  try {
+    const databaseName = client.db('app-data');
+    const sessions = databaseName.collection('sessions');
+    await sessions.deleteOne({ token });
+
+    res.status(200).send('Logged out successfully');
+
+  } catch (err) {
+
+    console.log(err);
+    res.status(500).send('Error logging out');
+
+  } finally {
+    //  SOMETHING
+  }
+});
 
 
 
