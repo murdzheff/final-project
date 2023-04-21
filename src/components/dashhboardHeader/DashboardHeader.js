@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import "./dashboard-header.scss"
 import Settings from "./setting.png"
 import Logout from "./logout.png"
+import userManager from '../../model/userManager'
 
 function DashboardHeader(props) {
   const navigate = useNavigate()
@@ -22,6 +23,7 @@ function DashboardHeader(props) {
         <button
           className='logout'
           onClick={() => {
+            userManager.logout(JSON.parse(localStorage.getItem("token")).token)
             localStorage.clear()
             props.setLoggedUser(null)
             navigate("/home")

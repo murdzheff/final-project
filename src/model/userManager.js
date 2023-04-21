@@ -144,9 +144,20 @@ class UserManager {
       return new Error(error)
       // Handle any errors
     });
-
-
 }
+
+  async logout(token) {
+    const response = await axios.delete(`${this.baseUrl}/logout`, {
+      data: {
+        token: token
+      }
+    }).then(response => {
+      console.log(response.data);
+      return response.data
+    }).catch(error => {
+      return new Error(error)
+    });
+  }
 
 }
 
