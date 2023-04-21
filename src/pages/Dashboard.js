@@ -37,7 +37,6 @@ function Dashboard(props) {
   }
 
   const toggleModal = (e) => {
-
     e.preventDefault();
     if (e.target.textContent === "Matches") {
       setType("Matches")
