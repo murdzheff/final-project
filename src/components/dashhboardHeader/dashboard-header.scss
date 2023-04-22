@@ -74,3 +74,26 @@
         }
     }
 }
+
+@media only screen and (max-width: 480px) {
+    .userPhotoHeader {
+        height: 5vh !important;
+        width: 5vh !important;
+        border-radius: 50%;
+
+    }
+
+
+    .dashBoard-header {
+        margin-top: 20px !important;
+        display: flex;
+        height: 5vh;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        flex-direction: row;
+        gap: 2vh !important;
+        margin: 1vh !important;
+    }
+
+}

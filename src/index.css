@@ -24,7 +24,7 @@ code {
   justify-content: 1rem 2rem;
   min-width: 100vh;
   height: 100vh;
-  
+
 
 
 }
@@ -42,11 +42,11 @@ code {
   animation: slide-in 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards,
     wiggle 0.5s ease-in-out;
 
-    
-    
 
 
-  
+
+
+
 }
 
 
@@ -94,14 +94,14 @@ code {
 
 .dashboard .card-container {
   width: 400px;
-  height: 100vh;
+  height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .card {
-  margin-top:3vh;
+  margin-top: 3vh;
   width: 400px;
   height: 650px;
   border-radius: 30px;
@@ -220,7 +220,7 @@ code {
 }
 
 .button-container-tin {
-  justify-content: space-between;
+  justify-content: space-around;
   display: flex;
   width: 400px;
   z-index: 10;
@@ -230,10 +230,10 @@ code {
 }
 
 .button-container-tin button {
-    width: 17%;
-    height: 97%;
-    border-radius: 60px !important;
-    
+  width: 17%;
+  height: 97%;
+  border-radius: 60px !important;
+  
 
 }
 
@@ -261,7 +261,7 @@ code {
   align-items: center;
   bottom: 16%;
   padding: 16px;
-  
+
 }
 
 .user-years-cards {
@@ -332,4 +332,112 @@ code {
 .refreshUsers img {
   height: 50px;
   width: 50px;
+}
+
+
+@media screen and (max-width: 480px) {
+  .dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100%;
+    overflow-x: hidden;
+    max-height: 100vh !important;
+    height: 100vh !important;
+
+  }
+
+  .dashboard .swipe-container {
+    overflow: none;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 65vh !important;
+    position: relative;
+    top: 0px;
+    animation: slide-in 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards,
+      wiggle 0.5s ease-in-out;
+  
+  }
+
+  .dashboard .card-container {
+    width: 400px;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  .card {
+    margin-top: 0vh;
+    width: 40vh;
+    height: 50vh;
+    max-height: 100%;
+    border-radius: 30px;
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0) !important
+  }
+  
+
+  .imageCoversOfCarts {
+    width: 450px;
+    height: 50vh;
+    background-size: cover;
+    background-position: center;
+  
+  }
+
+
+  .overlay-tin {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+    background: black;
+    background: #C33764;
+    /* fallback colour. Make sure this is just one solid colour. */
+    /* background: -webkit-linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8)); */
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.9305847338935574) 11%, rgba(190, 137, 22, 0) 28%);
+  }
+
+
+
+  .card-carousel-tin {
+    height: 60vh !important;
+  }
+
+
+  .button-container-tin {
+    justify-content: space-around;
+    display: flex;
+    width: 400px;
+    z-index: 10;
+    position: absolute;
+    bottom: 0%;
+    height: 68px;
+    width: 68px;
+    padding: 1%;
+    margin-bottom: 12%;
+  }
+  
+  .button-container-tin button {
+    background-color: rgba(0, 0, 0, 0.562) !important;
+    width: 22% !important;
+    height: 100%;
+    border-radius: 60px !important;
+    margin-bottom: 20px !important;
+  
+  }
+
+  .swipe {
+
+  }
+
 }

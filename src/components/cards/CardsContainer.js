@@ -205,9 +205,7 @@ function CardsContainer(props) {
       </div>
 
       <div className='button-container-tin'>
-        <Button className='button-left-tin' variant="outline-warning">
-          <img src={reload}></img>
-        </Button>{' '}
+
 
         <Button className='button-left-tin' onClick={() => swipe('left')} variant="outline-danger">
           <img src={X}></img>
@@ -222,9 +220,6 @@ function CardsContainer(props) {
 
         </Button>{' '}
 
-        <Button className='button-right-tin' variant="outline-info">
-          <img src={arrow}></img>
-        </Button>{' '}
 
       </div>
 
