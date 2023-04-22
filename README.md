@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+Tinder Clone Single Page Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This documentation is for a Tinder clone single page application built using React, Node.js, and MongoDB. This project was developed as a final project for graduating from ItTalents academy by Georgi Murdzheff and Anzhelo Stoyanov.
 
-## Available Scripts
+Features:
 
-In the project directory, you can run:
+The Tinder clone single page application is designed to work similarly to the popular dating app, Tinder. Users can create an account, swipe through other users' profiles, and match with other users based on mutual interest.
 
-### `npm start`
+Technologies Used:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The application uses React for the front-end, Node.js for the back-end, and MongoDB as the database. The following npm libraries were used:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    react-tinder-card: A library that provides swipeable cards for the UI
+    bcrypt: A library used for hashing passwords and securing user accounts
 
-### `npm test`
+User Accounts:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Users can create an account using their email address or through their Facebook account. After creating an account, users can add information to their profile such as their name, age, location, and profile picture. Users can also write a short bio describing themselves.
 
-### `npm run build`
+Matching:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Users can swipe right on profiles they're interested in or swipe left on profiles they're not interested in. If two users swipe right on each other's profiles, they'll be matched and can start messaging each other.
+Messaging:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Users can message their matches using a real-time chat feature.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Security:
 
-### `npm run eject`
+The application uses bcrypt to hash passwords and secure user accounts. This ensures that user data is kept safe and protected from potential hackers.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Conclusion:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The Tinder clone single page application is a fun and engaging way for users to meet new people. With its swipeable cards and real-time chat feature, it provides a user-friendly experience similar to the original Tinder app. Developed by the talented team at ItTalents academy, Georgi Murdzheff and Anzhelo Stoyanov, this project showcases their proficiency in React, Node.js, and MongoDB, as well as their commitment to ensuring the security of user data.
