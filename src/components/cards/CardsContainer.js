@@ -15,7 +15,11 @@ import { faLocationDot, faCircle, faCircleInfo } from '@fortawesome/free-solid-s
 import userManager from '../../model/userManager';
 import { useLocation } from 'react-router-dom'
 import PopUp from '../popup/PopUp';
+import SupperPopUp from '../popup/supperLikePopup'
+import Confetti from '../confets/confets'
 import './styles.css'
+
+
 
 
 
@@ -28,6 +32,7 @@ function CardsContainer(props) {
   const location = useLocation();
   const [liked, setLiked] = useState(null)
   const [disliked, setdisLiked] = useState(null)
+  const [matchedUser, setmatchedUser]=useState(false)
 
 
 
@@ -90,6 +95,21 @@ function CardsContainer(props) {
 
   const swiped = (direction, user) => {
     setSwipedUsers([...swipedUsers, user.email]);
+    
+    if (direction === 'up') {
+      console.log(props.loggedUser.user_id)
+      console.log(user.user_id)
+
+       userManager.addMatch(props.loggedUser.user_id, user.user_id)
+      userManager.addMatch( user.user_id, props.loggedUser.user_id)
+
+      props.setMatches([...props.loggedUser.matches, { user_id: user.user_id }])
+      props.loggedUser.matches.push({ user_id: user.user_id })
+      setmatchedUser(user);
+       setTimeout(() => {
+        setmatchedUser(null)
+       }, 3000);
+    } 
 
 
     if (direction === 'right') {
@@ -103,7 +123,7 @@ function CardsContainer(props) {
       setTimeout(() => {
         setLiked(null)
       }, 3000);
-    } else {
+    } else if(direction === 'left') {
       setdisLiked(user);
 
       setTimeout(() => {
@@ -128,6 +148,7 @@ function CardsContainer(props) {
   if (users.length === swipedUsers.length) {
     return (
       <div className='swipe-container'>
+        
         <div className='card-container-no-users'>
           <p>No more users to swipe! <br></br> Come back tomorrow! </p>
           <Button className='refreshUsers' onClick={() => setSwipedUsers([])}  >
@@ -142,10 +163,10 @@ function CardsContainer(props) {
 
 
   return (
+    
+    <>
+     {matchedUser && <Confetti/>}
     <div className='swipe-container'>
-
-
-
       <div className='card-container'>
         {users.map((user) => (
           !swipedUsers.includes(user.email) ? (
@@ -192,7 +213,7 @@ function CardsContainer(props) {
           <img src={X}></img>
         </Button>{' '}
 
-        <Button className='button-up-tin' variant="outline-primary">
+        <Button className='button-up-tin'  onClick={() => swipe('up')} variant="outline-primary">
           <img src={StarBtn}></img>
         </Button>{' '}
 
@@ -209,7 +230,10 @@ function CardsContainer(props) {
 
       {liked && <PopUp message={`You liked ${liked.first_name}, if they like you back you will have a match!`} />}
       {disliked && <PopUp message={`You have disliked ${disliked.first_name}, they won't show up for a while...`} />}
+      {matchedUser && <SupperPopUp message={`You Super liked ${matchedUser.first_name},now you can chat together!`} /> }
+      {/* SupperPopUp */}
     </div>
+    </>
   );
 
 }
