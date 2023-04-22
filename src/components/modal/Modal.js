@@ -46,7 +46,7 @@ function Modal({ modal, toggleModal, type, setSuccess, success }) {
         }
       })
       .catch(err => {
-        console.log(err),
+        console.log(err)
         setErrorMessage("Email already exists")
       })
   }
