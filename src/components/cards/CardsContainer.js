@@ -77,7 +77,7 @@ function CardsContainer(props) {
     const arrayWithoutMe = filteredArray.filter(obj => obj.user_id !== props.loggedUser.user_id)
     
     let noPhotos = filterArray(arrayWithoutMe)
-    let ageFilter = noPhotos.filter(e => {return 2023 - e.dob_year < props.loggedUser?.age_interest})
+    let ageFilter = noPhotos.filter(e => {return 2023 - e.dob_year < props.loggedUser?.age_interest.max && e.dob_year > props.loggedUser?.age_interest.min})
     return ageFilter;
   }
 
@@ -186,7 +186,7 @@ function CardsContainer(props) {
 
                   <div>
                     <FontAwesomeIcon icon={faLocationDot} style={{ color: 'white', marginRight: '12px' }} />
-                    <p className='information-text'> На 3 километра разстояние </p>
+                    <p className='information-text'> На {Math.ceil(Math.random() * 200)} километра разстояние </p>
                   </div>
 
                   <div className='information-important-tnd'>

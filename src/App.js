@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+
+
 function App() {
 
   const navigate = useNavigate();
@@ -18,11 +20,6 @@ function App() {
 
 
   useEffect(() => {
-
-
-    
-
-
     const fetchUser = async () => {
 
       let token = JSON.parse(localStorage.getItem("token"));
@@ -48,9 +45,6 @@ function App() {
 
       }
     };
-
-
-
     fetchUser();
   }, [success]);
 
@@ -66,3 +60,7 @@ function App() {
 }
 
 export default App;
+
+
+
+

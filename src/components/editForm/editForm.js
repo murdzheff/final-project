@@ -4,7 +4,8 @@ import "./editForm.scss"
 import fileToBase64 from "./fileToBase64";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css"
 
 
 
@@ -18,11 +19,12 @@ function EditForm(props) {
     const [showGender, setShowGender] = useState(true);
     const [genderIdentity, setGenderIdentity] = useState("man");
     const [genderInterest, setGenderInterest] = useState("woman");
-    const [ageInterest, setAgeInterest] = useState("30")
+    const [ageInterest, setAgeInterest] = useState({ min: 18, max: 60 })
     const [url, setUrl] = useState([])
     const [about, setAbout] = useState(" ");
     const [activeIndex, setActiveIndex] = useState(null);
     const navigate = useNavigate();
+    const [isFormValid, setIsFormValid] = useState(1)
 
     useEffect(() => {
         if (props.loggedUser) {
@@ -32,7 +34,7 @@ function EditForm(props) {
             setDobYear(props.loggedUser.dob_year || 0);
             setGenderIdentity(props.loggedUser.gender_identity || "man")
             setGenderInterest(props.loggedUser.gender_interest || "woman")
-            setAgeInterest(props.loggedUser.age_interest || 30)
+            setAgeInterest(props.loggedUser.age_interest || { min: 18, max: 60 })
             setAbout(props.loggedUser.about || "");
 
 
@@ -56,6 +58,13 @@ function EditForm(props) {
     }, [location])
 
 
+    const handleAgeLimitsChange = (values) => {
+        setAgeInterest({
+            min: values[0],
+            max: values[1]
+        });
+    };
+
     const handleFileUpload = async (e, index) => {
 
 
@@ -66,6 +75,10 @@ function EditForm(props) {
         setUrl(newUrl)
         setActiveIndex(null)
     }
+
+    const ageLimitsTooltipFormatter = (value) => {
+        return `${value} years old`;
+    };
 
 
     function resetFile(index) {
@@ -117,18 +130,22 @@ function EditForm(props) {
                 <div className="personalInfo">
                     <label className="fn">
                         First Name:
-                        <input type="text" required value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                        <input type="text" required value={firstName} onChange={(e) => {
+                            setFirstName(e.target.value)
+
+                        }} />
+
                     </label>
                     <label className="date">
                         Date of Birth:
                         <input type="date" min="1940-05-01" max={"2005-05-01"} onInput={(e) => {
                             setDobDay(e.target.value.slice(8));
-                            setDobMonth(e.target.value.slice(5,7));
-                            setDobYear(e.target.value.slice(0,4));
+                            setDobMonth(e.target.value.slice(5, 7));
+                            setDobYear(e.target.value.slice(0, 4));
                         }}></input>
                     </label>
-                    <span className="checkBox">
-                        Show Gender:
+                    <span id="checkBox">
+                        <div>Show Gender:</div>
                         <input
                             style={{ height: 20 }}
                             type="checkbox"
@@ -154,17 +171,37 @@ function EditForm(props) {
                             <option value="other">Other</option>
                         </select>
                     </label>
-                    <label>
+                    <label className="sliderContainer">
                         Age Interest:
-                        <input
-                            type="number"
-                            name="age"
-                            className="age"
-                            min="18"
-                            placeholder="Enter your age (minimum 18)"
-                            value={ageInterest}
-                            required
-                            onInput={(e) => setAgeInterest(e.target.value)}
+                        <div className="tooltip-container">
+                            <span>{ageLimitsTooltipFormatter(ageInterest.min)}</span>
+                            <span> to </span>
+                            <span>{ageLimitsTooltipFormatter(ageInterest.max)}</span>
+                        </div>
+                        <Slider
+                            className="slider"
+                            tipFormatter={ageLimitsTooltipFormatter}
+                            range
+                            min={18}
+                            max={100}
+                            defaultValue={[18, 60]}
+                            onChange={handleAgeLimitsChange}
+                            trackStyle={[{
+                                color: "red",
+                                backgroundColor: "#fe4a69"
+                            }]}
+                            handleStyle={{
+                                color: "red",
+                                backgroundColor: "#fe4a69"
+                            }}
+                            dotStyle={{
+                                color: "#fe4a69",
+                                backgroundColor: "#fe4a69"
+                            }}
+                            activeDotStyle={{
+                                color: "#fe4a69",
+                                backgroundColor: "#fe4a69"
+                            }}
                         />
                     </label>
                 </div>
@@ -204,9 +241,9 @@ function EditForm(props) {
                                     <button className="resetPhoto"
                                         style={{
                                             position: "absolute",
-                                            top: "0px",
+                                            top: "-20px",
                                             bottom: "5px",
-                                            right: "5px",
+                                            right: "-5px",
                                             border: "none",
                                             cursor: "pointer",
                                             height: "5px",
@@ -220,6 +257,7 @@ function EditForm(props) {
                                 )}
                                 {activeIndex === index && (
                                     <input
+                                        accept="image/*"
                                         id={`file-input-${index}`}
                                         type="file"
                                         onChange={(event) => handleFileUpload(event, index)}
@@ -244,7 +282,9 @@ function EditForm(props) {
                             value={about}
                             placeholder="Tell us something about yourself"
                             className="about"
-                            onInput={(e) => { setAbout(e.target.value) }}></textarea>
+                            onInput={(e) => {
+                                setAbout(e.target.value)
+                            }}></textarea>
                     </div>
                 </div>
 
@@ -254,7 +294,7 @@ function EditForm(props) {
 
 
 
-            <button type="submit">Start your journey</button>
+            <button disabled={!dobYear.length || !firstName.length || !about.length} type="submit">Start your journey</button>
         </form>
     );
 }
