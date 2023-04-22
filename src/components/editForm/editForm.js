@@ -137,8 +137,8 @@ function EditForm(props) {
 
                     </label>
                     <label className="date">
-                        Date of Birth:
-                        <input type="date" min="1940-05-01" max={"2005-05-01"} onInput={(e) => {
+                        Date of Birth: 
+                        <input type="date" value={`${dobYear}-${dobMonth}-${dobDay}`} min="1940-05-01" max={"2005-05-01"} onInput={(e) => {
                             setDobDay(e.target.value.slice(8));
                             setDobMonth(e.target.value.slice(5, 7));
                             setDobYear(e.target.value.slice(0, 4));
