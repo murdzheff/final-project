@@ -24,6 +24,7 @@ function EditForm(props) {
     const [about, setAbout] = useState(" ");
     const [activeIndex, setActiveIndex] = useState(null);
     const navigate = useNavigate();
+    const [isFormValid, setIsFormValid] = useState(1)
 
     useEffect(() => {
         if (props.loggedUser) {
@@ -129,7 +130,11 @@ function EditForm(props) {
                 <div className="personalInfo">
                     <label className="fn">
                         First Name:
-                        <input type="text" required value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                        <input type="text" required value={firstName} onChange={(e) => {
+                            setFirstName(e.target.value)
+
+                        }} />
+
                     </label>
                     <label className="date">
                         Date of Birth:
@@ -252,6 +257,7 @@ function EditForm(props) {
                                 )}
                                 {activeIndex === index && (
                                     <input
+                                        accept="image/*"
                                         id={`file-input-${index}`}
                                         type="file"
                                         onChange={(event) => handleFileUpload(event, index)}
@@ -276,7 +282,9 @@ function EditForm(props) {
                             value={about}
                             placeholder="Tell us something about yourself"
                             className="about"
-                            onInput={(e) => { setAbout(e.target.value) }}></textarea>
+                            onInput={(e) => {
+                                setAbout(e.target.value)
+                            }}></textarea>
                     </div>
                 </div>
 
@@ -286,7 +294,7 @@ function EditForm(props) {
 
 
 
-            <button type="submit">Start your journey</button>
+            <button disabled={!dobYear.length || !firstName.length || !about.length} type="submit">Start your journey</button>
         </form>
     );
 }

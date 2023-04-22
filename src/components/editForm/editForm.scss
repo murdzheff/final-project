@@ -132,6 +132,10 @@
     min-width: 15%;
     cursor: pointer;
 
+    &:disabled {
+      background-color: rgb(48, 42, 42);
+    }
+
     &:hover {
       background-color: #bd364d;
     }
@@ -427,6 +431,7 @@
       margin-bottom: 5vh;
       padding: 8px 16px;
       font-size: 0.9rem;
+
     }
   }
 
