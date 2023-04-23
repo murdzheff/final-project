@@ -18,6 +18,7 @@ import PopUp from '../popup/PopUp';
 import SupperPopUp from '../popup/supperLikePopup'
 import Confetti from '../confets/confets'
 import './styles.css'
+import StripeContainer from '../creditCard/stripeContainer';
 
 
 
@@ -33,15 +34,19 @@ function CardsContainer(props) {
   const [liked, setLiked] = useState(null)
   const [disliked, setdisLiked] = useState(null)
   const [matchedUser, setmatchedUser]=useState(false)
-
+  const [showPayedBox, setShowPayedBox] = useState(false)
+  const [superNameMassage, setSuperNameMassage] = useState("")
+  const [usersSurvived,setUsersSurvived ]=useState(0)
 
 
   useEffect(() => {
+   
+
     let a
     const genderInterest = props.loggedUser.gender_interest;
     setProfilePic(props.loggedUser.photos[0] || "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg")
     a = props.loggedUser.matches
-
+    
     userManager.getGenderedUsers(genderInterest)
       .then((response) => {
 
@@ -50,15 +55,13 @@ function CardsContainer(props) {
         setUsers(filteredUsers);
         setUsers(shuffleArray(filteredUsers));
         setIsLoading(false);
-
-
       })
       .catch((error) => {
         setIsLoading(false);
       });
 
-
   }, [location]);
+  
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -94,23 +97,23 @@ function CardsContainer(props) {
 
 
   const swiped = (direction, user) => {
+    setUsersSurvived(usersSurvived+1)
     setSwipedUsers([...swipedUsers, user.email]);
+
     
     if (direction === 'up') {
-      console.log(props.loggedUser.user_id)
-      console.log(user.user_id)
 
-       userManager.addMatch(props.loggedUser.user_id, user.user_id)
-      userManager.addMatch( user.user_id, props.loggedUser.user_id)
+        userManager.addMatch(props.loggedUser.user_id, user.user_id)
+        userManager.addMatch(user.user_id, props.loggedUser.user_id)
+        props.setMatches([...props.loggedUser.matches, { user_id: user.user_id }])
+        props.loggedUser.matches.push({ user_id: user.user_id })
+        setmatchedUser(user);
+        setTimeout(() => {
+          setmatchedUser(null)
+        }, 3000);
 
-      props.setMatches([...props.loggedUser.matches, { user_id: user.user_id }])
-      props.loggedUser.matches.push({ user_id: user.user_id })
-      setmatchedUser(user);
-       setTimeout(() => {
-        setmatchedUser(null)
-       }, 3000);
+      
     } 
-
 
     if (direction === 'right') {
       console.log(props.loggedUser.user_id)
@@ -160,12 +163,16 @@ function CardsContainer(props) {
       </div>
     );
   }
-
+ 
+console.log(usersSurvived)
 
   return (
     
     <>
      {matchedUser && <Confetti/>}
+     { showPayedBox && <StripeContainer loggedUser={props.loggedUser} setType={props.setType} propss={users[users.length -1-usersSurvived]}/> }
+
+    
     <div className='swipe-container'>
       <div className='card-container'>
         {users.map((user) => (
@@ -211,7 +218,7 @@ function CardsContainer(props) {
           <img src={X}></img>
         </Button>{' '}
 
-        <Button className='button-up-tin'  onClick={() => swipe('up')} variant="outline-primary">
+        <Button className='button-up-tin'  onClick={() => props.loggedUser.paymentStatus?  swipe('up') : setShowPayedBox(true) } variant="outline-primary">
           <img src={StarBtn}></img>
         </Button>{' '}
 
@@ -222,11 +229,11 @@ function CardsContainer(props) {
 
 
       </div>
+      
 
       {liked && <PopUp message={`You liked ${liked.first_name}, if they like you back you will have a match!`} />}
       {disliked && <PopUp message={`You have disliked ${disliked.first_name}, they won't show up for a while...`} />}
       {matchedUser && <SupperPopUp message={`You Super liked ${matchedUser.first_name},now you can chat together!`} /> }
-      {/* SupperPopUp */}
     </div>
     </>
   );

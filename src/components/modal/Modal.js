@@ -16,7 +16,6 @@ function Modal({ modal, toggleModal, type, setSuccess, success }) {
 
   function handleRegister(e) {
     e.preventDefault();
-    console.log("tuk")
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
