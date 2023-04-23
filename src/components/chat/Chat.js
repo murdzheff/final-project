@@ -26,7 +26,7 @@ function Chat(props) {
 
     useEffect(() => {
         scrollToBottom()
-    }, [messages])
+    }, [messages,recipient])
 
     useEffect(() => {
 

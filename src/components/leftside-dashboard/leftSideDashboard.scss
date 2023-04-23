@@ -1,3 +1,91 @@
+@media only screen and (max-width: 480px) {
+
+  .left-side-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 90%;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0px !important;
+
+    .optionMatches {
+      top: 36%;
+      left: 65%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 100%;
+      padding: 20px;
+
+      ::-webkit-scrollbar {
+        display: none !important;
+      }
+    }
+
+
+    .allMatches {
+      padding: 2%;
+      display: flex;
+      max-width: 100%;
+      width: 90%;
+      overflow-x: scroll;
+      height: 55%;
+      gap: 5px;
+
+      ::-webkit-scrollbar {
+        display: none !important;
+      }
+
+
+
+      .match {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        height: 10vh;
+        width: auto;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-top: 5px;
+        
+        
+
+        label {
+          cursor: pointer;
+          background-color: #23a6d5;
+          border-radius: 10px;
+          display: flex !important ;
+          align-content: center !important;
+          flex-direction: column !important;
+          align-items: center;
+          margin: auto;
+          padding: 10px;
+          
+          
+          width: auto;
+
+
+          img {
+            right: 0px;
+          }
+          
+        }
+
+      }
+    }
+
+
+  }
+
+
+
+}
+
+
+
+
 .left-side-container {
   border-radius: 10px;
   margin-left: 10px;

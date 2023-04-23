@@ -57,19 +57,18 @@ const LeftSideContainer = (props) => {
 
         <div className="left-side-container">
             {currentUser !== null ? <DashboardHeader setLoggedUser={props.setLoggedUser} user={currentUser} /> : null}
-            <br></br>
             <div className='matchesHeader'>
                 <button className="optionMatches" onClick={props.toggleModal} >Matches</button>
             </div>
-            <br></br>
-            <div>
+
+            <div className='allMatches'>
                 {matchedUsers.map((el, index) => {
 
                     return el =
                         <div className='match' key={index}>
                             <label htmlFor={"my-button" + index}>
                                 <img className='userPhoto' src={el.photos[0] || "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg"}></img>
-                                <p>{el.first_name}</p>
+                                <p>{el.first_name.split(" ")[0].trim()}</p>
                                 {props.onlineUsers.includes(el.user_id) && <div className='online'></div>}
                             </label>
                             <button id={"my-button" + index} value={el.user_id} style={{ display: "none" }} onClick={(e) => {
