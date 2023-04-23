@@ -26,7 +26,7 @@ function Chat(props) {
 
     useEffect(() => {
         scrollToBottom()
-    }, [messages,recipient])
+    }, [messages, recipient])
 
     useEffect(() => {
 
@@ -154,10 +154,13 @@ function Chat(props) {
                     {messages.length > 0 && recipient !== null ? (
                         messages.map((message, index) => (
                             <div className="message" key={index}>
-                                <div className={message.from !== props.loggedUser.user_id ? 'incoming' : 'outgoing'}>
+                                <div className={message.from !== props.loggedUser.user_id ? 'incoming' : 'outgoing'} style={{ wordBreak: 'break-all', overflowWrap: 'break-word' }}>
                                     <img className='messagePhoto' src={message.from !== props.loggedUser.user_id ? recipient?.photos[0] : sender?.photos[0]}></img>
-                                    <p>{message.content} </p>
-                                    <p className='time'>{message.timestamp.slice(10,)}</p>
+                                    <div className='msgCont'>
+                                        <p>{message.content} </p>
+                                    </div>
+
+                                    <h7 className='time'>{message.timestamp.slice(10,)}</h7>
                                 </div>
                             </div>
                         ))

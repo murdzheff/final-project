@@ -9,14 +9,13 @@
     margin-left: 0px !important;
 
     .optionMatches {
-      top: 36%;
-      left: 65%;
       display: flex;
       align-items: center;
       justify-content: center;
 
       width: 100%;
-      padding: 20px;
+      padding: 10px;
+      margin: 0px;
 
       ::-webkit-scrollbar {
         display: none !important;
@@ -28,9 +27,10 @@
       padding: 2%;
       display: flex;
       max-width: 100%;
-      width: 90%;
+      width: 100%;
       overflow-x: scroll;
-      height: 55%;
+      overflow-y: hidden;
+      height: 50%;
       gap: 5px;
 
       ::-webkit-scrollbar {
@@ -44,7 +44,7 @@
         align-items: center;
         justify-content: center;
         align-content: center;
-        height: 10vh;
+        height: 20vh;
         width: auto;
         margin-left: 5px;
         margin-right: 5px;

@@ -336,9 +336,13 @@ code {
 
 
 @media screen and (max-width: 480px) {
+
+
+
   .dashboard {
     display: flex;
     flex-direction: column;
+    gap: 200px;
     align-items: center;
     min-width: 100%;
     overflow-x: hidden;
@@ -354,7 +358,7 @@ code {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 65vh !important;
+    height: auto !important;
     position: relative;
     top: 0px;
     animation: slide-in 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards,
@@ -364,7 +368,7 @@ code {
 
   .dashboard .card-container {
     width: 400px;
-    height: 60vh;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -373,19 +377,18 @@ code {
 
   .card {
     margin-top: 0vh;
-    width: 40vh;
-    height: 50vh;
+    width: 42vh;
+    height: 40vh !important;
     max-height: 100%;
     border-radius: 30px;
     background-size: cover;
     background-position: center;
-    background-color: rgba(0, 0, 0, 0) !important
   }
   
 
   .imageCoversOfCarts {
     width: 450px;
-    height: 50vh;
+    height: 100% !important;
     background-size: cover;
     background-position: center;
   
@@ -397,7 +400,7 @@ code {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: auto;
     margin-bottom: 0px !important;
     padding-bottom: 0px !important;
     background: black;
@@ -410,21 +413,21 @@ code {
 
 
   .card-carousel-tin {
-    height: 60vh !important;
+    height: 50vh !important;
   }
 
 
   .button-container-tin {
     justify-content: space-around;
     display: flex;
-    width: 400px;
+    width: 100% !important;
     z-index: 10;
-    position: absolute;
-    bottom: 0%;
-    height: 68px;
-    width: 68px;
+    position: relative;
+    top: 250%;
+    bottom: 100%;
+    height: 8vh;
     padding: 1%;
-    margin-bottom: 12%;
+    margin-bottom: 0%;
   }
   
   .button-container-tin button {
@@ -432,12 +435,17 @@ code {
     width: 22% !important;
     height: 100%;
     border-radius: 60px !important;
-    margin-bottom: 20px !important;
+    margin-bottom: 0px !important;
   
   }
 
-  .swipe {
+  .user-information {
+    position: relative;
+    bottom: 60%;
+  }
 
+  .user-name-cards {
+    font-size: 110%;
   }
 
 }
