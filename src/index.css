@@ -333,3 +333,29 @@ code {
   height: 50px;
   width: 50px;
 }
+
+@media screen and (min-width: 768px) {
+  .dashboard{
+    flex-direction: column;
+    }
+  .left-side-container {
+    width: 20%;
+    max-width: none;
+    display: flex;
+    margin-bottom: 0;
+  }
+  
+  .cards-container {
+    width: 60%;
+    max-width: none;
+    margin-left: 20px;
+    margin-right: auto;
+  }
+  
+  .chat {
+    width: 20%;
+    max-width: none;
+    margin-left: auto;
+    margin-right: 20px;
+  }
+}

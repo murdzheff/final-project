@@ -16,7 +16,7 @@ function PopUp(props) {
     let delay = 0;
 
     return (
-        showNotification && <div className={`notifies`}>
+        showNotification && <div className={`notifiesSuper`}>
             {letters.map((letter, index) => {
                 delay += 0.1;
 
