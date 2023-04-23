@@ -232,77 +232,7 @@
 
 
 @media screen and (max-width: 480px) {
-    .msgs {
 
-        height: 500px;
-        width: 100%;
-        max-width: 100vw !important;
-
-
-        .message {
-            display: flex;
-            margin-left: 20px;
-            max-width: 100vw;
-            hyphens: auto;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            max-height: fit-content;
-
-
-
-            .outgoing {
-                margin-left: auto;
-                background-color: #23a8d3;
-            }
-
-            .incoming {
-                margin-right: auto;
-                background-color: #e84379;
-            }
-
-            div {
-                display: flex;
-                gap: 5px;
-                margin: 10px;
-                border-radius: 10px;
-                align-items: center;
-                max-width: 100% !important;
-                max-height: auto;
-
-
-
-                img {
-                    height: 25px;
-                    width: 25px;
-                    background-repeat: no-repeat;
-                    object-fit: cover;
-                }
-
-                .msgCont {
-                    margin: 5px;
-                    word-break: break-all !important;
-                    overflow-wrap: break-word !important;
-                    display: inline-block;
-                    max-width: 100%;
-                    display: inline-block;
-
-                    p {
-                        width: 100%;
-                        max-width: 100% !important;
-                    }
-                }
-
-                
-
-                &:hover {
-                    animation: wiggle 0.5s ease-in-out;
-                }
-            }
-
-        }
-
-
-    }
 
 
 }

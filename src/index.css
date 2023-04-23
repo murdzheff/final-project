@@ -342,7 +342,7 @@ code {
   .dashboard {
     display: flex;
     flex-direction: column;
-    gap: 200px;
+    gap: 0px;
     align-items: center;
     min-width: 100%;
     overflow-x: hidden;
@@ -376,7 +376,7 @@ code {
 
 
   .card {
-    margin-top: 0vh;
+    margin-top: 40vh;
     width: 42vh;
     height: 40vh !important;
     max-height: 100%;
