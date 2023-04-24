@@ -7,6 +7,8 @@ const bcrypt = require('bcrypt')
 const cors = require('cors')
 const { error } = require('console')
 const app = express()
+const stripe = require("stripe")("sk_test_51N02adHGku6BOIoRkNHey0MqcixWhJiXNvQxpdPetJUTKMdpIFW9K8qqVkY3xNUT8mTfCuHopK7jtgkQ4ckYb5xt00rRGPJW5S");
+const bodyParser = require("body-parser")
 app.use(cors())
 app.use(express.json({ limit: '50mb' }))
 const server = require('http').createServer(app)
@@ -148,13 +150,33 @@ app.get('/users', async (req, res) => {
   }
 });
 
+app.put('/user/:user_id/paymentstatus', async (req, res) => {
+  const user_id = req.params.user_id;
+  const paymentStatus = req.body.paymentStatus;
 
+  try {
+    const databaseName = client.db('app-data');
+    const users = databaseName.collection('users');
 
+    const query = { user_id: user_id };
+    const updateDocument = {
+      $set: {
+        paymentStatus: paymentStatus
+      },
+    };
 
+    const updatedUser = await users.updateOne(query, updateDocument);
 
-
-
-
+    if (updatedUser.modifiedCount === 1) {
+      res.send('User payment status updated successfully');
+    } else {
+      res.status(404).send('User not found');
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal server error');
+  }
+});
 // CHANGE USER CHARACTERISTICS
 app.put('/users/:userId', async (req, res) => {
   const userId = req.get('identity');
@@ -382,6 +404,32 @@ app.get('/users/:userId/messages/:correspondingUserId', async (req, res) => {
   console.error(error)
   res.status(500).send('Internal server error')
   }
+  })
+
+
+
+  app.post("/payment",  async (req, res) => {
+    let { amount, id } = req.body
+    try {
+      const payment = await stripe.paymentIntents.create({
+        amount,
+        currency: "USD",
+        description: "Tinder IT Talants",
+        payment_method: id,
+        confirm: true
+      })
+      console.log("Payment", payment)
+      res.json({
+        message: "Payment successful",
+        success: true
+      })
+    } catch (error) {
+      console.log("Error", error)
+      res.json({
+        message: "Payment failed",
+        success: false
+      })
+    }
   })
 
 
