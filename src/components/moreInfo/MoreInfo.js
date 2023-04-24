@@ -10,8 +10,10 @@ function MoreInfo(props) {
 
   return (
     <div className='more-info-container'>
-      <div className='card'>
-        <CardsCarousel photos={props.user.photos} ></CardsCarousel>
+      <div className='card-info'>
+        <div>
+          <img src={props.user.photos[0]}></img>
+        </div>
         <h2>{props.user.first_name}</h2>
         <h4>Gender: {props.user.gender_identity}</h4>
         <h4>{2023 - props.user.dob_year} years old</h4>

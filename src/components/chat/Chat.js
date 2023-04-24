@@ -146,7 +146,7 @@ function Chat(props) {
                         {props.onlineUsers.includes(recipient.user_id) && <div className='online'></div>}
                     </div>
 
-                    <button onClick={() => { props.setType("info"); props.setInfoUser(recipient) }} className="checkProf">
+                    <button title={`Check ${recipient.first_name}'s profile`} onClick={() => { props.setType("info"); props.setInfoUser(recipient) }} className="checkProf">
                         <img src={Info}></img>
                     </button>
                 </div>
@@ -160,7 +160,7 @@ function Chat(props) {
                                         <p>{message.content} </p>
                                     </div>
 
-                                    <h7 className='time'>{message.timestamp.slice(10,)}</h7>
+                                    <h5 className='time'>{message.timestamp.slice(10,)}</h5>
                                 </div>
                             </div>
                         ))

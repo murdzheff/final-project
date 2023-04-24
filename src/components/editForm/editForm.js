@@ -24,7 +24,6 @@ function EditForm(props) {
     const [about, setAbout] = useState(" ");
     const [activeIndex, setActiveIndex] = useState(null);
     const navigate = useNavigate();
-    const [isFormValid, setIsFormValid] = useState(1)
 
     useEffect(() => {
         if (props.loggedUser) {
@@ -52,6 +51,9 @@ function EditForm(props) {
             } else if (props.loggedUser.photos.length === 5) {
                 setUrl([...props.loggedUser.photos])
             }
+
+
+
 
 
         }
@@ -137,7 +139,7 @@ function EditForm(props) {
 
                     </label>
                     <label className="date">
-                        Date of Birth: 
+                        Date of Birth:
                         <input type="date" value={`${dobYear}-${dobMonth}-${dobDay}`} min="1940-05-01" max={"2005-05-01"} onInput={(e) => {
                             setDobDay(e.target.value.slice(8));
                             setDobMonth(e.target.value.slice(5, 7));
@@ -206,10 +208,9 @@ function EditForm(props) {
                     </label>
                 </div>
                 <div className="photos">
-
+                    <h2>Upload your photos</h2>
+                    <div>Please upload a minimum of two photos</div>
                     <div className="uploads">
-                        <h2>Upload your photos</h2>
-                        <p>Please upload a minimum of two photos</p>
                         {url.map((file, index) => (
                             <div style={{ position: "relative" }} key={index}>
                                 <label
@@ -246,8 +247,9 @@ function EditForm(props) {
                                             right: "-5px",
                                             border: "none",
                                             cursor: "pointer",
-                                            height: "5px",
-                                            width: "30px",
+                                            minHeight: "0vh",
+                                            height: "36%",
+                                            width: "36%",
                                             borderRadius: "50%"
                                         }}
                                         onClick={() => resetFile(index)}
@@ -294,7 +296,7 @@ function EditForm(props) {
 
 
 
-            <button disabled={!dobYear.length || !firstName.length || !about.length} type="submit">Start your journey</button>
+            <button title="Update your profile information" disabled={url.filter(e => e != null).length < 2 || !dobYear.length || !firstName.length || !about.length} type="submit">Start your journey</button>
         </form>
     );
 }
