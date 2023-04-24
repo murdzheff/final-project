@@ -5,6 +5,7 @@
 	will-change: opacity, transform;
 	box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08), inset 0 1px 0 #829fff;
 	border-radius: 4px;
+	width: 60%;
 }
 
 .FormRow {
@@ -13,6 +14,12 @@
 	-ms-flex-align: center;
 	align-items: center;
 	border-top: 1px solid #819efc;
+}
+.FormRow > label{
+color: white;
+padding: 0 10px;
+font-weight: 600;
+width: 120px;
 }
 
 .StripeElement--webkit-autofill {
@@ -39,6 +46,8 @@
 	transition: all 100ms ease-in-out;
 	will-change: transform, background-color, box-shadow;
 	border: none;
+	width: 60%;
+	margin-bottom: 10px;
 }
 
 .paymentButton:active {
@@ -78,11 +87,74 @@
 	width: 50vw;
 	height: 30vh;
 	background-color: white;
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 	
+}
+.payment-form-c{
+	z-index: 101;
+	width: 50vw;
+	height: 40vh;
+	background-color: white;
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	background: linear-gradient(-45deg,  #e73c7e, #23a6d5);
+
+}
+
+.payment-form-c h2{
+	text-align: center;
+	color: white;
+	padding: 20px;
+
+}
+p{
+	font-weight:500
 }
 
 
 h1,
 h3 {
 	text-align: center;
+}
+
+.closeBtn{
+	margin-top: 30px;
+		color: white;
+		font-size: 26px;
+		font-weight: 600;
+		border: none;
+		border-radius: 5px;
+		min-height: 4vh;
+		padding: 10px;
+		color: white;
+		font-size: 26px;
+		border: none;
+		border-radius: 39px;
+		min-height: 4vh;
+		padding: 10px 32px;
+		background: linear-gradient(
+		  90deg,
+		  rgb(253, 54, 117) 0%,
+		  rgb(255, 101, 93) 100%
+		);
+		background-size: 400% 400%;
+		min-width: 15%;
+		cursor: pointer;
+	
+		background-size: 400% 400%;
+	
+		
+	  
+	
+}
+.closeContainer{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
