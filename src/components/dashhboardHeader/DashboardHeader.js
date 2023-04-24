@@ -17,6 +17,7 @@ function DashboardHeader(props) {
 
       <div className='options'>
         <button
+          title='Edit your profile'
           onClick={() => {
             navigate("/onboarding")
           }}
@@ -24,6 +25,7 @@ function DashboardHeader(props) {
           <img src={Settings} ></img>
         </button>
         <button
+          title='Log out of your profile'
           className='logout'
           onClick={() => {
             userManager.logout(JSON.parse(localStorage.getItem("token")).user_id)

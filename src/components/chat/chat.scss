@@ -123,7 +123,7 @@
 
             div {
                 display: flex;
-                gap: 5px;
+                max-width: 80%;
                 margin: 10px;
                 border-radius: 10px;
                 align-items: center;
@@ -136,7 +136,7 @@
                     object-fit: cover;
                 }
 
-                h7 {
+                h5 {
                     word-break: keep-all;
                     font-size: 16px;
                 }
@@ -159,6 +159,7 @@
     .sendmsgContainer {
         display: flex;
         border-radius: 10px;
+        padding-bottom: 2%;
 
         .sendMsg {
             width: 20%;
@@ -185,6 +186,7 @@
             font-size: 18px;
             border-radius: 10px;
             border: none;
+            
         }
 
 
@@ -192,12 +194,14 @@
 }
 
 .emojis {
+    
     position: absolute;
     top: 290px;
     right: 400px;
 }
 
 .emojiButton {
+    padding-left: 3%;
     min-height: 40px;
     min-width: 40px;
     border-radius: 50%;
@@ -238,6 +242,11 @@
         position: absolute;
         top: 430px;
         right:60px;
+    }
+
+    .chatContainer {
+        max-height: 55vh;
+        min-height: 55vh;
     }
 
 }

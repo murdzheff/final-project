@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import LeftSideContainer from '../components/leftside-dashboard/LeftsideDashboard'
-// import DashboardHeader from '../components/dashhboardHeader/DashboardHeader'
-// import userManager from '../model/userManager'
 import CardsContainer from '../components/cards/CardsContainer'
 import Chat from '../components/chat/Chat'
 import messageManager from '../model/messageManager'

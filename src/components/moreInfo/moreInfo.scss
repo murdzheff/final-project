@@ -1,18 +1,19 @@
 .more-info-container {
-    min-width: 80%;
+    width: 70%;
     display: flex;
-    align-items: center;
     flex-direction: column;
     justify-content: center;
-    min-height: 80vh;
-    width: 60vh;
-    color: #e84379;
-    max-height: 90vh;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    top: 0px;
+    animation: slide-in 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards,
+        wiggle 0.5s ease-in-out;
 
-    .card {
-        margin-top: 5vh;
+
+    .card-info {
         background-color: white !important;
-        max-height: 100vh;
+
         font-size: 18px;
         border: 1px solid rgb(255, 255, 255);
         overflow: scroll;
@@ -21,16 +22,26 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        
+        max-width: 20vw;
+        width: 20vw;
+        min-width: 20vw;
+        height: 70vh;
 
-        
-        
+
+        img {
+            max-height: 50vh;
+            height: 60vh;
+            max-width: 30vw;
+            width: 30vw;
+            min-width: 30vw;
+        }
+
         -ms-overflow-style: none;
         /* IE and Edge */
         scrollbar-width: none;
         /* Firefox */
 
-        &::-webkit-scrollbar{
+        &::-webkit-scrollbar {
             display: none;
         }
     }
@@ -48,4 +59,63 @@
     height: 0;
 }
 
+@media screen and (max-width: 480px) {
+    .more-info-container {
+        min-width: 80%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        width: 60vh;
+        color: #e84379;
+        max-height: 100vh;
+        height: auto;
 
+        .card-info {
+            background-color: white !important;
+
+            font-size: 18px;
+            border: 1px solid rgb(255, 255, 255);
+            overflow: scroll;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 70vw;
+            width: 70vw;
+            min-width: 70vw;
+            max-height: 49vh;
+
+
+            img {
+                max-height: 30vh;
+                max-width: 70vw;
+                width: 70vw;
+                min-width: 70vw;
+            }
+
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+
+        /* Hide the scrollbar in all webkit-based browsers */
+
+
+
+    }
+
+    .card:-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+}

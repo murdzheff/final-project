@@ -377,7 +377,7 @@ code {
 
   .card {
     margin-top: 40vh;
-    width: 42vh;
+    width: 32vh;
     height: 40vh !important;
     max-height: 100%;
     border-radius: 30px;
@@ -423,7 +423,8 @@ code {
     width: 100% !important;
     z-index: 10;
     position: relative;
-    top: 250%;
+    top: 530%;
+    gap: 5%;
     bottom: 100%;
     height: 8vh;
     padding: 1%;
@@ -432,8 +433,8 @@ code {
   
   .button-container-tin button {
     background-color: rgba(0, 0, 0, 0.562) !important;
-    width: 22% !important;
-    height: 100%;
+    width: 3rem !important;
+    height: 3rem;
     border-radius: 60px !important;
     margin-bottom: 0px !important;
   

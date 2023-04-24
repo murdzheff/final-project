@@ -201,7 +201,7 @@ console.log(usersSurvived)
                       <FontAwesomeIcon icon={faCircle} style={{ color: '#7cfda3', marginRight: '12px' }} />
                       <p className='information-text'> Онлайн сега </p>
                     </div>}
-                    <FontAwesomeIcon className='infoIcon' onClick={() => { props.setType("info"); console.log(user); props.setInfoUser(user) }} icon={faCircleInfo} style={{ fontSize: "30px", color: "#d7d7d8" }} />
+                    <FontAwesomeIcon title={`See more about ${user.first_name}`} className='infoIcon' onClick={() => { props.setType("info"); console.log(user); props.setInfoUser(user) }} icon={faCircleInfo} style={{ fontSize: "30px", color: "#d7d7d8" }} />
                   </div>
 
                 </div>
@@ -214,15 +214,15 @@ console.log(usersSurvived)
       <div className='button-container-tin'>
 
 
-        <Button className='button-left-tin' onClick={() => swipe('left')} variant="outline-danger">
+        <Button title="I don't like this user" className='button-left-tin' onClick={() => swipe('left')} variant="outline-danger">
           <img src={X}></img>
         </Button>{' '}
 
-        <Button className='button-up-tin'  onClick={() => props.loggedUser.paymentStatus?  swipe('up') : setShowPayedBox(true) } variant="outline-primary">
+        <Button title='Superlike this user' className='button-up-tin'  onClick={() => props.loggedUser.paymentStatus?  swipe('up') : setShowPayedBox(true) } variant="outline-primary">
           <img src={StarBtn}></img>
         </Button>{' '}
 
-        <Button className='button-right-tin' onClick={() => swipe('right')} variant="outline-success">
+        <Button title='Like this user' className='button-right-tin' onClick={() => swipe('right')} variant="outline-success">
           <img src={heart}></img>
 
         </Button>{' '}
