@@ -55,6 +55,7 @@ function App() {
       <Route path='/home' element={<Home setSuccess={setSuccess} success={success} setLoggedUser={setLoggedUser} loggedUser={loggedUser} />}></Route>
       <Route path='/dashboard' element={!loggedUser ? <Navigate to={"/home"} /> : <Dashboard update={update} setUpdate={setUpdate} setLoggedUser={setLoggedUser} loggedUser={loggedUser} />}></Route>
       <Route path='/onboarding' element={loggedUser && <Onboarding setLoggedUser={setLoggedUser} loggedUser={loggedUser} />}></Route>
+      <Route path='*'>404</Route>
     </Routes>
   );
 }
