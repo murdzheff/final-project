@@ -29,7 +29,6 @@ function App() {
         userManager.getUserById(userId).then(res => {
           if (res !== null) {
             setLoggedUser(res);
-            console.log(res.user_name)
             if (res.first_name) {
 
               navigate("/dashboard");

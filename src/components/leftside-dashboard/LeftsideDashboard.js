@@ -18,8 +18,6 @@ const LeftSideContainer = (props) => {
 
         setCurrentUser(props.loggedUser)
 
-        console.log("i run")
-
         if (props.loggedUser.matches) {
 
             let strings = props.loggedUser.matches.map(e => e.user_id).filter(Boolean).join(",")

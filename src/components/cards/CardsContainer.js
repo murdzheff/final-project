@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import StarBtn from './star.svg'
 import X from './X.svg'
 import heart from './heart.svg'
-import arrow from './arrow.svg'
 import reload from './reload.svg'
 import PhotoWithPulse from '../loader/loader';
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -35,7 +34,6 @@ function CardsContainer(props) {
   const [disliked, setdisLiked] = useState(null)
   const [matchedUser, setmatchedUser]=useState(false)
   const [showPayedBox, setShowPayedBox] = useState(false)
-  const [superNameMassage, setSuperNameMassage] = useState("")
   const [usersSurvived,setUsersSurvived ]=useState(0)
 
 
@@ -116,9 +114,6 @@ function CardsContainer(props) {
     } 
 
     if (direction === 'right') {
-      console.log(props.loggedUser.user_id)
-      //  if(props.loggedUser.matches.find(e => e.user_id !== user.user_id)){
-      // debouncedAddMatch(props.loggedUser.user_id, user.user_id)
       userManager.addMatch(props.loggedUser.user_id, user.user_id)
       props.setMatches([...props.loggedUser.matches, { user_id: user.user_id }])
       props.loggedUser.matches.push({ user_id: user.user_id })
@@ -163,8 +158,7 @@ function CardsContainer(props) {
       </div>
     );
   }
- 
-console.log(usersSurvived)
+
 
   return (
     
@@ -201,7 +195,7 @@ console.log(usersSurvived)
                       <FontAwesomeIcon icon={faCircle} style={{ color: '#7cfda3', marginRight: '12px' }} />
                       <p className='information-text'> Онлайн сега </p>
                     </div>}
-                    <FontAwesomeIcon title={`See more about ${user.first_name}`} className='infoIcon' onClick={() => { props.setType("info"); console.log(user); props.setInfoUser(user) }} icon={faCircleInfo} style={{ fontSize: "30px", color: "#d7d7d8" }} />
+                    <FontAwesomeIcon title={`See more about ${user.first_name}`} className='infoIcon' onClick={() => { props.setType("info");  props.setInfoUser(user) }} icon={faCircleInfo} style={{ fontSize: "30px", color: "#d7d7d8" }} />
                   </div>
 
                 </div>

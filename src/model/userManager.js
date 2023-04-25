@@ -15,7 +15,6 @@ class UserManager {
       );
       if (response.status === 201) {
         localStorage.setItem("token", JSON.stringify(response.data));
-        return 'User created successfully';
       } else {
         throw new Error('Signup failed');
       }
@@ -88,7 +87,7 @@ class UserManager {
         { headers: { 'Content-Type': 'application/json' } }
       );
       if (response.status === 200) {
-        return console.log('User updated successfully');
+        return;
       } else {
         throw new Error('Update failed');
       }
@@ -152,7 +151,6 @@ class UserManager {
         user_id: token
       }
     }).then(response => {
-      console.log(response.data);
       return response.data
     }).catch(error => {
       return new Error(error)

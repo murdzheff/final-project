@@ -1,5 +1,4 @@
 import React from 'react'
-import CardsCarousel from '../cards/CardsCarosel'
 import "./moreInfo.scss"
 
 function MoreInfo(props) {
