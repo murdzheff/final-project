@@ -264,7 +264,6 @@ app.put('/user',async (req,res)=>{
         const users = databaseName.collection('users')
 
         const queary = { user_id: formData.user_id  }
-        console.log(typeof formData.age_interest)
         const updateDocument = {
             $set:{
                 first_name:formData.first_name,
@@ -418,7 +417,6 @@ app.get('/users/:userId/messages/:correspondingUserId', async (req, res) => {
         payment_method: id,
         confirm: true
       })
-      console.log("Payment", payment)
       res.json({
         message: "Payment successful",
         success: true
