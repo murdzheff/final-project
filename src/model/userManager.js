@@ -15,6 +15,7 @@ class UserManager {
       );
       if (response.status === 201) {
         localStorage.setItem("token", JSON.stringify(response.data));
+        return true;
       } else {
         throw new Error('Signup failed');
       }
@@ -172,7 +173,7 @@ class UserManager {
 
 
 
-const userManager = new UserManager("http://localhost:8080");
+const userManager = new UserManager("http://192.168.1.243:8080");
 
 export default userManager;
 
