@@ -54,8 +54,8 @@ export default function PaymentForm(props) {
           axios
             .put(
               "http://localhost:8080/user/" +
-                JSON.parse(localStorage.getItem("token")).userId +
-                "/paymentstatus",
+              JSON.parse(localStorage.getItem("token")).userId +
+              "/paymentstatus",
               {
                 paymentStatus: true,
               }
@@ -84,10 +84,11 @@ export default function PaymentForm(props) {
     <>
       {!success ? (
         <div className="backgroun-overlay-credit-card">
+
           <div className="payment-form-m">
             <div className="payment-form-text">
-              <h2> Нямаш заредена опцията за </h2>
-              <h2> супер харесвания! </h2>
+              <button className="closePayModal" onClick={() => {setModal(!modal); props.setShowPayedBox(false)}}>X</button>
+              <h2> Нямаш заредена опцията за супер харесвания! </h2>
               <img className="image-card" src={props.user.photos[0]}></img>
               <p> Не изпускай {props.user.first_name}, презареди сега!</p>
             </div>
@@ -109,7 +110,7 @@ export default function PaymentForm(props) {
                 </div>
                 <div className="FormRow">
                   <label htmlFor="cardCvc">CVC</label>
-                  <CardCvcElement id="cardCvc" options={CARD_ELEMENT_OPTIONS} />
+                  <CardCvcElement maxLength="3" id="cardCvc" options={CARD_ELEMENT_OPTIONS} />
                 </div>
               </fieldset>
               <button className="paymentButton">Pay</button>
@@ -124,7 +125,7 @@ export default function PaymentForm(props) {
               <img className="image-card" src={props.user.photos[0]}></img>
 
             </div>
-            <button className = "closeBtn" onClick={() => setModal(!modal)}>Продължи</button>
+            <button className="closeBtn" onClick={() => setModal(!modal)}>Продължи</button>
           </div>
         </div>
       )}

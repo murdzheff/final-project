@@ -11,7 +11,7 @@ function Modal({ modal, toggleModal, type, setSuccess, success }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-  
+
   if (!modal) return null;
 
   function handleRegister(e) {
@@ -39,7 +39,7 @@ function Modal({ modal, toggleModal, type, setSuccess, success }) {
     userManager.signup(email, password)
       .then(response => {
         if (response) {
-          
+
           setSuccess(!success);
           navigate("/onboarding");
         }
@@ -60,13 +60,13 @@ function Modal({ modal, toggleModal, type, setSuccess, success }) {
             setSuccess(!success);
             console.log("login run")
             navigate("/dashboard");
-          }else{
+          } else {
             setErrorMessage("Wrong email or password");
 
 
           }
         }, 400);
-      }).catch(err=>{
+      }).catch(err => {
         console.log(err)
 
       }
@@ -80,13 +80,14 @@ function Modal({ modal, toggleModal, type, setSuccess, success }) {
         <button className='closeModal' onClick={toggleModal}>X</button>
         <img className='logo' src={Logo} alt="Logo"></img>
         {type === "register" &&
-           <h4 className='header-register'>Създай профил</h4>
-          }
-            {type === "login" &&
-           <h4 className='header-register'>Да започваме</h4>
-          }
-         <h5 className='content-home-form'>С натискане на бутона Впиши се , ти се съгласяваш с нашите Условия. Приятно сърфиране!</h5>
-        {errorMessage && <Alert className='alert' variant="danger">{errorMessage}</Alert>}
+          <h4 className='header-register'>Създай профил</h4>
+        }
+        {type === "login" &&
+          <h4 className='header-register'>Да започваме</h4>
+        }
+        <h5 className='content-home-form'>С натискане на бутона Впиши се , ти се съгласяваш с нашите Условия. Приятно сърфиране!</h5>
+        <Alert style={errorMessage ? { visibility: "visible" } : { visibility: "hidden" }} className='alert' variant="danger">{errorMessage}</Alert>
+
         <form className='form-home'>
           <input className='email'
             onChange={e => setEmail(e.target.value)}
@@ -96,7 +97,7 @@ function Modal({ modal, toggleModal, type, setSuccess, success }) {
             required
           />
           <input
-          className='password'
+            className='password'
             onChange={e => setPassword(e.target.value)}
             placeholder='Your password'
             type='password'
@@ -105,7 +106,7 @@ function Modal({ modal, toggleModal, type, setSuccess, success }) {
           />
           {type === "register" &&
             <input
-            className='confirmPassword'
+              className='confirmPassword'
               onChange={e => setConfirmPassword(e.target.value)}
               placeholder='Confirm your password'
               type='password'

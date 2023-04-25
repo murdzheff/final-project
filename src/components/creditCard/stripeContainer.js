@@ -10,7 +10,7 @@ const stripeTestPromise = loadStripe(PUBLIC_KEY);
 export default function StripeContainer(props) {
   return (
     <Elements stripe={stripeTestPromise}>
-      <PaymentForm loggedUser={props.loggedUser} setType={props.setType} user={props.propss} />
+      <PaymentForm setShowPayedBox={props.setShowPayedBox} loggedUser={props.loggedUser} setType={props.setType} user={props.propss} />
     </Elements>
   );
 }

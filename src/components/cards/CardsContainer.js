@@ -170,7 +170,7 @@ console.log(usersSurvived)
     
     <>
      {matchedUser && <Confetti/>}
-     { showPayedBox && <StripeContainer loggedUser={props.loggedUser} setType={props.setType} propss={users[users.length -1-usersSurvived]}/> }
+     { showPayedBox && <StripeContainer loggedUser={props.loggedUser} setShowPayedBox={setShowPayedBox} propss={users[users.length -1-usersSurvived]}/> }
 
     
     <div className='swipe-container'>

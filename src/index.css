@@ -162,6 +162,11 @@ code {
   color: rgb(255, 255, 255);
 }
 
+.left-side-container .allMatches {
+  max-height: 70vh;
+  overflow-y: scroll;
+}
+
 .img-container {
   height: 30px;
   width: 30px;
@@ -384,6 +389,8 @@ code {
     background-size: cover;
     background-position: center;
   }
+
+ 
   
 
   .imageCoversOfCarts {

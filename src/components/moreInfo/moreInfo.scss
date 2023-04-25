@@ -1,5 +1,6 @@
 .more-info-container {
     width: 70%;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,7 +14,7 @@
 
     .card-info {
         background-color: white !important;
-
+        border-radius: 10px;
         font-size: 18px;
         border: 1px solid rgb(255, 255, 255);
         overflow: scroll;

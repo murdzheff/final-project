@@ -1,32 +1,70 @@
+
+@media only screen and (max-width: 480px) {
+	.payment-form-m {	
+		display: flex;
+		flex-direction: column;
+		border-radius: 10px !important;
+		overflow: hidden;
+		position: relative;
+		left: 0.6%;
+		max-width: 90% !important;
+		justify-content: center;
+		align-items: center;
+	}
+
+
+
+	.payment-form-c {
+		height: auto !important;
+		width: 80% !important;
+		gap: 10%;
+		background-color: #23a6d5 !important;
+		display: flex !important;
+		flex-direction: column !important;
+		border-radius: 10px;
+		padding: 10%;
+	}
+
+
+}
+
+
+
 .FormGroup {
-	
+	display: flex;
+	flex-direction: column;
 	border-style: none;
-	background-color: #7795f8;
 	will-change: opacity, transform;
-	box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08), inset 0 1px 0 #829fff;
 	border-radius: 4px;
 	width: 60%;
+	gap: 10%;
+	border: none;
+	color: white;
 }
 
 .FormRow {
-	display: -ms-flexbox;
+	border-radius: 10px;
+	background-color: #cfd9f8;
 	display: flex;
-	-ms-flex-align: center;
 	align-items: center;
-	border-top: 1px solid #819efc;
+	color: white;
 }
 .FormRow > label{
-color: white;
+color: #545454 !important;
 padding: 0 10px;
 font-weight: 600;
 width: 120px;
+
+
 }
 
 .StripeElement--webkit-autofill {
 	background: transparent !important;
+	color: white;
 }
 
 .StripeElement {
+	color: white;
 	width: 100%;
 	padding: 11px 15px 11px 0;
 }
@@ -34,10 +72,10 @@ width: 120px;
 .paymentButton {
 	display: block;
 	font-size: 16px;
-	width: calc(100% - 30px);
+	width: calc(100% - 100px);
 	height: 40px;
 	margin: 40px 15px 0;
-	background-color: #f6a4eb;
+	background-color: #e84379;
 	box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08), inset 0 1px 0 #ffb9f6;
 	border-radius: 4px;
 	color: #fff;
@@ -46,12 +84,12 @@ width: 120px;
 	transition: all 100ms ease-in-out;
 	will-change: transform, background-color, box-shadow;
 	border: none;
-	width: 60%;
+	width: 30%;
 	margin-bottom: 10px;
 }
 
 .paymentButton:active {
-	background-color: #d782d9;
+	background-color: #e84379;
 	box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08), inset 0 1px 0 #e298d8;
 	transform: scale(0.99);
 }
@@ -74,6 +112,9 @@ width: 120px;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+	padding: 5%;
+	text-align: center;
+	gap: 3vh;
 
 }
 .image-card{
@@ -83,17 +124,19 @@ width: 120px;
 	object-fit: cover;
 }
 .payment-form{
+	color: white;
 	z-index: 101;
-	width: 50vw;
 	height: 30vh;
 	background-color: white;
 	display: flex;
     flex-direction: column;
+	
     justify-content: center;
     align-items: center;
 	
 }
 .payment-form-c{
+	color: white;
 	z-index: 101;
 	width: 50vw;
 	height: 40vh;
@@ -103,10 +146,11 @@ width: 120px;
     justify-content: center;
     align-items: center;
 	background: linear-gradient(-45deg,  #e73c7e, #23a6d5);
-
+	
 }
 
 .payment-form-c h2{
+	
 	text-align: center;
 	color: white;
 	padding: 20px;
@@ -157,4 +201,28 @@ h3 {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+}
+
+.payment-form-m {	
+	display: flex;
+	flex-direction: column;
+	border-radius: 10px !important;
+	overflow: hidden;
+	position: relative;
+	left: 0.6%;
+	max-width: 26vw;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.closePayModal {
+	justify-self: flex-start;
+	align-self: start;
+	border-radius: 10px;
+	width: 10%;
+	height: 10%;
+	background-color: #e84379;
+	border: none;
+	color: white;
 }
