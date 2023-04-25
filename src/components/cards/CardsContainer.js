@@ -32,19 +32,19 @@ function CardsContainer(props) {
   const location = useLocation();
   const [liked, setLiked] = useState(null)
   const [disliked, setdisLiked] = useState(null)
-  const [matchedUser, setmatchedUser]=useState(false)
+  const [matchedUser, setmatchedUser] = useState(false)
   const [showPayedBox, setShowPayedBox] = useState(false)
-  const [usersSurvived,setUsersSurvived ]=useState(0)
+  const [usersSurvived, setUsersSurvived] = useState(0)
 
 
   useEffect(() => {
-   
+
 
     let a
     const genderInterest = props.loggedUser.gender_interest;
     setProfilePic(props.loggedUser.photos[0] || "https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg")
     a = props.loggedUser.matches
-    
+
     userManager.getGenderedUsers(genderInterest)
       .then((response) => {
 
@@ -59,7 +59,7 @@ function CardsContainer(props) {
       });
 
   }, [location]);
-  
+
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -73,12 +73,12 @@ function CardsContainer(props) {
     // Create a Set of user IDs in array2 for faster lookups
     const userIdSet = new Set(array2.map(obj => obj.user_id));
 
-    // Filter array1 based on whether each object's user_id is NOT in the Set
+    // Filter array1 based on whether each object's user_id is NOT in the Set, also excluding the loggedUser's account and filtering by age
     const filteredArray = array1.filter(obj => !userIdSet.has(obj.user_id));
     const arrayWithoutMe = filteredArray.filter(obj => obj.user_id !== props.loggedUser.user_id)
-    
+
     let noPhotos = filterArray(arrayWithoutMe)
-    let ageFilter = noPhotos.filter(e => {return 2023 - e.dob_year < props.loggedUser?.age_interest.max && e.dob_year > props.loggedUser?.age_interest.min})
+    let ageFilter = noPhotos.filter(e => { return 2023 - e.dob_year < props.loggedUser?.age_interest.max && e.dob_year > props.loggedUser?.age_interest.min })
     return ageFilter;
   }
 
@@ -95,23 +95,23 @@ function CardsContainer(props) {
 
 
   const swiped = (direction, user) => {
-    setUsersSurvived(usersSurvived+1)
+    setUsersSurvived(usersSurvived + 1)
     setSwipedUsers([...swipedUsers, user.email]);
 
-    
+
     if (direction === 'up') {
 
-        userManager.addMatch(props.loggedUser.user_id, user.user_id)
-        userManager.addMatch(user.user_id, props.loggedUser.user_id)
-        props.setMatches([...props.loggedUser.matches, { user_id: user.user_id }])
-        props.loggedUser.matches.push({ user_id: user.user_id })
-        setmatchedUser(user);
-        setTimeout(() => {
-          setmatchedUser(null)
-        }, 3000);
+      userManager.addMatch(props.loggedUser.user_id, user.user_id)
+      userManager.addMatch(user.user_id, props.loggedUser.user_id)
+      props.setMatches([...props.loggedUser.matches, { user_id: user.user_id }])
+      props.loggedUser.matches.push({ user_id: user.user_id })
+      setmatchedUser(user);
+      setTimeout(() => {
+        setmatchedUser(null)
+      }, 3000);
 
-      
-    } 
+
+    }
 
     if (direction === 'right') {
       userManager.addMatch(props.loggedUser.user_id, user.user_id)
@@ -121,7 +121,7 @@ function CardsContainer(props) {
       setTimeout(() => {
         setLiked(null)
       }, 3000);
-    } else if(direction === 'left') {
+    } else if (direction === 'left') {
       setdisLiked(user);
 
       setTimeout(() => {
@@ -146,7 +146,7 @@ function CardsContainer(props) {
   if (users.length === swipedUsers.length) {
     return (
       <div className='swipe-container'>
-        
+
         <div className='card-container-no-users'>
           <p>No more users to swipe! <br></br> Come back tomorrow! </p>
           <Button className='refreshUsers' onClick={() => setSwipedUsers([])}  >
@@ -161,74 +161,78 @@ function CardsContainer(props) {
 
 
   return (
-    
+
     <>
-     {matchedUser && <Confetti/>}
-     { showPayedBox && <StripeContainer loggedUser={props.loggedUser} setShowPayedBox={setShowPayedBox} propss={users[users.length -1-usersSurvived]}/> }
+      {matchedUser && <Confetti />}
+      {showPayedBox && <StripeContainer loggedUser={props.loggedUser} setShowPayedBox={setShowPayedBox} propss={users[users.length - 1 - usersSurvived]} />}
 
-    
-    <div className='swipe-container'>
-      <div className='card-container'>
-        {users.map((user) => (
-          !swipedUsers.includes(user.email) ? (
-            <TinderCard
-              ref={swipeRef}
-              className='swipe'
-              key={user._id}
-              onSwipe={(dir) => swiped(dir, user)}
-            >
-              <div className='card'>
-                <CardsCarousel photos={user.photos || ["https://mtclinic.org/wp-content/uploads/2021/09/Photo-Unavailable-300x225.jpg"]} />
-                <div className='user-information'>
-                  <div>
-                    <h3 className='user-name-cards'>{user.first_name}</h3>
-                    <span className='user-years-cards'>{new Date().getFullYear() - user.dob_year}</span>
+
+      <div className='swipe-container'>
+        <div className='card-container'>
+          {users.map((user) => (
+            !swipedUsers.includes(user.email) ? (
+              <TinderCard
+                ref={swipeRef}
+                className='swipe'
+                key={user._id}
+                onSwipe={(dir) => swiped(dir, user)}
+              >
+                <div className='card'>
+                  <CardsCarousel photos={user.photos || ["https://mtclinic.org/wp-content/uploads/2021/09/Photo-Unavailable-300x225.jpg"]} />
+                  <div className='user-information'>
+                    <div>
+                      <h3 className='user-name-cards'>{user.first_name}</h3>
+                      <span className='user-years-cards'>{new Date().getFullYear() - user.dob_year}</span>
+                    </div>
+
+                    <div>
+                      <FontAwesomeIcon icon={faLocationDot} style={{ color: 'white', marginRight: '12px' }} />
+                      <p className='information-text'> На {Math.ceil(Math.random() * 200)} километра разстояние </p>
+                    </div>
+
+                    <div className='information-important-tnd'>
+                      {props.onlineUsers.includes(user.user_id) && <div style={{ display: "flex" }}>
+                        <FontAwesomeIcon icon={faCircle} style={{ color: '#7cfda3', marginRight: '12px' }} />
+                        <p className='information-text'> Онлайн сега </p>
+                      </div>}
+                      <button
+                        title={`See more about ${user.first_name}`}
+                        id='infoIcon'
+                        onTouchStart={() => { props.setType("info"); props.setInfoUser(user) }}
+                        onClick={() => { props.setType("info"); props.setInfoUser(user) }} >i</button>
+                    </div>
+
                   </div>
-
-                  <div>
-                    <FontAwesomeIcon icon={faLocationDot} style={{ color: 'white', marginRight: '12px' }} />
-                    <p className='information-text'> На {Math.ceil(Math.random() * 200)} километра разстояние </p>
-                  </div>
-
-                  <div className='information-important-tnd'>
-                    {props.onlineUsers.includes(user.user_id) && <div style={{ display: "flex" }}>
-                      <FontAwesomeIcon icon={faCircle} style={{ color: '#7cfda3', marginRight: '12px' }} />
-                      <p className='information-text'> Онлайн сега </p>
-                    </div>}
-                    <FontAwesomeIcon title={`See more about ${user.first_name}`} className='infoIcon' onClick={() => { props.setType("info");  props.setInfoUser(user) }} icon={faCircleInfo} style={{ fontSize: "30px", color: "#d7d7d8" }} />
-                  </div>
-
                 </div>
-              </div>
-            </TinderCard>
-          ) : null
-        ))}
+              </TinderCard>
+            ) : null
+          ))}
+        </div>
+
+        <div className='button-container-tin'>
+
+
+          <Button title="I don't like this user" className='button-left-tin' onClick={() => swipe('left')} variant="outline-danger">
+            <img src={X}></img>
+          </Button>{' '}
+
+          <Button title='Superlike this user' className='button-up-tin' onClick={() => props.loggedUser.paymentStatus ? swipe('up') : setShowPayedBox(true)} variant="outline-primary">
+            <img src={StarBtn}></img>
+          </Button>{' '}
+
+          <Button title='Like this user' className='button-right-tin' onClick={() => swipe('right')} variant="outline-success">
+            <img src={heart}></img>
+
+          </Button>{' '}
+
+
+        </div>
+
+
+        {liked && <PopUp message={`You liked ${liked.first_name}, if they like you back you will have a match!`} />}
+        {disliked && <PopUp message={`You have disliked ${disliked.first_name}, they won't show up for a while...`} />}
+        {matchedUser && <SupperPopUp message={`You Super liked ${matchedUser.first_name},now you can chat together!`} />}
       </div>
-
-      <div className='button-container-tin'>
-
-
-        <Button title="I don't like this user" className='button-left-tin' onClick={() => swipe('left')} variant="outline-danger">
-          <img src={X}></img>
-        </Button>{' '}
-
-        <Button title='Superlike this user' className='button-up-tin'  onClick={() => props.loggedUser.paymentStatus?  swipe('up') : setShowPayedBox(true) } variant="outline-primary">
-          <img src={StarBtn}></img>
-        </Button>{' '}
-
-        <Button title='Like this user' className='button-right-tin' onClick={() => swipe('right')} variant="outline-success">
-          <img src={heart}></img>
-
-        </Button>{' '}
-
-
-      </div>
-      
-
-      {liked && <PopUp message={`You liked ${liked.first_name}, if they like you back you will have a match!`} />}
-      {disliked && <PopUp message={`You have disliked ${disliked.first_name}, they won't show up for a while...`} />}
-      {matchedUser && <SupperPopUp message={`You Super liked ${matchedUser.first_name},now you can chat together!`} /> }
-    </div>
     </>
   );
 

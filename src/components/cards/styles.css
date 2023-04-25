@@ -115,3 +115,17 @@
     transform: translateX(-12.5vw) rotate(-25deg);
   }
 }
+
+
+#infoIcon {
+  height: 3vh;
+  width: 3vh;
+  border-radius: 50%;
+  border: none;
+  background-color: white;
+  color: black;
+  z-index: 100;
+  position: relative;
+  left: 2vw;
+  bottom: 1vh;
+}
