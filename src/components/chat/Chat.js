@@ -36,7 +36,7 @@ function Chat(props) {
 
     useEffect(() => {
         // Connect to the server using socket.io
-        const newSocket = socketIOClient('http://192.168.1.243:8080');
+        const newSocket = socketIOClient('http://localhost:8080');
         setSocket(newSocket);
 
         // Listen for incoming messages from the server

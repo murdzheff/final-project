@@ -6,6 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css"
+import * as EmailValidator from 'email-validator';
+ 
+; // true
+
+console.log(EmailValidator.validate("test@email.com"))
 
 
 
