@@ -50,10 +50,10 @@ function App() {
 
   return (
     <Routes>
-      <Route index element={loggedUser ? <Navigate to={'/dashboard'} /> : <Navigate to={'/home'} />}></Route>
-      <Route path='/home' element={<Home setSuccess={setSuccess} success={success} setLoggedUser={setLoggedUser} loggedUser={loggedUser} />}></Route>
-      <Route path='/dashboard' element={!loggedUser ? <Navigate to={"/home"} /> : <Dashboard update={update} setUpdate={setUpdate} setLoggedUser={setLoggedUser} loggedUser={loggedUser} />}></Route>
-      <Route path='/onboarding' element={loggedUser ? <Onboarding setLoggedUser={setLoggedUser} loggedUser={loggedUser}/> : <Navigate to={"/home"}/> }></Route>
+      <Route index element={loggedUser ? <Navigate to={'#dashboard'} /> : <Navigate to={'#home'} />}></Route>
+      <Route path='#home' element={<Home setSuccess={setSuccess} success={success} setLoggedUser={setLoggedUser} loggedUser={loggedUser} />}></Route>
+      <Route path='#dashboard' element={!loggedUser ? <Navigate to={"#home"} /> : <Dashboard update={update} setUpdate={setUpdate} setLoggedUser={setLoggedUser} loggedUser={loggedUser} />}></Route>
+      <Route path='#onboarding' element={loggedUser ? <Onboarding setLoggedUser={setLoggedUser} loggedUser={loggedUser}/> : <Navigate to={"#home"}/> }></Route>
     </Routes>
   );
 }
