@@ -22,6 +22,6 @@ class MessageManager {
   }
 }
 
-const messageManager = new MessageManager("/api");
+const messageManager = new MessageManager("http://localhost:8080");
 
 export default messageManager;
