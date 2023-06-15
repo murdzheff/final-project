@@ -1,6 +1,6 @@
 {
   "homepage": "https://tinder-clone-liart-gamma.vercel.app/",
-  "name": "training",
+  "name": "tinder-clone",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
