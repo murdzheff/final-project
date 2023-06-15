@@ -27,9 +27,11 @@ function App() {
       if (token !== null) {
 
         userManager.getUserById(userId).then(res => {
+          console.log(res);
           if (res !== null) {
             setLoggedUser(res);
             if (res.first_name) {
+              
 
               navigate("/dashboard");
             } else {
@@ -50,10 +52,10 @@ function App() {
 
   return (
     <Routes>
-      <Route index element={loggedUser ? <Navigate to={'#dashboard'} /> : <Navigate to={'#home'} />}></Route>
-      <Route path='#home' element={<Home setSuccess={setSuccess} success={success} setLoggedUser={setLoggedUser} loggedUser={loggedUser} />}></Route>
-      <Route path='#dashboard' element={!loggedUser ? <Navigate to={"#home"} /> : <Dashboard update={update} setUpdate={setUpdate} setLoggedUser={setLoggedUser} loggedUser={loggedUser} />}></Route>
-      <Route path='#onboarding' element={loggedUser ? <Onboarding setLoggedUser={setLoggedUser} loggedUser={loggedUser}/> : <Navigate to={"#home"}/> }></Route>
+      <Route index element={loggedUser ? <Navigate to={'/dashboard'} /> : <Navigate to={'/home'} />}></Route>
+      <Route path='/home' element={<Home setSuccess={setSuccess} success={success} setLoggedUser={setLoggedUser} loggedUser={loggedUser} />}></Route>
+      <Route path='/dashboard' element={!loggedUser ? <Navigate to={"#home"} /> : <Dashboard update={update} setUpdate={setUpdate} setLoggedUser={setLoggedUser} loggedUser={loggedUser} />}></Route>
+      <Route path='/onboarding' element={loggedUser ? <Onboarding setLoggedUser={setLoggedUser} loggedUser={loggedUser}/> : <Navigate to={"/home"}/> }></Route>
     </Routes>
   );
 }
