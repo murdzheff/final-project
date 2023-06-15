@@ -173,7 +173,7 @@ class UserManager {
 
 
 
-const userManager = new UserManager("https://tinder-clone-server.vercel.app");
+const userManager = new UserManager("https://server-tinder-clone.onrender.com");
 
 
 export default userManager;
