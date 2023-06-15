@@ -173,7 +173,8 @@ class UserManager {
 
 
 
-const userManager = new UserManager("/api");
+const userManager = new UserManager("http://localhost:8080");
+
 
 export default userManager;
 
