@@ -46,14 +46,14 @@ export default function PaymentForm(props) {
       try {
         const { id } = paymentMethod;
 
-        const response = await axios.post("http://localhost:8080/payment", {
+        const response = await axios.post("https://server-tinder-clone.onrender.com/payment", {
           amount: 1000,
           id,
         });
         if (response.data.success) {
           axios
             .put(
-              "http://localhost:8080/user/" +
+              "https://server-tinder-clone.onrender.com/user/" +
               JSON.parse(localStorage.getItem("token")).userId +
               "/paymentstatus",
               {
