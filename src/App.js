@@ -17,6 +17,7 @@ function App() {
   const [loggedUser, setLoggedUser] = useState(null)
   const [update, setUpdate] = useState(false)
   const [success, setSuccess] = useState(false)
+  console.log("here");
 
 
   useEffect(() => {
