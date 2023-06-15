@@ -22,6 +22,6 @@ class MessageManager {
   }
 }
 
-const messageManager = new MessageManager("http://localhost:8080");
+const messageManager = new MessageManager("https://tinder-clone-server.vercel.app");
 
 export default messageManager;
