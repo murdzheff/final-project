@@ -22,6 +22,6 @@ class MessageManager {
   }
 }
 
-const messageManager = new MessageManager("https://server-tinder-clone.onrender.com");
+const messageManager = new MessageManager("server-tinder-clone.onrender.com");
 
 export default messageManager;
