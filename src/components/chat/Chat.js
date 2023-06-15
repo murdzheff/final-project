@@ -36,7 +36,7 @@ function Chat(props) {
 
     useEffect(() => {
         // Connect to the server using socket.io
-        const newSocket = socketIOClient('https://tinder-clone-server.vercel.app');
+        const newSocket = socketIOClient('https://tinder-clone-server.vercel.app/8080');
         setSocket(newSocket);
 
         // Listen for incoming messages from the server
