@@ -4,7 +4,7 @@ class MessageManager {
   constructor(ip) {
     this.ip = ip;
     this.api = axios.create({
-      baseURL: `http://${this.ip}`,
+      baseURL: `https://${this.ip}`,
     });
   }
 
